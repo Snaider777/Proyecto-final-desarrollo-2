@@ -1,6 +1,11 @@
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\config\ApiConfig.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesListController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\DashboardController.java
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\LoginController.java
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\http\ApiClient.java
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\MainApp.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\ClienteDto.java
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\UsuarioDto.java
 C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\AuthService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\ClienteService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\DashboardService.java

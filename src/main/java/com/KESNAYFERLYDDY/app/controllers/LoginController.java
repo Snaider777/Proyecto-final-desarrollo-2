@@ -46,8 +46,8 @@ public class LoginController {
             if (ok) {
                 lblMsg.setStyle("-fx-text-fill: green;");
                 lblMsg.setText("Login correcto. Abriendo dashboard...");
-                // aquí abrirás dashboard (crearás un DashboardController + FXML)
-                // por ahora cerramos la ventana
+                DashboardController.showDashboard(user);
+                ((Stage)btnLogin.getScene().getWindow()).close();
                 Stage s = (Stage) btnLogin.getScene().getWindow();
                 s.close();
             } else {

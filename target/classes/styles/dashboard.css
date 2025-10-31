@@ -1,0 +1,32 @@
+.card {
+  -fx-pref-width: 190;
+  -fx-pref-height: 140;
+  -fx-alignment: center;
+  -fx-background-color: #ffffff;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+  -fx-padding: 12;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 6,0,0,2);
+  -fx-cursor: hand;
+}
+
+.card:hover {
+  -fx-translate-y: -4;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10,0,0,4);
+}
+
+.card-title {
+  -fx-font-size: 12px;
+  -fx-text-fill: #666666;
+  -fx-font-weight: bold;
+}
+
+.card-count {
+  -fx-font-size: 32px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #2b7cff;
+}
+.titulo {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
