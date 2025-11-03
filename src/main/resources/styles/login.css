@@ -1,0 +1,91 @@
+
+#root {
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #f5faff 0%, #ffffff 100%);
+}
+
+#loginBox {
+	-fx-padding: 28 32 28 32;
+	-fx-alignment: center;
+	-fx-spacing: 14;
+	-fx-pref-width: 380;
+	-fx-max-width: 420;
+	-fx-background-color: #ffffff;
+	-fx-background-radius: 12;
+	-fx-border-radius: 12;
+	-fx-border-color: rgba(15,20,36,0.06);
+	-fx-border-width: 1;
+	-fx-effect: dropshadow(gaussian, rgba(15,20,36,0.08), 12, 0.12, 0, 6);
+}
+
+#lblMsg {
+    -fx-pref-width: 520;
+    -fx-max-width: 420;
+    -fx-padding: 15 20 15 20; 
+    -fx-font-size: 16px;
+	-fx-alignment: center;
+}
+.error {
+    -fx-background-color: rgb(235,62,62);
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}
+.exito {
+    -fx-background-color: rgb(52, 211, 47);
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}
+#loginBox > .label {
+	-fx-font-size: 20px;
+	-fx-font-weight: 600;
+	-fx-text-fill: #0f1724;
+	-fx-padding: 0 0 6 0;
+	-fx-font-family: "Segoe UI", Roboto, Arial;
+}
+
+#txtUser, #txtPass {
+	-fx-pref-width: 320;
+	-fx-background-color: #fafafa;
+	-fx-border-color: rgba(15,20,36,0.08);
+	-fx-border-width: 1;
+	-fx-background-radius: 8;
+	-fx-border-radius: 8;
+	-fx-padding: 10 12 10 12;
+	-fx-text-fill: #0f1724;
+	-fx-prompt-text-fill: rgba(15,20,36,0.45);
+}
+
+#txtUser:focused, #txtPass:focused {
+	-fx-border-color: rgba(37,99,235,0.9);
+	-fx-effect: dropshadow(gaussian, rgba(37,99,235,0.12), 6, 0.08, 0, 2);
+}
+
+#btnLogin {
+    -fx-pref-width: 520;
+    -fx-max-width: Infinity;
+    -fx-padding: 15 20 15 20; 
+    -fx-font-size: 16px;
+	-fx-effect: dropshadow(gaussian, rgba(37,99,235,0.18), 8, 0.12, 0, 3);
+	-fx-background-radius: 8;
+	-fx-background-color: linear-gradient(#3b82f6, #2563eb);
+	-fx-text-fill: #ffffff;
+}
+
+#btnLogin:hover {
+	-fx-background-color: linear-gradient(#60a5fa, #3b82f6);
+	-fx-cursor: hand;
+}
+
+#btnLogin:pressed {
+	-fx-translate-y: 1;
+}
+
+.hint {
+	-fx-text-fill: rgba(15,20,36,0.55);
+	-fx-font-size: 11px;
+}
+
+@media screen and (max-width: 420px) {
+	#loginBox { -fx-pref-width: 92%; -fx-max-width: 92%; }
+	#txtUser, #txtPass, #btnLogin { -fx-pref-width: 86%; }
+}
+

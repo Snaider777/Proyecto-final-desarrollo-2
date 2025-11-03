@@ -11,15 +11,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class AuthService {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public boolean login(UsuarioDto u) throws Exception {
-        String json = mapper.writeValueAsString(u);
+    public boolean login(UsuarioDto usuario) throws Exception {
+        String json = mapper.writeValueAsString(usuario);
         HttpRequest req = ApiClient.jsonRequest(ApiConfig.BASE_URL + "/auth/IniciarSesion")
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
         HttpResponse<String> resp = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() == 200) {
             String body = resp.body().trim();
-            // la API devuelve booleano 'true' o 'false'
             return "true".equalsIgnoreCase(body) || body.contains("true");
         } else {
             throw new RuntimeException("Error en login: " + resp.statusCode());

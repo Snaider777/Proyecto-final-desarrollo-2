@@ -11,6 +11,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
+
 public class LoginController {
     @FXML private TextField txtUser;
     @FXML private PasswordField txtPass;
@@ -20,42 +23,54 @@ public class LoginController {
     private final AuthService authService = new AuthService();
 
     @FXML
-    private void onLogin() {
+    private void ocultarMensaje(){
+        if(lblMsg.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsg);
+            lblMsg.setOpacity(0);
+        }
+    }
+
+    @FXML
+    private void manejarLogin() {
         String user = txtUser.getText().trim();
         String pass = txtPass.getText();
         if (user.isEmpty() || pass.isEmpty()) {
             lblMsg.setText("Usuario y contraseña obligatorios");
+            lblMsg.getStyleClass().add("error");
+            FadeUpAnimation.play(lblMsg);
             return;
         }
         btnLogin.setDisable(true);
         lblMsg.setText("");
 
-        UsuarioDto u = new UsuarioDto();
-        u.setNombreUsuario(user);
-        u.setContrasena(pass);
+        UsuarioDto usuario = new UsuarioDto();
+        usuario.setNombreUsuario(user);
+        usuario.setContrasena(pass);
 
         Task<Boolean> task = new Task<>() {
             @Override protected Boolean call() throws Exception {
-                return authService.login(u);
+                return authService.login(usuario);
             }
         };
 
-        task.setOnSucceeded(ev -> {
+        task.setOnSucceeded(event -> {
             boolean ok = task.getValue();
             btnLogin.setDisable(false);
             if (ok) {
-                lblMsg.setStyle("-fx-text-fill: green;");
+                lblMsg.getStyleClass().add("exito");
                 lblMsg.setText("Login correcto. Abriendo dashboard...");
                 DashboardController.showDashboard(user);
                 ((Stage)btnLogin.getScene().getWindow()).close();
                 Stage s = (Stage) btnLogin.getScene().getWindow();
                 s.close();
             } else {
+                lblMsg.getStyleClass().add("error");
                 lblMsg.setText("Credenciales incorrectas");
+                FadeUpAnimation.play(lblMsg);
             }
         });
 
-        task.setOnFailed(ev -> {
+        task.setOnFailed(event -> {
             btnLogin.setDisable(false);
             lblMsg.setText("Error: " + task.getException().getMessage());
         });

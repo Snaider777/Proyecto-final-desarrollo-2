@@ -6,7 +6,6 @@
             fx:controller="com.KESNAYFERLYDDY.app.controllers.DashboardController"
             stylesheets="@/styles/dashboard.css"
             prefWidth="900" prefHeight="600">
-
   <top>
     <HBox spacing="10" style="-fx-padding:10;" alignment="CENTER_LEFT">
       <Label fx:id="lblUser" text="Usuario:" styleClass="titulo"/>
