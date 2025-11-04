@@ -1,5 +1,6 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import com.KESNAYFERLYDDY.app.MainApp;
 import com.KESNAYFERLYDDY.app.services.DashboardService;
 
 import javafx.application.Platform;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 
 public class DashboardController {
 
@@ -24,15 +26,15 @@ public class DashboardController {
     public static void showDashboard(String username) {
         try {
             FXMLLoader loader = new FXMLLoader(DashboardController.class.getResource("/fxml/dashboard.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage st = new Stage();
-            st.setScene(scene);
-            st.setTitle("Dashboard - " + username);
+            Parent nodoDashboard = loader.load();
+            Scene scene = new Scene(nodoDashboard);
+            Stage stage = MainApp.getPrincipalStage();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard - " + username);
             DashboardController ctrl = loader.getController();
             ctrl.init(username);
-            st.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
+            error.printStackTrace();
         }
     }
 
