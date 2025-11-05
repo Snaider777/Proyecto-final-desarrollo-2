@@ -7,10 +7,10 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 
 public class DashboardController {
 
@@ -30,7 +30,7 @@ public class DashboardController {
             Scene scene = new Scene(nodoDashboard);
             Stage stage = MainApp.getPrincipalStage();
             stage.setScene(scene);
-            stage.setTitle("Dashboard - " + username);
+            stage.setTitle("Usuario - " + username);
             DashboardController ctrl = loader.getController();
             ctrl.init(username);
         } catch (Exception error) {
