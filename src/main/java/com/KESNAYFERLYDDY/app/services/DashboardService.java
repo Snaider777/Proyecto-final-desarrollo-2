@@ -11,42 +11,42 @@ import java.util.List;
 public class DashboardService {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public int countClientes() throws Exception {
-        String url = ApiConfig.BASE_URL + "/clientes/";
+    public int cantidadDeClientes() throws Exception {
+        String url = ApiConfig.HOST + "/clientes/";
         HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (r.statusCode() == 200) {
-            List<?> list = mapper.readValue(r.body(), new TypeReference<List<Object>>() {});
+        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (respuesta.statusCode() == 200) {
+            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
             return list.size();
         } else return 0;
     }
 
-    public int countVentas() throws Exception {
-        String url = ApiConfig.BASE_URL + "/ventas/";
+    public int cantidadDeVentas() throws Exception {
+        String url = ApiConfig.HOST + "/ventas/";
         HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (r.statusCode() == 200) {
-            List<?> list = mapper.readValue(r.body(), new TypeReference<List<Object>>() {});
+        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (respuesta.statusCode() == 200) {
+            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
             return list.size();
         } else return 0;
     }
 
-    public int countProductos() throws Exception {
-        String url = ApiConfig.BASE_URL + "/muebles/";
+    public int cantidadDeProductos() throws Exception {
+        String url = ApiConfig.HOST + "/muebles/";
         HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (r.statusCode() == 200) {
-            List<?> list = mapper.readValue(r.body(), new TypeReference<List<Object>>() {});
+        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (respuesta.statusCode() == 200) {
+            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
             return list.size();
         } else return 0;
     }
 
-    public int countUsuarios() throws Exception {
-        String url = ApiConfig.BASE_URL + "/usuarios/";
+    public int cantidadDeUsuarios() throws Exception {
+        String url = ApiConfig.HOST + "/usuarios/";
         HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (r.statusCode() == 200) {
-            List<?> list = mapper.readValue(r.body(), new TypeReference<List<Object>>() {});
+        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (respuesta.statusCode() == 200) {
+            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
             return list.size();
         } else return 0;
     }

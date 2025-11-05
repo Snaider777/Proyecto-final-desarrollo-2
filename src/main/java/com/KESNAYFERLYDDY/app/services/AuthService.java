@@ -13,7 +13,7 @@ public class AuthService {
 
     public boolean login(UsuarioDto usuario) throws Exception {
         String json = mapper.writeValueAsString(usuario);
-        HttpRequest req = ApiClient.jsonRequest(ApiConfig.BASE_URL + "/auth/IniciarSesion")
+        HttpRequest req = ApiClient.jsonRequest(ApiConfig.HOST + "/auth/IniciarSesion")
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
         HttpResponse<String> resp = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());

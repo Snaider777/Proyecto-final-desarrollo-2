@@ -31,30 +31,29 @@ public class DashboardController {
             Stage stage = MainApp.getPrincipalStage();
             stage.setScene(scene);
             stage.setTitle("Dashboard - " + username);
-            DashboardController ctrl = loader.getController();
-            ctrl.init(username);
+            DashboardController controladorDashboard = loader.getController();
+            controladorDashboard.iniciar(username);
         } catch (Exception error) {
             error.printStackTrace();
         }
     }
 
-    public void init(String username) {
+    public void iniciar(String username) {
         this.username = username;
-        lblUser.setText("Usuario: " + username);
-        loadCounts();
+        lblUser.setText("Bienvenido " + username);
+        cargarDatos();
     }
 
-    private void loadCounts() {
-        Task<Void> t = new Task<>() {
+    private void cargarDatos() {
+        Task<Void> task = new Task<>() {
             int clientes = 0, ventas = 0, usuarios = 0, productos = 0;
             @Override protected Void call() throws Exception {
-                clientes = service.countClientes();
-                ventas = service.countVentas();
-                usuarios = service.countUsuarios();
-                productos = service.countProductos();
+                clientes = service.cantidadDeClientes();
+                ventas = service.cantidadDeVentas();
+                usuarios = service.cantidadDeUsuarios();
+                productos = service.cantidadDeProductos();
                 return null;
             }
-
             @Override protected void succeeded() {
                 Platform.runLater(() -> {
                     lblClientesCount.setText(String.valueOf(clientes));
@@ -63,12 +62,11 @@ public class DashboardController {
                     lblProductosCount.setText(String.valueOf(productos));
                 });
             }
-
             @Override protected void failed() {
                 getException().printStackTrace();
             }
         };
-        new Thread(t).start();
+        new Thread(task).start();
     }
 
     @FXML

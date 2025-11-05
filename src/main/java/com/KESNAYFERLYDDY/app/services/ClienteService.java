@@ -14,7 +14,7 @@ public class ClienteService {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public List<ClienteDto> listarClientes() throws Exception {
-        String url = ApiConfig.BASE_URL + "/clientes/";
+        String url = ApiConfig.HOST + "/clientes/";
         HttpRequest req = ApiClient.jsonRequest(url).GET().build();
         HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
         if (r.statusCode() == 200) {
