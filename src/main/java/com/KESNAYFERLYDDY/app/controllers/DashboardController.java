@@ -1,6 +1,5 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
-import com.KESNAYFERLYDDY.app.MainApp;
 import com.KESNAYFERLYDDY.app.services.DashboardService;
 
 import javafx.application.Platform;
@@ -27,12 +26,14 @@ public class DashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(DashboardController.class.getResource("/fxml/dashboard.fxml"));
             Parent nodoDashboard = loader.load();
+            Stage stage = new Stage();
             Scene scene = new Scene(nodoDashboard);
-            Stage stage = MainApp.getPrincipalStage();
             stage.setScene(scene);
             stage.setTitle("Dashboard - " + username);
+            stage.setMaximized(true);
             DashboardController controladorDashboard = loader.getController();
             controladorDashboard.iniciar(username);
+            stage.show();
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -70,7 +71,10 @@ public class DashboardController {
     }
 
     @FXML
-    private void onOpenClientes() { ClientesListController.show(username); }
+    private void onOpenClientes(){
+        ClientesListController.show(username);
+        onLogout();
+    }
 
     @FXML
     private void onOpenVentas() { /* Implementa VentasListController.show(username) para mostrar lo del listado de ventas */ }
@@ -83,9 +87,7 @@ public class DashboardController {
 
     @FXML
     private void onLogout(){
-        // Cerrar ventana del dashboard
-        Stage s = (Stage) lblUser.getScene().getWindow();
-        s.close();
-        // Opcional: volver a mostrar login siento que esta bien pero ahi deciden
+        Stage stage = (Stage) lblUser.getScene().getWindow();
+        stage.close();
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
@@ -58,6 +59,8 @@ public class LoginController {
             if (ok) {
                 lblMsg.getStyleClass().add("exito");
                 lblMsg.setText("Login correcto. Abriendo dashboard...");
+                Stage stage = (Stage) lblMsg.getScene().getWindow();
+                stage.close();
                 DashboardController.showDashboard(user);
             } else {
                 lblMsg.getStyleClass().add("error");
