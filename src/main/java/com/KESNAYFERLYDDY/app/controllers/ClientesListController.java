@@ -2,6 +2,8 @@ package com.KESNAYFERLYDDY.app.controllers;
 
 import java.util.List;
 
+import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
 
@@ -15,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -31,6 +34,8 @@ public class ClientesListController {
     @FXML private TextField txtApellidos;
     @FXML private TextField txtTelefono;
     @FXML private TextField txtDui;
+    @FXML private TextField txtDireccion;
+    @FXML private Label lblMsg;
 
     private final ClienteService client = new ClienteService();
     private static String user = "";
@@ -50,6 +55,14 @@ public class ClientesListController {
         } catch (Exception error) { error.printStackTrace(); }
     }
 
+    @FXML
+    private void ocultarMensaje(){
+        if(lblMsg.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsg);
+            lblMsg.setOpacity(0);
+        }
+    }
+    
     @FXML
     public void initialize() {
         colId.setCellValueFactory(cd -> new javafx.beans.property.SimpleObjectProperty<>(cd.getValue().getIdCliente()));
@@ -76,6 +89,52 @@ public class ClientesListController {
         });
 
         new Thread(task).start();
+    }
+
+    public void registrarCliente() {
+        if(txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtDui.getText().isEmpty() || txtTelefono.getText().isEmpty()){
+            Platform.runLater(() -> {
+                lblMsg.getStyleClass().remove("exito");
+                lblMsg.getStyleClass().add("error");
+                lblMsg.setText("Complete todos los campos");
+                FadeUpAnimation.play(lblMsg);
+            });
+        }else{
+            ClienteDto cliente = new ClienteDto();
+            cliente.setNombresCliente(txtNombres.getText());
+            cliente.setApellidosCliente(txtApellidos.getText());
+            cliente.setDireccionCliente(txtDireccion.getText());
+            cliente.setDuiCliente(txtDui.getText());
+            cliente.setTelefonoCliente(txtTelefono.getText());
+            Task<Void> task = new Task<>() {
+                @Override protected Void call() throws Exception {
+                    client.insertarCliente(cliente);
+                    return null;
+                }
+            };
+            task.setOnSucceeded(event -> Platform.runLater(() -> {
+                lblMsg.getStyleClass().remove("error");
+                lblMsg.getStyleClass().add("exito");
+                lblMsg.setText("Cliente registrado exitosamente");
+                txtNombres.setText("");
+                txtApellidos.setText("");
+                txtDireccion.setText("");
+                txtDui.setText("");
+                txtTelefono.setText("");
+                FadeUpAnimation.play(lblMsg);
+            }));
+            task.setOnFailed(event -> {
+                task.getException().printStackTrace();
+                Platform.runLater(() -> {
+                    lblMsg.getStyleClass().remove("exito");
+                    lblMsg.getStyleClass().add("error");
+                    lblMsg.setText("Error al insertar el cliente");
+                    FadeUpAnimation.play(lblMsg);
+                });
+                System.out.println("Error en la tarea: " + task.getException().getMessage() );
+            });
+            new Thread(task).start();
+        }
     }
 
     @FXML

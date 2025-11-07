@@ -34,32 +34,36 @@
         </TableView>
     </VBox>
     <VBox alignment="CENTER" styleClass="overlay" visible="false" fx:id="overlay" onMouseClicked="#manejarFormulario">
+        <Label fx:id="lblMsg" id="lblMsg"/>
         <VBox styleClass="form-container" onMouseClicked="#cancelarClickEnModal">
             <Label text="Nuevo Cliente" styleClass="form-title"/>
             
             <VBox styleClass="form-field">
                 <Label text="Nombres"/>
-                <TextField fx:id="txtNombres" promptText="Ingrese los nombres"/>
+                <TextField fx:id="txtNombres" promptText="Ingrese los nombres" onMouseClicked="#ocultarMensaje"/>
             </VBox>
             
             <VBox styleClass="form-field">
                 <Label text="Apellidos"/>
-                <TextField fx:id="txtApellidos" promptText="Ingrese los apellidos"/>
+                <TextField fx:id="txtApellidos" promptText="Ingrese los apellidos" onMouseClicked="#ocultarMensaje"/>
             </VBox>
             
             <VBox styleClass="form-field">
                 <Label text="Teléfono"/>
-                <TextField fx:id="txtTelefono" promptText="Ej: 7123-4567"/>
+                <TextField fx:id="txtTelefono" promptText="Ej: 7123-4567" onMouseClicked="#ocultarMensaje"/>
             </VBox>
             
             <VBox styleClass="form-field">
                 <Label text="DUI"/>
-                <TextField fx:id="txtDui" promptText="Ej: 12345678-9"/>
+                <TextField fx:id="txtDui" promptText="Ej: 12345678-9" onMouseClicked="#ocultarMensaje"/>
             </VBox>
-            
+            <VBox styleClass="form-field">
+                <Label text="Direccion"/>
+                <TextField fx:id="txtDireccion" promptText="Ej: Calle Oriente y Avenida Central Final, Colonia 14 de Diciembre" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
             <HBox styleClass="form-buttons" alignment="CENTER_RIGHT">
                 <Button text="Cancelar" onAction="#manejarFormulario"/>
-                <Button text="Guardar" styleClass="button,primary"/>
+                <Button text="Guardar" styleClass="button,primary" onAction="#registrarCliente"/>
             </HBox>
         </VBox>
     </VBox>

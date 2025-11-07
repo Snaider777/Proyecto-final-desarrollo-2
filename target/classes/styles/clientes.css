@@ -15,7 +15,33 @@
     -fx-font-weight: bold;
     -fx-text-fill: #2d3436;
 }
-
+#lblMsg {
+    -fx-pref-width: 520;
+    -fx-max-width: 400;
+    -fx-padding: 15 20 15 20; 
+    -fx-font-size: 16px;
+	-fx-alignment: center;
+}
+.error {
+    -fx-background-color: #fdeaea;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #c55151;
+    -fx-text-fill: #b83e3e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+.exito {
+    -fx-background-color: #eafdec;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #51c557;
+    -fx-text-fill: #56b83e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
 .button {
     -fx-background-color: #fff;
     -fx-text-fill: #2d3436;
