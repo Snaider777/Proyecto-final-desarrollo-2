@@ -14,6 +14,7 @@ com\KESNAYFERLYDDY\app\services\DashboardService.class
 com\KESNAYFERLYDDY\app\MainApp.class
 <<<<<<< Updated upstream
 com\KESNAYFERLYDDY\app\controllers\DashboardController.class
+com\KESNAYFERLYDDY\app\controllers\ClientesListController$2.class
 com\KESNAYFERLYDDY\app\http\ApiClient.class
 com\KESNAYFERLYDDY\app\services\DashboardService$2.class
 com\KESNAYFERLYDDY\app\models\ClienteDto.class

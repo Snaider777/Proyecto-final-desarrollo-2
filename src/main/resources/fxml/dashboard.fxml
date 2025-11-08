@@ -7,18 +7,16 @@
             stylesheets="@/styles/dashboard.css"
             prefWidth="900" prefHeight="600">
   <top>
-    <HBox alignment="CENTER" styleClass="header">
+    <HBox spacing="10" style="-fx-padding:10;" alignment="CENTER_LEFT">
+      <Label fx:id="lblUser" text="Usuario:" styleClass="titulo"/>
       <Region HBox.hgrow="ALWAYS"/>
-      <Label text="MUEBLERÍA" styleClass="titulo-principal"/>
-      <Region HBox.hgrow="ALWAYS"/>
-      <!--<Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>-->
-      <Button text="Cerrar sesión" onAction="#onLogout" styleClass="btn-cerrar"/>
+      <Button text="Cerrar sesión" onAction="#onLogout"/>
     </HBox>
   </top>
 
   <center>
     <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding: 20;">
-     <!--<Label text="Panel principal" style="-fx-font-size:20px; -fx-font-weight:bold;"/>-->
+      <Label text="Panel principal" style="-fx-font-size:20px; -fx-font-weight:bold;"/>
       <HBox spacing="16" alignment="CENTER">
         <VBox fx:id="cardClientes" styleClass="card" onMouseClicked="#onOpenClientes" spacing="8">
           <Label text="CLIENTES" styleClass="card-title"/>

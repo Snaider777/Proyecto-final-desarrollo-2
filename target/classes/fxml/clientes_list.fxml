@@ -1,22 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.KESNAYFERLYDDY.app.controllers.ClientesListController" spacing="8" style="-fx-padding:12;">
-    <HBox spacing="8">
-        <Label text="Clientes" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Refrescar" onAction="#onRefresh"/>
-        <Button text="Cerrar" onAction="#onClose"/>
-    </HBox>
-
-    <TableView fx:id="table" prefHeight="400">
-        <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="colNombres" text="Nombres" prefWidth="200"/>
-            <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="200"/>
-            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="160"/>
-            <TableColumn fx:id="colDui" text="DUI" prefWidth="140"/>
-        </columns>
-    </TableView>
-</VBox>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.KESNAYFERLYDDY.app.controllers.ClientesListController" stylesheets="@/styles/clientes.css" >
+    <VBox spacing="16">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+        <BorderPane styleClass="header">
+            <left>
+                <Label text="Clientes" styleClass="title"/>
+            </left>
+            <right>
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button text="Nuevo" styleClass="button,primary" onAction="#manejarFormulario"/>
+                    <Button text="Refrescar" onAction="#refrescarTabla"/>
+                    <Button text="Cerrar" onAction="#cerrarVistaClientes"/>
+                </HBox>
+            </right>
+        </BorderPane>
+        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+                <TableColumn fx:id="colNombres" text="Nombres" prefWidth="200"/>
+                <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="200"/>
+                <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="150"/>
+                <TableColumn fx:id="colDui" text="DUI" prefWidth="150"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+    <VBox alignment="CENTER" styleClass="overlay" visible="false" fx:id="overlay" onMouseClicked="#manejarFormulario">
+        <Label fx:id="lblMsg" id="lblMsg"/>
+        <VBox styleClass="form-container" onMouseClicked="#cancelarClickEnModal">
+            <Label text="Nuevo Cliente" styleClass="form-title"/>
+            
+            <VBox styleClass="form-field">
+                <Label text="Nombres"/>
+                <TextField fx:id="txtNombres" promptText="Ingrese los nombres" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
+            
+            <VBox styleClass="form-field">
+                <Label text="Apellidos"/>
+                <TextField fx:id="txtApellidos" promptText="Ingrese los apellidos" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
+            
+            <VBox styleClass="form-field">
+                <Label text="Teléfono"/>
+                <TextField fx:id="txtTelefono" promptText="Ej: 7123-4567" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
+            
+            <VBox styleClass="form-field">
+                <Label text="DUI"/>
+                <TextField fx:id="txtDui" promptText="Ej: 12345678-9" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
+            <VBox styleClass="form-field">
+                <Label text="Direccion"/>
+                <TextField fx:id="txtDireccion" promptText="Ej: Calle Oriente y Avenida Central Final, Colonia 14 de Diciembre" onMouseClicked="#ocultarMensaje"/>
+            </VBox>
+            <HBox styleClass="form-buttons" alignment="CENTER_RIGHT">
+                <Button text="Cancelar" onAction="#manejarFormulario"/>
+                <Button text="Guardar" styleClass="button,primary" onAction="#registrarCliente"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</StackPane>
