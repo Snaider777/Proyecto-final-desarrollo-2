@@ -2,13 +2,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.KESNAYFERLYDDY.app.controllers.DashboardController"
             stylesheets="@/styles/dashboard.css"
             prefWidth="900" prefHeight="600">
 <top>
-<BorderPane fx:id="header" styleClass="header" prefHeight="100">
+<BorderPane fx:id="header" styleClass="header" prefHeight="150">
     <left>
         <Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>
     </left>
@@ -23,33 +24,69 @@
 </BorderPane>
 </top>
   <center>
-    <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding: 20;">
-      <HBox spacing="16" alignment="CENTER">
-        <VBox fx:id="cardClientes" styleClass="card" onMouseClicked="#onOpenClientes" spacing="8">
-          <Label text="CLIENTES" styleClass="card-title"/>
-          <Label fx:id="lblClientesCount" text="..." styleClass="card-count"/>
-          <Button text="Ver clientes" onAction="#onOpenClientes"/>
-        </VBox>
+  <GridPane hgap="5" vgap="7" BorderPane.alignment="CENTER" styleClass="dashboard" prefWidth="1200" maxWidth="1200">
+    <columnConstraints>
+        <ColumnConstraints prefWidth="900" halignment="CENTER" hgrow="NEVER"/>
+        <ColumnConstraints prefWidth="900" halignment="CENTER" hgrow="NEVER"/>
+    </columnConstraints>
 
-        <VBox fx:id="cardVentas" styleClass="card" onMouseClicked="#onOpenVentas" spacing="8">
-          <Label text="VENTAS" styleClass="card-title"/>
-          <Label fx:id="lblVentasCount" text="..." styleClass="card-count"/>
-          <Button text="Ver ventas" onAction="#onOpenVentas"/>
-        </VBox>
+    <rowConstraints>
+        <RowConstraints prefHeight="350"/>
+        <RowConstraints prefHeight="350"/>
+    </rowConstraints>
 
-        <VBox fx:id="cardUsuarios" styleClass="card" onMouseClicked="#onOpenUsuarios" spacing="8">
-          <Label text="USUARIOS" styleClass="card-title"/>
-          <Label fx:id="lblUsuariosCount" text="..." styleClass="card-count"/>
-          <Button text="Administrar" onAction="#onOpenUsuarios"/>
+    <Button fx:id="btnClientes" onAction="#onOpenClientes" styleClass="card-button" GridPane.columnIndex="0" GridPane.rowIndex="0">
+       <graphic>
+        <VBox alignment="CENTER">
+        <ImageView fitWidth="150" fitHeight="150">
+            <image>
+                <Image url="@/images/clientesdash.png" />
+            </image>
+        </ImageView>
+            <Label text="Clientes" styleClass="card-label"/>
+            <Label fx:id="lblClientesCount" text="..." styleClass="card-count"/>
         </VBox>
-
-        <VBox fx:id="cardProductos" styleClass="card" onMouseClicked="#onOpenProductos" spacing="8">
-          <Label text="PRODUCTOS" styleClass="card-title"/>
-          <Label fx:id="lblProductosCount" text="..." styleClass="card-count"/>
-          <Button text="Ver productos" onAction="#onOpenProductos"/>
+        </graphic>
+    </Button>
+    <Button fx:id="btnEmpleados" onAction="#onOpenUsuarios" styleClass="card-button" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <graphic>
+        <VBox alignment="CENTER">
+        <ImageView fitWidth="150" fitHeight="150">
+            <image>
+                <Image url="@/images/empleadosdash.png" />
+            </image>
+        </ImageView>
+            <Label text="Empleados" styleClass="card-label"/>
+            <Label fx:id="lblUsuariosCount" text="..." styleClass="card-count"/>
         </VBox>
-      </HBox>
-    </VBox>
-  </center>
-
+        </graphic>
+    </Button>
+    <Button fx:id="btnVentas" onAction="#onOpenVentas" styleClass="card-button" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <graphic>
+        <VBox alignment="CENTER">
+        <ImageView fitWidth="150" fitHeight="150">
+            <image>
+                <Image url="@/images/ventasdash.png" />
+            </image>
+        </ImageView>
+            <Label text="Ventas" styleClass="card-label"/>
+            <Label fx:id="lblVentasCount" text="..." styleClass="card-count"/>
+        </VBox>
+        </graphic>
+    </Button>
+    <Button fx:id="btnProductos" onAction="#onOpenProductos" styleClass="card-button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <graphic>
+        <VBox alignment="CENTER">
+        <ImageView fitWidth="150" fitHeight="150">
+            <image>
+                <Image url="@/images/mueblesdash.png" />
+            </image>
+        </ImageView>
+            <Label text="Muebles" styleClass="card-label"/>
+            <Label fx:id="lblProductosCount" text="..." styleClass="card-count"/>
+        </VBox>
+        </graphic>
+    </Button>
+</GridPane>
+</center>
 </BorderPane>

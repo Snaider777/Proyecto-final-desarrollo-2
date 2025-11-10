@@ -41,7 +41,7 @@ public class DashboardController {
 
     public void iniciar(String username) {
         this.username = username;
-        lblUser.setText("Bienvenido " + username);
+        lblUser.setText("Hola " + username);
         cargarDatos();
     }
 
