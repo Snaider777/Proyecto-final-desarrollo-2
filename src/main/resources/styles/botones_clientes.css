@@ -1,0 +1,28 @@
+/* === Contenedor principal (HBox) === */
+#root {
+    -fx-spacing: 8;
+    -fx-alignment: center;
+}
+
+/* === Estilo base de los botones === */
+#btnEditar, #btnEliminar {
+    -fx-background-color: transparent;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-padding: 4 10;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+/* === Botón Editar (azul) === */
+#btnEditar {
+    -fx-text-fill: #1E88E5;
+}
+
+/* === Botón Eliminar (rojo) === */
+#btnEliminar {
+    -fx-text-fill: #E53935;
+}
+

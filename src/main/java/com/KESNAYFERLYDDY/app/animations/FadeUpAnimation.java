@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.util.Duration;
 
 public class FadeUpAnimation {
-    //Animacion que hace que el nodo aparezca poquito a poquito con una animacion que sube 
     public static void play(Node nodo) {
         FadeTransition opacidadNodo = new FadeTransition(Duration.seconds(0.3), nodo);
         TranslateTransition trasladarNodo = new TranslateTransition(Duration.seconds(0.3), nodo);

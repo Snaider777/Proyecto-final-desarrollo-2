@@ -43,4 +43,48 @@ public class ClienteService {
             throw new RuntimeException("Error al insertar cliente: " + response.statusCode() + " - " + response.body());
         }
     }
+
+    public void editarCliente(ClienteDto cliente) throws Exception {
+    String url = ApiConfig.HOST + "/clientes/" + cliente.getIdCliente();
+    String clienteJson = mapper.writeValueAsString(cliente);
+    
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(url))
+        .header("Content-Type", "application/json")
+        .PUT(HttpRequest.BodyPublishers.ofString(clienteJson)) 
+        .build();
+
+    HttpClient client = HttpClient.newHttpClient();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    if (response.statusCode() == 200) {
+        System.out.println("Cliente actualizado correctamente: " + response.body());
+    } else {
+        throw new RuntimeException("Error al actualizar cliente: " + response.statusCode() + " - " + response.body());
+    }
+}
+
+
+    public void eliminarCliente(Integer clienteID) throws Exception {
+        String url = ApiConfig.HOST + "/clientes/" + clienteID;
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .DELETE()
+            .build();
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) {
+            System.out.println("Cliente eliminado correctamente. ID: " + clienteID);
+        } else if (response.statusCode() == 404) {
+            throw new RuntimeException("No se encontró el cliente con ID " + clienteID);
+        } else {
+        throw new RuntimeException("Error al eliminar cliente: " 
+            + response.statusCode() + " - " + response.body());
+    }
+}
+
+
 }

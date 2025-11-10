@@ -22,6 +22,18 @@
     -fx-font-size: 16px;
 	-fx-alignment: center;
 }
+.table-view .table-cell {
+    -fx-alignment: CENTER;
+}
+.eliminadoConExito {
+    -fx-background-color: #eafdec;
+    -fx-text-fill: #56b83e;
+    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
 .error {
     -fx-background-color: #fdeaea;
     -fx-border-width: 0 0 0 4; 
@@ -37,6 +49,16 @@
     -fx-border-width: 0 0 0 4; 
     -fx-border-color: #51c557;
     -fx-text-fill: #56b83e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+.advertencia {
+    -fx-background-color: #fdf3ea;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #e48125;
+    -fx-text-fill: #fc9c2f;
     -fx-font-size: 13px;
     -fx-font-weight: 500;
     -fx-padding: 10 16;
@@ -59,7 +81,7 @@
 }
 
 .button.primary {
-    -fx-background-color: #4c6ef5;
+    -fx-background-color: #1E88E5;;
     -fx-text-fill: white;
     -fx-border-color: transparent;
 }
@@ -189,7 +211,6 @@
     -fx-padding: 8px 0 0 0;
 }
 
-/* Overlay de fondo */
 .overlay {
     -fx-background-color: rgba(0, 0, 0, 0.5);
 }
