@@ -9,19 +9,33 @@
             stylesheets="@/styles/dashboard.css"
             prefWidth="900" prefHeight="600">
 <top>
-<BorderPane fx:id="header" styleClass="header" prefHeight="150">
-    <left>
-        <Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>
-    </left>
-    <center>
-        <Label text="MUEBLERÍA SNAYFERLICY" styleClass="titulo-principal" BorderPane.alignment="CENTER"/>
-    </center>
-    <right>
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="Cerrar sesión" onAction="#onLogout" styleClass="btn-cerrar"/>
-        </HBox>
-    </right>
-</BorderPane>
+<StackPane prefHeight="150" styleClass="header-fondo">
+    <ImageView fitWidth="1545" fitHeight="150" preserveRatio="false">
+        <image>
+            <Image url="@/images/banner.jpg" />
+        </image>
+    </ImageView>
+    <BorderPane fx:id="header" styleClass="header">
+        <left>
+        <VBox  spacing="1" alignment="CENTER_LEFT"> 
+            <ImageView fitWidth="155" fitHeight="155">
+                <image>
+                    <Image url="@/images/Logo.png" />
+                </image>
+            </ImageView>
+        </VBox>
+        </left>
+        <center>
+            <Label text="MUEBLERÍA USO" styleClass="titulo-principal" BorderPane.alignment="CENTER"/>
+        </center>
+        <right>
+            <VBox spacing="20" alignment="CENTER_RIGHT">
+                <Button text="Cerrar sesión" onAction="#onLogout" styleClass="btn-cerrar"/>
+                <Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>
+            </VBox>
+        </right>
+    </BorderPane>
+</StackPane>
 </top>
   <center>
   <GridPane hgap="5" vgap="7" BorderPane.alignment="CENTER" styleClass="dashboard" prefWidth="1200" maxWidth="1200">
