@@ -2,7 +2,6 @@ package com.KESNAYFERLYDDY.app.controllers;
 
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

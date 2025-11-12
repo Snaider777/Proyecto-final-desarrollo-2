@@ -1,0 +1,228 @@
+
+/* ========== ESTILOS GENERALES ========== */
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* ========== HEADER Y TÍTULO ========== */
+.header-productos {
+    -fx-background-color: white;
+    -fx-padding: 16px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+}
+
+.titulo-productos {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3436;
+}
+
+/* ========== BOTONES DE ACCIÓN ========== */
+.btn-accion {
+    -fx-background-color: white;
+    -fx-text-fill: #2d3436;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.btn-accion:hover {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+}
+
+.btn-accion-primario {
+    -fx-background-color: #4c6ef5;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.btn-accion-primario:hover {
+    -fx-background-color: #4263eb;
+}
+.overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-padding: 30;
+}
+
+.modal {
+    -fx-background-color: #ffffff;
+    -fx-padding: 30 40;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 20, 0, 0, 8);
+    -fx-max-width: 400;
+}
+
+.modal-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 10 0;
+}
+
+.input-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.input-field {
+    -fx-background-color: #f7f7f7;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 6 10;
+    -fx-font-size: 14px;
+}
+
+.input-field:focused {
+    -fx-border-color: #d32f2f;
+    -fx-background-color: #fff;
+}
+
+.btn-primary {
+    -fx-background-color: #e53935;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);
+}
+
+.btn-primary:hover {
+    -fx-background-color: #c62828;
+}
+
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #555;
+    -fx-border-color: #bbb;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* ========== ESTILOS PARA TARJETAS DE MUEBLES ========== */
+
+/* Contenedor principal de tarjetas */
+.contenedor-tarjetas {
+    -fx-spacing: 16;
+    -fx-padding: 20;
+}
+
+/* Tarjeta individual */
+.tarjeta-mueble {
+    -fx-background-color: white;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 16;
+    -fx-spacing: 12;
+    -fx-max-width: 300;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+}
+
+.tarjeta-mueble:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8, 0, 0, 4);
+}
+
+/* Título de la tarjeta */
+.tarjeta-titulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3436;
+}
+
+/* Descripción */
+.tarjeta-descripcion {
+    -fx-font-size: 12px;
+    -fx-text-fill: #495057;
+    -fx-wrap-text: true;
+}
+
+/* Contenedor de información */
+.tarjeta-info {
+    -fx-spacing: 12;
+    -fx-padding: 8 0;
+}
+
+.tarjeta-info-item {
+    -fx-spacing: 4;
+}
+
+.tarjeta-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #868e96;
+    -fx-font-weight: bold;
+}
+
+.tarjeta-valor {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2d3436;
+}
+
+/* Botones de acción en la tarjeta */
+.tarjeta-botones {
+    -fx-spacing: 8;
+    -fx-padding: 8 0 0 0;
+}
+
+.btn-editar {
+    -fx-background-color: #4c6ef5;
+    -fx-text-fill: white;
+    -fx-padding: 6 16;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.btn-editar:hover {
+    -fx-background-color: #4263eb;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+}
+
+.btn-eliminar {
+    -fx-background-color: #ff6b6b;
+    -fx-text-fill: white;
+    -fx-padding: 6 16;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.btn-eliminar:hover {
+    -fx-background-color: #fa5252;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+}
+
+/* Estado En Stock */
+.estado-en-stock {
+    -fx-text-fill: #51cf66;
+    -fx-font-weight: bold;
+}
+
+/* Estado Sin Stock */
+.estado-sin-stock {
+    -fx-text-fill: #ff6b6b;
+    -fx-font-weight: bold;
+}

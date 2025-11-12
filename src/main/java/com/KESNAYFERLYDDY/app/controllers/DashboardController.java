@@ -83,7 +83,10 @@ public class DashboardController {
     private void onOpenUsuarios() { /* Implementa UsuariosListController.show(username) para implementar la vista de usuario y ahi editar permisos y roles */ }
 
     @FXML
-    private void onOpenProductos() { /* Implementa ProductosListController.show(username)  para CRUD de productos*/ }
+    private void onOpenProductos() {
+        ProductosListController.show(username);
+        onLogout();
+    }
 
     @FXML
     private void onLogout(){

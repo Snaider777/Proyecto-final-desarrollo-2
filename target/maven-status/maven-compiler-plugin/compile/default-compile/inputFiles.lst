@@ -7,10 +7,15 @@ C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesListController.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\DashboardController.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\LoginController.java
+C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ProductosListController.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\http\ApiClient.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\MainApp.java
+C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\CategoriaDto.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\ClienteDto.java
+C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\MuebleDto.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\UsuarioDto.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\AuthService.java
+C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\CategoriaService.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\ClienteService.java
 C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\DashboardService.java
+C:\dev\ProyectoDesarrollo\Frontend\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\MuebleService.java
