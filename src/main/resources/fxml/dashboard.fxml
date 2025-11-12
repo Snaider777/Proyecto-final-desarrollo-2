@@ -18,9 +18,9 @@
     <BorderPane fx:id="header" styleClass="header">
         <left>
         <VBox  spacing="1" alignment="CENTER_LEFT"> 
-            <ImageView fitWidth="155" fitHeight="155">
+            <ImageView fitWidth="170" fitHeight="170">
                 <image>
-                    <Image url="@/images/Logo.png" />
+                    <Image url="@/images/LogoMU.png" />
                 </image>
             </ImageView>
         </VBox>
@@ -29,7 +29,7 @@
             <Label text="MUEBLERÍA USO" styleClass="titulo-principal" BorderPane.alignment="CENTER"/>
         </center>
         <right>
-            <VBox spacing="20" alignment="CENTER_RIGHT">
+            <VBox spacing="25" alignment="CENTER_RIGHT">
                 <Button text="Cerrar sesión" onAction="#onLogout" styleClass="btn-cerrar"/>
                 <Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>
             </VBox>

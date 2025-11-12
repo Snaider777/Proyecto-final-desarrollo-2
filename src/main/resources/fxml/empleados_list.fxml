@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.KESNAYFERLYDDY.app.controllers.EmpleadosListController" stylesheets="@/styles/empleados.css"
+            prefWidth="900" prefHeight="600">
+</BorderPane>
