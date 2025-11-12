@@ -1,5 +1,5 @@
 .header {
-    -fx-padding: 10 45 4 35;
+    -fx-padding: 6 45 4 35;
 }
 
 .header-fondo {
@@ -20,17 +20,21 @@
 }
 
 .btn-cerrar {
-    -fx-background-color: #E74C3C;
-    -fx-text-fill: white;
+    -fx-background-color: #7a4f2e;
+    -fx-text-fill: rgb(253, 252, 252);
     -fx-font-weight: bold;
-    -fx-font-size: 17px;
+    -fx-font-size: 16px;
     -fx-padding: 6 15;
     -fx-background-radius: 5;
     -fx-cursor: hand;
 }
 
+.btn-cerrar:hover {
+    -fx-background-color: #a16b45;
+}
+
 .dashboard {
-    -fx-background-color: #eef4f5;
+    -fx-background-color: #f7ece1;
     -fx-padding: 10;
     -fx-alignment: center;
 }
