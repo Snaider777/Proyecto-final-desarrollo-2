@@ -1,45 +1,38 @@
-.card {
-  -fx-pref-width: 190;
-  -fx-pref-height: 140;
-  -fx-alignment: center;
-  -fx-background-color: #ffffff;
-  -fx-border-radius: 10;
-  -fx-background-radius: 10;
-  -fx-padding: 12;
-  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 6,0,0,2);
-  -fx-cursor: hand;
+.header {
+    -fx-padding: 10 45 4 35;
 }
 
-.header {
-    -fx-background-color: #2C3E50;
-    -fx-pref-height: 90px;
-    -fx-padding: 10 20;
+.header-fondo {
+    -fx-aligment: center;
 }
 
 .titulo-principal {
-    -fx-font-size: 24px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: rgb(6, 6, 6);
     -fx-alignment: center;
 }
 
 .nombre-usuario {
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(4, 4, 4);
 }
 
 .btn-cerrar {
     -fx-background-color: #E74C3C;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 5 15;
+    -fx-font-size: 17px;
+    -fx-padding: 6 15;
     -fx-background-radius: 5;
     -fx-cursor: hand;
 }
 
 .dashboard {
-    -fx-background-color: #ecf0f1;
-    -fx-padding: 30;
+    -fx-background-color: #eef4f5;
+    -fx-padding: 10;
+    -fx-alignment: center;
 }
 
 .card-button {
@@ -47,8 +40,9 @@
     -fx-border-color: #bdc3c7;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-    -fx-pref-width: 250px;
-    -fx-pref-height: 200px;
+    -fx-pref-width: 600;
+    -fx-pref-height: 600;
+    -fx-max-height: Infinity;
     -fx-cursor: hand;
 }
 
@@ -57,26 +51,14 @@
 }
 
 .card-label {
-    -fx-font-size: 18px;
+    -fx-font-size: 19px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
-    -fx-padding: 10 0 0 0;
-}
-
-
-.card:hover {
-  -fx-translate-y: -4;
-  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10,0,0,4);
-}
-
-.card-title {
-  -fx-font-size: 12px;
-  -fx-text-fill: #666666;
-  -fx-font-weight: bold;
+    -fx-padding: 8 0 0 0;
 }
 
 .card-count {
-  -fx-font-size: 32px;
-  -fx-font-weight: bold;
-  -fx-text-fill: #2b7cff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3a3e42;
 }
