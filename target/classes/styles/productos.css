@@ -5,6 +5,68 @@
     -fx-font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont;
 }
 
+#lblMsg {
+    -fx-pref-width: 520;
+    -fx-max-width: 400;
+    -fx-padding: 15 20 15 20; 
+    -fx-font-size: 16px;
+	-fx-alignment: center;
+}
+.error {
+    -fx-background-color: #fdeaea;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #c55151;
+    -fx-text-fill: #b83e3e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+.advertencia {
+    -fx-background-color: #fdf3ea;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #e48125;
+    -fx-text-fill: #fc9c2f;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+
+.exito {
+    -fx-background-color: #eafdec;
+    -fx-border-width: 0 0 0 4; 
+    -fx-border-color: #51c557;
+    -fx-text-fill: #56b83e;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+.text-field.textoIngresadoInvalido {
+    -fx-border-color: #e74c3c;  
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-color: #ffecec;
+    -fx-focus-color: #e74c3c;
+}
+
+.errorMsjSinCategorias {
+    -fx-background-color: #ffecec;
+    -fx-text-fill: #b03a2e; 
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 5px 13px;
+    -fx-border-color: #e57373;  
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0.3, 2, 2);
+    -fx-alignment: center-left; 
+    -fx-opacity: 0.95;
+    -fx-max-width: 400px;
+}
+
 /* ========== HEADER Y TÍTULO ========== */
 .header-productos {
     -fx-background-color: white;

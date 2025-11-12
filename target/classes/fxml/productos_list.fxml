@@ -14,6 +14,7 @@
             </left>
             <right>
                 <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Label fx:id="lblSinCategorias"/>
                     <Button text="Nuevo producto" onMouseClicked="#manejarModalRegistrarMuebles" styleClass="btn-accion-primario"/>
                     <Button text="Nueva categoría" onMouseClicked="#manejarModalRegistrarCategorias" styleClass="btn-accion"/>
                     <Button text="Cerrar" onAction="#cerrarVistaProductos" styleClass="btn-accion"/>
@@ -29,7 +30,7 @@
         onMouseClicked="#manejarModalRegistrarMuebles"
         xmlns:fx="http://javafx.com/fxml"
         styleClass="overlay">
-
+        <Label fx:id="lblMsgRegistroMueble" id="lblMsg"/>
         <VBox onMouseClicked="#cancelarClickEnModal"
             spacing="15"
             styleClass="modal">
@@ -38,27 +39,27 @@
 
             <VBox spacing="10">
                 <Label text="Nombre" styleClass="input-label"/>
-                <TextField fx:id="txtNombre" promptText="Ingrese el nombre del mueble" styleClass="input-field"/>
+                <TextField fx:id="txtNombre" promptText="Ingrese el nombre del mueble" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Descripción" styleClass="input-label"/>
-                <TextField fx:id="txtDescripcion" promptText="Ingrese la descripción del mueble" styleClass="input-field"/>
+                <TextField fx:id="txtDescripcion" promptText="Ingrese la descripción del mueble" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
-                <Label text="Existencias" styleClass="input-label"/>
-                <TextField fx:id="txtExistencias" promptText="Ingrese las existencias" styleClass="input-field"/>
+                <Label text="Existencias iniciales" styleClass="input-label"/>
+                <TextField fx:id="txtExistencias" promptText="Ingrese las existencias" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Material" styleClass="input-label"/>
-                <TextField fx:id="txtMaterial" promptText="Ingrese el material" styleClass="input-field"/>
+                <TextField fx:id="txtMaterial" promptText="Ingrese el material" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Categoría" styleClass="input-label"/>
-                <ComboBox fx:id="comboCategoria" styleClass="input-field" maxWidth="Infinity"/>
+                <ComboBox fx:id="comboCategoria" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="15">
@@ -73,7 +74,7 @@
         onMouseClicked="#manejarModalEditarMuebles"
         xmlns:fx="http://javafx.com/fxml"
         styleClass="overlay">
-
+        <Label fx:id="lblMsgEdicionMueble" id="lblMsg"/>
         <VBox onMouseClicked="#cancelarClickEnModal"
             spacing="15"
             styleClass="modal">
@@ -82,27 +83,27 @@
 
             <VBox spacing="10">
                 <Label text="Nombre" styleClass="input-label"/>
-                <TextField fx:id="txtNombreEditar" styleClass="input-field"/>
+                <TextField fx:id="txtNombreEditar" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Descripción" styleClass="input-label"/>
-                <TextField fx:id="txtDescripcionEditar" styleClass="input-field"/>
+                <TextField fx:id="txtDescripcionEditar" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Existencias" styleClass="input-label"/>
-                <TextField fx:id="txtExistenciasEditar" styleClass="input-field"/>
+                <TextField fx:id="txtExistenciasEditar" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Material" styleClass="input-label"/>
-                <TextField fx:id="txtMaterialEditar" styleClass="input-field"/>
+                <TextField fx:id="txtMaterialEditar" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <VBox spacing="10">
                 <Label text="Categoría" styleClass="input-label"/>
-                <ComboBox fx:id="comboCategoriaEditar" styleClass="input-field" maxWidth="Infinity"/>
+                <ComboBox fx:id="comboCategoriaEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="15">
@@ -118,7 +119,7 @@
         onMouseClicked="#manejarModalRegistrarCategorias"
         xmlns:fx="http://javafx.com/fxml"
         styleClass="overlay">
-
+        <Label fx:id="lblMsgRegistroCategoria" id="lblMsg"/>
         <VBox onMouseClicked="#cancelarClickEnModal"
             spacing="15"
             styleClass="modal">
@@ -126,7 +127,7 @@
             <Label text="Nueva categoria" styleClass="modal-title"/>
             <VBox spacing="10">
                 <Label text="Nombre" styleClass="input-label"/>
-                <TextField fx:id="txtNombreCategoria" promptText="Ingrese la nueva categoria" styleClass="input-field"/>
+                <TextField fx:id="txtNombreCategoria" promptText="Ingrese la nueva categoria" styleClass="input-field" onMouseClicked="#ocultarMensajeRegistroMueble"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="15">
                 <Button text="Cancelar" onAction="#manejarModalRegistrarCategorias" styleClass="btn-secondary"/>

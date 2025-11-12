@@ -2,17 +2,24 @@ package com.KESNAYFERLYDDY.app.controllers;
 
 import java.util.List;
 
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeInLeftAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeOutRightAnimation;
 import com.KESNAYFERLYDDY.app.models.CategoriaDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.CategoriaService;
 
+import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.FlowPane;
@@ -37,6 +44,11 @@ public class ProductosListController {
 
     @FXML private TextField txtNombreCategoria;
 
+    @FXML private Label lblMsgRegistroMueble;
+    @FXML private Label lblMsgEdicionMueble;
+    @FXML private Label lblMsgRegistroCategoria;
+    @FXML private Label lblSinCategorias;
+
     @FXML private TextField txtNombreEditar;
     @FXML private TextField txtDescripcionEditar;
     @FXML private TextField txtExistenciasEditar;
@@ -51,6 +63,7 @@ public class ProductosListController {
     private static String user = "";
     private MuebleDto muebleParaEliminar;
     private MuebleDto muebleParaEditar;
+    private Boolean listaDeCategoriasVacia;
 
     public static void show(String username) {
         try {
@@ -96,14 +109,15 @@ public class ProductosListController {
             comboCategoria.getItems().addAll(categorias);
             comboCategoriaEditar.getItems().clear();
             comboCategoriaEditar.getItems().addAll(categorias);
+            listaDeCategoriasVacia = categorias.isEmpty();
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
         });
         new Thread(task).start();
     }
-
     private void mostrarMuebles(List<MuebleDto> muebles) {
+        // Estructura de tarjeta y estilos hechos por el chalan ChatPGT
         // Limpiar el contenedor y crear un FlowPane para el grid
         contenedorMuebles.getChildren().clear();
         
@@ -195,6 +209,15 @@ public class ProductosListController {
     }
 
     public void registrarMueble() {
+        String textoExistencias = txtExistencias.getText();
+        Boolean existenciasValidas;
+        try {
+            int numero = Integer.parseInt(textoExistencias);
+            System.out.println("Numero valido para existencias: " + numero);
+            existenciasValidas = true;
+        } catch (NumberFormatException e) {
+            existenciasValidas = false;
+        }
         if(
             txtNombre.getText().isEmpty() ||
             txtDescripcion.getText().isEmpty() ||
@@ -202,7 +225,16 @@ public class ProductosListController {
             txtMaterial.getText().isEmpty() ||
             comboCategoria.getValue() == null
         ){
-           
+            lblMsgRegistroMueble.getStyleClass().removeAll("exito");
+            lblMsgRegistroMueble.getStyleClass().add("error");
+            lblMsgRegistroMueble.setText("Complete todos los campos");
+            FadeUpAnimation.play(lblMsgRegistroMueble);
+        }else if(!existenciasValidas){
+            lblMsgRegistroMueble.getStyleClass().remove("exito");
+            lblMsgRegistroMueble.getStyleClass().add("error");
+            lblMsgRegistroMueble.setText("El valor de las existencias no es válido");
+            txtExistencias.getStyleClass().add("textoIngresadoInvalido");
+            FadeUpAnimation.play(lblMsgRegistroMueble);
         }else{
             MuebleDto muebleObj = new MuebleDto();
             muebleObj.setNombreMueble(txtNombre.getText());
@@ -218,13 +250,23 @@ public class ProductosListController {
                 }
             };
             task.setOnSucceeded(event -> Platform.runLater(() -> {
+                lblMsgRegistroMueble.getStyleClass().removeAll("error");
+                lblMsgRegistroMueble.getStyleClass().add("exito");
+                lblMsgRegistroMueble.setText("Mueble registrado con exito");
+                FadeUpAnimation.play(lblMsgRegistroMueble);
+                txtDescripcion.setText("");
+                txtNombre.setText("");
+                txtExistencias.setText("");
+                txtMaterial.setText("");
+                comboCategoria.setValue(null);
                 cargarMuebles();
             }));
             task.setOnFailed(event -> {
                 task.getException().printStackTrace();
-                Platform.runLater(() -> {
-                    
-                });
+                lblMsgRegistroMueble.getStyleClass().remove("exito");
+                lblMsgRegistroMueble.getStyleClass().add("error");
+                lblMsgRegistroMueble.setText("Error al insertar el mueble");
+                FadeUpAnimation.play(lblMsgRegistroMueble);
                 System.out.println("Error en la tarea: " + task.getException().getMessage() );
             });
             new Thread(task).start();
@@ -238,7 +280,10 @@ public class ProductosListController {
             txtExistenciasEditar.getText().isEmpty() ||
             txtMaterialEditar.getText().isEmpty()
         ){
-            
+            lblMsgEdicionMueble.getStyleClass().removeAll("exito", "advertencia", "error");
+            lblMsgEdicionMueble.getStyleClass().add("error");
+            lblMsgEdicionMueble.setText("Complete todos los campos");
+            FadeUpAnimation.play(lblMsgEdicionMueble);
         }else if(
             txtNombreEditar.getText().equals(muebleParaEditar.getNombreMueble()) &&
             txtDescripcionEditar.getText().equals(muebleParaEditar.getDescripcionMueble()) &&
@@ -246,7 +291,10 @@ public class ProductosListController {
             txtMaterialEditar.getText().equals(muebleParaEditar.getNombreMaterial()) &&
             comboCategoriaEditar.getValue().equals(muebleParaEditar.getCategoria())
         ){
-
+            lblMsgEdicionMueble.getStyleClass().removeAll("exito", "error", "advertencia");
+            lblMsgEdicionMueble.getStyleClass().add("advertencia");
+            lblMsgEdicionMueble.setText("Ningún campo ha sido modificado");
+            FadeUpAnimation.play(lblMsgEdicionMueble);
         }else{
             MuebleDto muebleObj = new MuebleDto();
             muebleObj.setIdMueble(muebleParaEditar.getIdMueble());
@@ -263,12 +311,19 @@ public class ProductosListController {
                 }
             };
             task.setOnSucceeded(event -> Platform.runLater(() -> {
+                lblMsgEdicionMueble.getStyleClass().removeAll("exito", "error", "advertencia");
+                lblMsgEdicionMueble.getStyleClass().add("exito");
+                lblMsgEdicionMueble.setText("Producto actualizado exitosamente");
+                FadeUpAnimation.play(lblMsgEdicionMueble);
                 this.muebleParaEditar = muebleObj;
                 cargarMuebles();
             }));
             task.setOnFailed(event -> {
                 task.getException().printStackTrace();
-
+                lblMsgEdicionMueble.getStyleClass().removeAll("exito", "error", "advertencia");
+                lblMsgEdicionMueble.getStyleClass().add("error");
+                lblMsgEdicionMueble.setText("Error al editar el producto");
+                FadeUpAnimation.play(lblMsgEdicionMueble);
                 System.out.println("Error en la tarea: " + task.getException().getMessage() );
             });
             new Thread(task).start();
@@ -296,7 +351,10 @@ public class ProductosListController {
         if(
             txtNombreCategoria.getText().isEmpty()
         ){
-
+            lblMsgRegistroCategoria.getStyleClass().removeAll("exito");
+            lblMsgRegistroCategoria.getStyleClass().add("error");
+            lblMsgRegistroCategoria.setText("Complete el campo solicitado");
+            FadeUpAnimation.play(lblMsgRegistroCategoria);
         }else{
             CategoriaDto categoriaObj = new CategoriaDto();
             categoriaObj.setCategoria(txtNombreCategoria.getText());
@@ -351,19 +409,36 @@ public class ProductosListController {
     private void manejarModalRegistrarMuebles(){
         if(overlayRegistrarMuebles.isVisible()){
             overlayRegistrarMuebles.setVisible(false);
+            FadeDownAnimation.play(lblMsgRegistroMueble);
+            txtExistencias.getStyleClass().removeAll("textoIngresadoInvalido");
         }else{
-            overlayRegistrarMuebles.setVisible(true);
+            if(listaDeCategoriasVacia){
+                Platform.runLater(() -> {
+                    lblSinCategorias.setText("Aun no existen categorias");
+                    FadeInLeftAnimation.play(lblSinCategorias);
+                    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                    lblSinCategorias.getStyleClass().add("errorMsjSinCategorias");
+                    delay.setOnFinished(event -> {
+                        FadeOutRightAnimation.play(lblSinCategorias);
+                    });
+                    delay.play();
+                });
+            }else{
+                overlayRegistrarMuebles.setVisible(true);
+            }
         }
     }
 
     @FXML
     private void manejarModalRegistrarCategorias(){
         if(overlayRegistrarCategorias.isVisible()){
+            FadeDownAnimation.play(lblMsgRegistroCategoria);
             overlayRegistrarCategorias.setVisible(false);
         }else{
             overlayRegistrarCategorias.setVisible(true);
         }
     }
+    
     @FXML
     public void manejarModalEliminar(){
         if(overlayEliminar.isVisible()){
@@ -373,10 +448,12 @@ public class ProductosListController {
             overlayEliminar.setVisible(true);
         }
     }
+    
     @FXML
     public void manejarModalEditarMuebles(){
         if(overlayEditarMuebles.isVisible()){
             overlayEditarMuebles.setVisible(false);
+            FadeDownAnimation.play(lblMsgEdicionMueble);
         }else{
             txtNombreEditar.setText(muebleParaEditar.getNombreMueble());
             txtDescripcionEditar.setText(muebleParaEditar.getDescripcionMueble());
@@ -384,6 +461,23 @@ public class ProductosListController {
             txtMaterialEditar.setText(muebleParaEditar.getNombreMaterial());
             comboCategoriaEditar.setValue(muebleParaEditar.getCategoria());
             overlayEditarMuebles.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void ocultarMensajeRegistroMueble(){
+        if(lblMsgRegistroMueble.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgRegistroMueble);
+            txtExistencias.getStyleClass().removeAll("textoIngresadoInvalido");
+            lblMsgRegistroMueble.setOpacity(0);
+        }
+        if(lblMsgEdicionMueble.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgEdicionMueble);
+            lblMsgEdicionMueble.setOpacity(0);
+        }
+        if(lblMsgRegistroCategoria.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgRegistroCategoria);
+            lblMsgRegistroCategoria.setOpacity(0);
         }
     }
 }
