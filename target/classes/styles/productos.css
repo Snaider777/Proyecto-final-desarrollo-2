@@ -112,6 +112,17 @@
 .btn-accion-primario:hover {
     -fx-background-color: #4263eb;
 }
+
+/* ========== CONTENEDOR DE CATEGORÍAS ========== */
+.contenedor-categorias {
+    -fx-background-color: white;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 16px;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+}
 .overlay {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-padding: 30;

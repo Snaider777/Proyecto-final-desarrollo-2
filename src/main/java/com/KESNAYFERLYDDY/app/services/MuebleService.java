@@ -46,8 +46,6 @@ public class MuebleService {
     public void editarMueble(MuebleDto mueble) throws Exception {
     String url = ApiConfig.HOST + "/muebles/" + mueble.getIdMueble();
     String MuebleJson = mapper.writeValueAsString(mueble);
-    System.out.println("DEBUG: nombre = " + mueble.getNombreMueble());
-    System.out.println("DEBUG: JSON que se enviara = " + mapper.writeValueAsString(mueble));
 
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url))

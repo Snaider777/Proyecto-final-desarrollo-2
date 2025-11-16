@@ -47,7 +47,8 @@ public class CategoriaService {
     public void editarCategoria(CategoriaDto categoria) throws Exception {
     String url = ApiConfig.HOST + "/categorias/" + categoria.getIdCategoria();
     String CategoriaJson = mapper.writeValueAsString(categoria);
-    
+    System.out.println("DEBUG: nombre = " + categoria.getCategoria());
+    System.out.println("DEBUG: JSON que se enviara = " + mapper.writeValueAsString(categoria));
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url))
         .header("Content-Type", "application/json")

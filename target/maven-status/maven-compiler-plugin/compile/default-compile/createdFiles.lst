@@ -1,6 +1,7 @@
 com\KESNAYFERLYDDY\app\animations\FadeOutAnimation.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$1.class
 com\KESNAYFERLYDDY\app\animations\FadeDownAnimation.class
+com\KESNAYFERLYDDY\app\controllers\ProductosListController$8.class
 com\KESNAYFERLYDDY\app\controllers\ClientesListController$3.class
 com\KESNAYFERLYDDY\app\config\ApiConfig.class
 com\KESNAYFERLYDDY\app\services\DashboardService$3.class
@@ -18,6 +19,7 @@ com\KESNAYFERLYDDY\app\models\ClienteDto.class
 com\KESNAYFERLYDDY\app\controllers\DashboardController$1.class
 com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.class
 com\KESNAYFERLYDDY\app\models\MuebleDto.class
+com\KESNAYFERLYDDY\app\controllers\ProductosListController$7.class
 com\KESNAYFERLYDDY\app\services\DashboardService.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$6.class
 com\KESNAYFERLYDDY\app\controllers\ClientesListController$1.class

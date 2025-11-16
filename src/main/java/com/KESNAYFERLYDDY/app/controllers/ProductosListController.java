@@ -1,5 +1,6 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
@@ -28,13 +29,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.Cursor;
 
 public class ProductosListController {
 
     @FXML private VBox overlayRegistrarMuebles;
     @FXML private VBox overlayEditarMuebles;
-    @FXML private VBox overlayRegistrarCategorias;
     @FXML private VBox overlayEliminar;
+    @FXML private VBox overlayRegistrarCategorias;
+    @FXML private VBox overlayEditarCategorias;
+    @FXML private VBox overlayEliminarCategorias;
 
     @FXML private TextField txtNombre;
     @FXML private TextField txtDescripcion;
@@ -43,10 +49,14 @@ public class ProductosListController {
     @FXML private ComboBox<CategoriaDto> comboCategoria;
 
     @FXML private TextField txtNombreCategoria;
+    @FXML private TextField txtNombreCategoriaEditar;
 
     @FXML private Label lblMsgRegistroMueble;
     @FXML private Label lblMsgEdicionMueble;
+    @FXML private Label lblEliminar;
     @FXML private Label lblMsgRegistroCategoria;
+    @FXML private Label lblMsgEdicionCategoria;
+    @FXML private Label lblEliminarCategoria;
     @FXML private Label lblSinCategorias;
 
     @FXML private TextField txtNombreEditar;
@@ -55,14 +65,17 @@ public class ProductosListController {
     @FXML private TextField txtMaterialEditar;
     @FXML private ComboBox<CategoriaDto> comboCategoriaEditar;
 
-    @FXML private Label lblEliminar;
     @FXML private VBox contenedorMuebles;
+    @FXML private VBox contenedorCategorias;
 
     private final MuebleService mueble = new MuebleService();
     private final CategoriaService categoria = new CategoriaService();
     private static String user = "";
+    private static List<String> listaCategoriasUsadas = new ArrayList<>();
     private MuebleDto muebleParaEliminar;
     private MuebleDto muebleParaEditar;
+    private CategoriaDto categoriaParaEditar;
+    private CategoriaDto categoriaParaEliminar;
     private Boolean listaDeCategoriasVacia;
 
     public static void show(String username) {
@@ -76,7 +89,6 @@ public class ProductosListController {
             stage.setMaximized(true);
             ProductosListController controladorProductos = loader.getController();
             controladorProductos.cargarMuebles();
-            controladorProductos.cargarCategorias();
             stage.show();
         } catch (Exception error) { error.printStackTrace(); }
     }
@@ -89,7 +101,9 @@ public class ProductosListController {
         };
         task.setOnSucceeded(event -> {
             List<MuebleDto> muebles = task.getValue();
+            setListaDeCategoriasUsadas(muebles);
             mostrarMuebles(muebles);
+            cargarCategorias();
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -110,14 +124,92 @@ public class ProductosListController {
             comboCategoriaEditar.getItems().clear();
             comboCategoriaEditar.getItems().addAll(categorias);
             listaDeCategoriasVacia = categorias.isEmpty();
+            mostrarCategorias(categorias);
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
         });
         new Thread(task).start();
     }
+    
+    private void mostrarCategorias(List<CategoriaDto> categorias) {
+        // Estructura de tarjetita de categorias y estilos hechos por el chalan ChatPGT
+        contenedorCategorias.getChildren().clear();
+        
+        // Título del contenedor de categorías
+        Label titulo = new Label("Categorías");
+        titulo.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2d3436; -fx-padding: 0 0 12 0;");
+        
+        VBox contenidoCategorias = new VBox(8);
+        contenidoCategorias.setStyle("-fx-spacing: 8; -fx-padding: 0;");
+        
+        for (CategoriaDto cat : categorias) {
+            HBox tarjetaCategoria = new HBox();
+            tarjetaCategoria.setStyle("-fx-background-color: white; -fx-border-color: #e9ecef; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12; -fx-spacing: 8;");
+            tarjetaCategoria.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+            
+            Label nombreCategoria = new Label(cat.getCategoria());
+            nombreCategoria.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #2d3436; -fx-wrap-text: true;");
+            nombreCategoria.setWrapText(true);
+            
+            // Spacer para empujar los botones a la derecha
+            javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
+            HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+            
+            // Botones de acción con imágenes
+            HBox botonesAccion = new HBox(8);
+            botonesAccion.setStyle("-fx-spacing: 8;");
+            botonesAccion.setAlignment(javafx.geometry.Pos.CENTER);
+            
+            // Botón Editar con imagen
+            try {
+                Image imgEditar = new Image(ProductosListController.class.getResourceAsStream("/images/editar.png"));
+                ImageView iconEditar = new ImageView(imgEditar);
+                iconEditar.setFitWidth(20);
+                iconEditar.setFitHeight(20);
+                iconEditar.setPickOnBounds(true);
+                iconEditar.setCursor(Cursor.HAND);
+                iconEditar.setOnMouseClicked(event -> { setCategoriaParaEditar(cat); manejarModalEditarCategorias(); });
+                botonesAccion.getChildren().add(iconEditar);
+            } catch (Exception e) {
+                System.err.println("Error cargando imagen editar: " + e.getMessage());
+            }
+            System.out.print("Contiene cat: " + listaCategoriasUsadas.contains(cat.getCategoria()));
+            if(listaCategoriasUsadas.contains(cat.getCategoria())){
+                try {
+                    Image imgEliminar = new Image(ProductosListController.class.getResourceAsStream("/images/borrar_negado.png"));
+                    ImageView iconEliminar = new ImageView(imgEliminar);
+                    iconEliminar.setFitWidth(20);
+                    iconEliminar.setFitHeight(20);
+                    botonesAccion.getChildren().add(iconEliminar);
+                } catch (Exception e) {
+                    System.err.println("Error cargando imagen borrar: " + e.getMessage());
+                }
+            }else{
+                try {
+                    Image imgEliminar = new Image(ProductosListController.class.getResourceAsStream("/images/borrar.png"));
+                    ImageView iconEliminar = new ImageView(imgEliminar);
+                    iconEliminar.setFitWidth(20);
+                    iconEliminar.setFitHeight(20);
+                    iconEliminar.setPickOnBounds(true);
+                    iconEliminar.setCursor(Cursor.HAND);
+                    iconEliminar.setOnMouseClicked(event -> { setCategoriaParaEliminar(cat); manejarModalEliminarCategorias(); });
+                    botonesAccion.getChildren().add(iconEliminar);
+                } catch (Exception e) {
+                    System.err.println("Error cargando imagen borrar: " + e.getMessage());
+                }
+            }
+            
+            tarjetaCategoria.getChildren().addAll(nombreCategoria, spacer, botonesAccion);
+            contenidoCategorias.getChildren().add(tarjetaCategoria);
+        }
+        
+        contenedorCategorias.getChildren().addAll(titulo, contenidoCategorias);
+    }
+
     private void mostrarMuebles(List<MuebleDto> muebles) {
-        // Estructura de tarjeta y estilos hechos por el chalan ChatPGT
+        // Estructura de tarjeta de muebles y estilos hechos por el chalan ChatPGT
+        
         // Limpiar el contenedor y crear un FlowPane para el grid
         contenedorMuebles.getChildren().clear();
         
@@ -209,15 +301,7 @@ public class ProductosListController {
     }
 
     public void registrarMueble() {
-        String textoExistencias = txtExistencias.getText();
-        Boolean existenciasValidas;
-        try {
-            int numero = Integer.parseInt(textoExistencias);
-            System.out.println("Numero valido para existencias: " + numero);
-            existenciasValidas = true;
-        } catch (NumberFormatException e) {
-            existenciasValidas = false;
-        }
+        Boolean existenciasValidas = verificarExistenciasIngresadas(txtExistencias);
         if(
             txtNombre.getText().isEmpty() ||
             txtDescripcion.getText().isEmpty() ||
@@ -274,6 +358,7 @@ public class ProductosListController {
     }
 
     public void editarMueble() {
+        Boolean existenciasValidas = verificarExistenciasIngresadas(txtExistenciasEditar);
         if(
             txtNombreEditar.getText().isEmpty() ||
             txtDescripcionEditar.getText().isEmpty() ||
@@ -294,6 +379,12 @@ public class ProductosListController {
             lblMsgEdicionMueble.getStyleClass().removeAll("exito", "error", "advertencia");
             lblMsgEdicionMueble.getStyleClass().add("advertencia");
             lblMsgEdicionMueble.setText("Ningún campo ha sido modificado");
+            FadeUpAnimation.play(lblMsgEdicionMueble);
+        }else if(!existenciasValidas){
+            lblMsgEdicionMueble.getStyleClass().removeAll("exito","error", "advertencia" );
+            lblMsgEdicionMueble.getStyleClass().add("error");
+            lblMsgEdicionMueble.setText("El valor de las existencias no es válido");
+            txtExistenciasEditar.getStyleClass().add("textoIngresadoInvalido");
             FadeUpAnimation.play(lblMsgEdicionMueble);
         }else{
             MuebleDto muebleObj = new MuebleDto();
@@ -366,16 +457,82 @@ public class ProductosListController {
             };
             task.setOnSucceeded(event -> Platform.runLater(() -> {
                 cargarCategorias();
+                lblMsgRegistroCategoria.getStyleClass().removeAll("error");
+                lblMsgRegistroCategoria.getStyleClass().add("exito");
+                lblMsgRegistroCategoria.setText("Categoria registrada con exito");
+                txtNombreCategoria.setText("");
+                FadeUpAnimation.play(lblMsgRegistroCategoria);
             }));
             task.setOnFailed(event -> {
-                task.getException().printStackTrace();
                 Platform.runLater(() -> {
-                    
+                task.getException().printStackTrace();
+                lblMsgRegistroCategoria.getStyleClass().removeAll("exito", "error", "advertencia");
+                lblMsgRegistroCategoria.getStyleClass().add("error");
+                lblMsgRegistroCategoria.setText("Error al registrar la categoria");
+                FadeUpAnimation.play(lblMsgRegistroCategoria);
                 });
                 System.out.println("Error en la tarea: " + task.getException().getMessage() );
             });
             new Thread(task).start();
         }
+    }
+
+    public void editarCategoria() {
+        if(txtNombreCategoriaEditar.getText().isEmpty()){
+            lblMsgEdicionCategoria.getStyleClass().removeAll("exito", "advertencia", "error");
+            lblMsgEdicionCategoria.getStyleClass().add("error");
+            lblMsgEdicionCategoria.setText("Complete el campo solicitado");
+            FadeUpAnimation.play(lblMsgEdicionCategoria);
+        }else if(txtNombreCategoriaEditar.getText().equals(categoriaParaEditar.getCategoria())){
+            lblMsgEdicionCategoria.getStyleClass().removeAll("exito", "error", "advertencia");
+            lblMsgEdicionCategoria.getStyleClass().add("advertencia");
+            lblMsgEdicionCategoria.setText("El campo no ha sido modificado");
+            FadeUpAnimation.play(lblMsgEdicionCategoria);
+        }else{
+            CategoriaDto categoriaObj = new CategoriaDto();
+            categoriaObj.setIdCategoria(categoriaParaEditar.getIdCategoria());
+            categoriaObj.setCategoria(txtNombreCategoriaEditar.getText());
+            Task<Void> task = new Task<>() {
+                @Override protected Void call() throws Exception {
+                    categoria.editarCategoria(categoriaObj);
+                    return null;
+                }
+            };
+            task.setOnSucceeded(event -> Platform.runLater(() -> {
+                lblMsgEdicionCategoria.getStyleClass().removeAll("exito", "error", "advertencia");
+                lblMsgEdicionCategoria.getStyleClass().add("exito");
+                lblMsgEdicionCategoria.setText("Categoria actualizada exitosamente");
+                FadeUpAnimation.play(lblMsgEdicionCategoria);
+                this.categoriaParaEditar = categoriaObj;
+                cargarCategorias();
+            }));
+            task.setOnFailed(event -> {
+                task.getException().printStackTrace();
+                lblMsgEdicionCategoria.getStyleClass().removeAll("exito", "error", "advertencia");
+                lblMsgEdicionCategoria.getStyleClass().add("error");
+                lblMsgEdicionCategoria.setText("Error al editar la categoria");
+                FadeUpAnimation.play(lblMsgEdicionCategoria);
+                System.out.println("Error en la tarea: " + task.getException().getMessage() );
+            });
+            new Thread(task).start();
+        }
+    }
+
+    public void eliminarCategoria(){
+        Task<Void> task = new Task<>() {
+            @Override protected Void call() throws Exception {
+                categoria.eliminarCategoria(categoriaParaEliminar.getIdCategoria());
+                return null;
+            }
+        };
+        task.setOnSucceeded(event -> Platform.runLater(() -> {
+            manejarModalEliminarCategorias();
+            cargarCategorias();
+        }));
+        task.setOnFailed(event -> {
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
     }
     
     private String obtenerEstadoProducto(){
@@ -385,12 +542,34 @@ public class ProductosListController {
             return "Sin stock";
         }
     }
+    private boolean verificarExistenciasIngresadas(TextField nodo){
+            String existenciasIngresadas = nodo.getText();
+            try {
+                int numero = Integer.parseInt(existenciasIngresadas);
+                System.out.println("Numero valido para existencias: " + numero);
+                return true;
+            } catch (NumberFormatException error) {
+                return false;
+            }
+        }
 
     public void setMuebleParaEliminar(MuebleDto muebleParaEliminar){
         this.muebleParaEliminar = muebleParaEliminar;
     }
     public void setMuebleParaEditar(MuebleDto muebleParaEditar){
         this.muebleParaEditar = muebleParaEditar;
+    }
+    public void setCategoriaParaEliminar(CategoriaDto categoriaParaEliminar){
+        this.categoriaParaEliminar = categoriaParaEliminar;
+    }
+    public void setCategoriaParaEditar(CategoriaDto categoriaParaEditar){
+        this.categoriaParaEditar = categoriaParaEditar;
+    }
+    public void setListaDeCategoriasUsadas(List<MuebleDto> listaDeMuebles){
+        listaCategoriasUsadas.clear();
+        for(MuebleDto mueble : listaDeMuebles){
+            listaCategoriasUsadas.add(mueble.getCategoria().getCategoria());
+        }
     }
 
     @FXML
@@ -430,26 +609,6 @@ public class ProductosListController {
     }
 
     @FXML
-    private void manejarModalRegistrarCategorias(){
-        if(overlayRegistrarCategorias.isVisible()){
-            FadeDownAnimation.play(lblMsgRegistroCategoria);
-            overlayRegistrarCategorias.setVisible(false);
-        }else{
-            overlayRegistrarCategorias.setVisible(true);
-        }
-    }
-    
-    @FXML
-    public void manejarModalEliminar(){
-        if(overlayEliminar.isVisible()){
-            overlayEliminar.setVisible(false);
-        }else{
-            lblEliminar.setText("Eliminar: " + muebleParaEliminar.getNombreMueble());
-            overlayEliminar.setVisible(true);
-        }
-    }
-    
-    @FXML
     public void manejarModalEditarMuebles(){
         if(overlayEditarMuebles.isVisible()){
             overlayEditarMuebles.setVisible(false);
@@ -463,6 +622,47 @@ public class ProductosListController {
             overlayEditarMuebles.setVisible(true);
         }
     }
+    
+    @FXML
+    public void manejarModalEliminar(){
+        if(overlayEliminar.isVisible()){
+            overlayEliminar.setVisible(false);
+        }else{
+            lblEliminar.setText("Eliminar: " + muebleParaEliminar.getNombreMueble());
+            overlayEliminar.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void manejarModalRegistrarCategorias(){
+        if(overlayRegistrarCategorias.isVisible()){
+            FadeDownAnimation.play(lblMsgRegistroCategoria);
+            overlayRegistrarCategorias.setVisible(false);
+        }else{
+            overlayRegistrarCategorias.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void manejarModalEditarCategorias(){
+        if(overlayEditarCategorias.isVisible()){
+            overlayEditarCategorias.setVisible(false);
+            FadeDownAnimation.play(lblMsgEdicionCategoria);
+        }else{
+            txtNombreCategoriaEditar.setText(categoriaParaEditar.getCategoria());
+            overlayEditarCategorias.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void manejarModalEliminarCategorias(){
+        if(overlayEliminarCategorias.isVisible()){
+            overlayEliminarCategorias.setVisible(false);
+        }else{
+            lblEliminarCategoria.setText("Eliminar: " + categoriaParaEliminar.getCategoria());
+            overlayEliminarCategorias.setVisible(true);
+        }
+    }
 
     @FXML
     private void ocultarMensajeRegistroMueble(){
@@ -473,11 +673,16 @@ public class ProductosListController {
         }
         if(lblMsgEdicionMueble.getOpacity() != 0){
             FadeDownAnimation.play(lblMsgEdicionMueble);
+            txtExistenciasEditar.getStyleClass().removeAll("textoIngresadoInvalido");
             lblMsgEdicionMueble.setOpacity(0);
         }
         if(lblMsgRegistroCategoria.getOpacity() != 0){
             FadeDownAnimation.play(lblMsgRegistroCategoria);
             lblMsgRegistroCategoria.setOpacity(0);
         }
+        if(lblMsgEdicionCategoria.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgEdicionCategoria);
+            lblMsgEdicionCategoria.setOpacity(0);
+        }   
     }
 }
