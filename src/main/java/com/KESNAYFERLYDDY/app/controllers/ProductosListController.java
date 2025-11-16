@@ -174,7 +174,7 @@ public class ProductosListController {
             } catch (Exception e) {
                 System.err.println("Error cargando imagen editar: " + e.getMessage());
             }
-            System.out.print("Contiene cat: " + listaCategoriasUsadas.contains(cat.getCategoria()));
+
             if(listaCategoriasUsadas.contains(cat.getCategoria())){
                 try {
                     Image imgEliminar = new Image(ProductosListController.class.getResourceAsStream("/images/borrar_negado.png"));

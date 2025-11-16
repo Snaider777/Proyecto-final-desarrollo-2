@@ -4,9 +4,7 @@
 <?import javafx.geometry.Insets?>
 <StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
         fx:controller="com.KESNAYFERLYDDY.app.controllers.ProductosListController" stylesheets="@/styles/productos.css" >
-    <ScrollPane fitToWidth="true" fitToHeight="false" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="productos-scroll">
-        <content>
-            <VBox spacing="16" style="-fx-background-color: #f8f9fa;">
+            <VBox spacing="16" style="-fx-background-color: #f8f9fa;" VBox.vgrow="ALWAYS">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
@@ -23,17 +21,17 @@
                         </HBox>
                     </right>
                 </BorderPane>
-                <HBox spacing="16" HBox.hgrow="ALWAYS">
-                    <!-- Contenedor de muebles a la izquierda -->
-                    <VBox fx:id="contenedorMuebles" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                    </VBox>
-                    <!-- Contenedor de categorías a la derecha -->
-                    <VBox fx:id="contenedorCategorias" styleClass="contenedor-categorias" prefWidth="250" VBox.vgrow="ALWAYS">
-                    </VBox>
-                </HBox>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="productos-scroll" VBox.vgrow="ALWAYS">
+                    <content >
+                        <HBox spacing="16" HBox.hgrow="ALWAYS">
+                            <VBox fx:id="contenedorMuebles" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            </VBox>
+                            <VBox fx:id="contenedorCategorias" styleClass="contenedor-categorias" prefWidth="250" VBox.vgrow="ALWAYS">
+                            </VBox>
+                        </HBox>
+                    </content>
+                </ScrollPane>
             </VBox>
-        </content>
-    </ScrollPane>
 
     <VBox fx:id="overlayRegistrarMuebles"
         alignment="CENTER"
