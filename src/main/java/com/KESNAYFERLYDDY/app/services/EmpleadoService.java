@@ -10,6 +10,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
 
 public class EmpleadoService {
@@ -83,5 +85,14 @@ public class EmpleadoService {
             throw new RuntimeException("Error al eliminar empleado: " 
                 + response.statusCode() + " - " + response.body());
         }
+    }
+
+    public static Connection getConexion() throws Exception {
+        String url = "jdbc:sqlserver://LOCALHOST:1433;databaseName=Muebleria;encrypt=true;trustServerCertificate=true";
+        String usuario = "sqluser";
+        String password = "nayeliadmin123456";
+
+        Connection conexion = DriverManager.getConnection(url, usuario, password);
+        return conexion;
     }
 }

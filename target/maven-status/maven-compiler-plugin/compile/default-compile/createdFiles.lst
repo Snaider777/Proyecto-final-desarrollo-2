@@ -7,6 +7,7 @@ com\KESNAYFERLYDDY\app\services\EmpleadoService$1.class
 com\KESNAYFERLYDDY\app\services\EmpleadoService.class
 com\KESNAYFERLYDDY\app\config\ApiConfig.class
 com\KESNAYFERLYDDY\app\services\DashboardService$3.class
+com\KESNAYFERLYDDY\app\controllers\EmpleadosListController$5.class
 com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.class
 com\KESNAYFERLYDDY\app\models\CategoriaDto.class
 com\KESNAYFERLYDDY\app\services\AuthService.class
