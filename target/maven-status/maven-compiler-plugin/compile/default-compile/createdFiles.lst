@@ -8,8 +8,12 @@ com\KESNAYFERLYDDY\app\services\EmpleadoService$1.class
 com\KESNAYFERLYDDY\app\services\EmpleadoService.class
 com\KESNAYFERLYDDY\app\config\ApiConfig.class
 com\KESNAYFERLYDDY\app\services\DashboardService$3.class
+<<<<<<< HEAD
 com\KESNAYFERLYDDY\app\controllers\VentasListController$4.class
 com\KESNAYFERLYDDY\app\controllers\VentasListController$1.class
+=======
+com\KESNAYFERLYDDY\app\controllers\EmpleadosListController$5.class
+>>>>>>> origin/Nayels
 com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.class
 com\KESNAYFERLYDDY\app\controllers\VentasListController$2.class
 com\KESNAYFERLYDDY\app\models\CategoriaDto.class

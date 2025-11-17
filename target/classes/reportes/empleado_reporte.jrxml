@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports 
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="empleados_reporte" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <parameter name="usuarioImpresion" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="fechaImpresion" class="java.util.Date" isForPrompting="false"/>
+
+    <field name="idEmpleado" class="java.lang.Integer"/>
+    <field name="nombresEmpleado" class="java.lang.String"/>
+    <field name="apellidosEmpleado" class="java.lang.String"/>
+    <field name="direccionEmpleado" class="java.lang.String"/>
+    <field name="duiEmpleado" class="java.lang.String"/>
+    <field name="telefonoEmpleado" class="java.lang.String"/>
+
+    <title>
+        <band height="130">
+
+            <staticText>
+                <reportElement x="150" y="0" width="300" height="40"/>
+                <text><![CDATA[REPORTE DE EMPLEADOS]]></text>
+            </staticText>
+
+            <image>
+                <reportElement x="450" y="0" width="100" height="80"/>
+                <imageExpression><![CDATA["src/main/resources/images/Loguito.png"]]></imageExpression>
+            </image>
+
+            <staticText>
+                <reportElement x="20" y="40" width="150" height="20"/>
+                <text><![CDATA[Fecha de creación:]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="150" y="40" width="200" height="20"/>
+                <textFieldExpression><![CDATA[
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{fechaImpresion})
+                ]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="20" y="70" width="150" height="20"/>
+                <text><![CDATA[Generado por:]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="150" y="70" width="300" height="20"/>
+                <textFieldExpression><![CDATA[$P{usuarioImpresion}]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+
+            <staticText>
+                <reportElement x="0" y="0" width="50" height="20"/>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="50" y="0" width="100" height="20"/>
+                <text><![CDATA[Nombres]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="150" y="0" width="100" height="20"/>
+                <text><![CDATA[Apellidos]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <text><![CDATA[Dirección]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <text><![CDATA[DUI]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="450" y="0" width="100" height="20"/>
+                <text><![CDATA[Teléfono]]></text>
+            </staticText>
+
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+
+            <textField>
+                <reportElement x="0" y="0" width="50" height="20"/>
+                <textFieldExpression><![CDATA[$F{idEmpleado}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="50" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{nombresEmpleado}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="150" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{apellidosEmpleado}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{direccionEmpleado}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{duiEmpleado}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="450" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{telefonoEmpleado}]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="20">
+            <textField>
+                <reportElement x="400" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>

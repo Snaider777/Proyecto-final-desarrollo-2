@@ -1,6 +1,9 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
@@ -14,13 +17,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.view.JasperViewer;
+
 
 public class EmpleadosListController {
 
@@ -313,4 +331,44 @@ public class EmpleadosListController {
         manejarModalRegistrar();
     }
 
+    @FXML
+    public void generarReporteEmpleados(String username) {
+        Task<JasperPrint> task = new Task<JasperPrint>() {
+            @Override
+            protected JasperPrint call() throws Exception {
+                InputStream reporteStream = getClass().getResourceAsStream("/reportes/empleado_reporte.jrxml");
+                if (reporteStream == null) {
+                    throw new RuntimeException("No se encontró el reporte empleado_reporte.jrxml");
+                }
+
+                JasperReport jasperReport = JasperCompileManager.compileReport(reporteStream);
+
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("usuarioImpresion", username);
+                parametros.put("fechaImpresion", new java.util.Date());
+
+                List<EmpleadosDto> empleados = empleadoService.listarEmpleados();
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(empleados);
+
+                return JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            JasperPrint jasperPrint = task.getValue();
+            JasperViewer.viewReport(jasperPrint, false);
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error al generar reporte: " + task.getException().getMessage()).show();
+        });
+
+        new Thread(task).start();
+    }
+
+    @FXML
+    public void accionReporte() {
+        generarReporteEmpleados(user);
+    }
 }
