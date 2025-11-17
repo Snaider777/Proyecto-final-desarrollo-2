@@ -21,4 +21,5 @@ public class EmpleadosDto {
     public void setDuiEmpleado(String s){ this.duiEmpleado = s; }
     public String getDireccionEmpleado(){ return direccionEmpleado; }
     public void setDireccionEmpleado(String s){ this.direccionEmpleado = s; }
+    @Override public String toString() { return nombresEmpleado;}
 }

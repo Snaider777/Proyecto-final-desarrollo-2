@@ -12,9 +12,11 @@ import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.KESNAYFERLYDDY.app.models.VentaDto;
+import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
 import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.VentaService;
+import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -37,6 +39,7 @@ public class VentasListController {
     private final VentaService ventaService = new VentaService();
     private final MuebleService muebleService = new MuebleService();
     private final ClienteService clienteService = new ClienteService();
+    private final EmpleadoService empleadoService = new EmpleadoService();
     
     private final Map<Integer, DetalleVentasDto> detallesPorMueble = new HashMap<>();
 
@@ -47,6 +50,7 @@ public class VentasListController {
     @FXML private VBox contenedorMuebles;
     @FXML private VBox contenedorProductosVendidos;
     @FXML private ComboBox<ClienteDto> comboClientes;
+      @FXML private ComboBox<EmpleadosDto> comboEmpleados;
     @FXML private ScrollPane contenedorTarjetasProducto;
 
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
@@ -115,6 +119,23 @@ public class VentasListController {
         new Thread(task).start();
     }
 
+    public void cargarEmpleados() {
+        Task<List<EmpleadosDto>> task = new Task<>() {
+            @Override protected List<EmpleadosDto> call() throws Exception {
+                return empleadoService.listarEmpleados();
+            }
+        };
+        task.setOnSucceeded(event -> {
+            List<EmpleadosDto> empleados = task.getValue();
+            comboEmpleados.getItems().clear();
+            comboEmpleados.getItems().addAll(empleados);
+        });
+        task.setOnFailed(event -> {
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
+    }
+
     private void mostrarMuebles(List<MuebleDto> muebles){
         contenedorMuebles.getChildren().clear();
         
@@ -144,7 +165,7 @@ public class VentasListController {
             txtPrecio.setPrefWidth(80);
             txtPrecio.setMaxWidth(80);
             txtPrecio.getStyleClass().add("precio-input");
-            txtPrecio.setOnAction(event -> ocultarMensajeRegistroVenta());
+            txtPrecio.setOnMouseClicked(event -> ocultarMensajeRegistroVenta());
 
             Button btnMenos = new Button("-");
             btnMenos.setPrefWidth(40);
@@ -446,6 +467,7 @@ public class VentasListController {
         detallesPorMueble.clear();
         listaDetalles.clear();
         comboClientes.setValue(null);
+        comboEmpleados.setValue(null);
         contenedorMuebles.getChildren().clear();
         cargarMuebles();
     }
@@ -462,11 +484,16 @@ public class VentasListController {
             lblMsgRegistroVenta.getStyleClass().add("error");
             lblMsgRegistroVenta.setText("Debe seleccionar un cliente");
             FadeUpAnimation.play(lblMsgRegistroVenta);
+        }else if(comboEmpleados.getValue() == null){
+            lblMsgRegistroVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgRegistroVenta.getStyleClass().add("error");
+            lblMsgRegistroVenta.setText("Debe seleccionar un empleado");
+            FadeUpAnimation.play(lblMsgRegistroVenta);
         }else{
             VentaDto ventaObj = new VentaDto();
             ventaObj.setDetalles(listaDetalles);
             ventaObj.setClienteId(comboClientes.getValue().getIdCliente());
-            ventaObj.setEmpleadoId(1);
+            ventaObj.setEmpleadoId(comboEmpleados.getValue().getIdEmpleado());
             Task<Void> task = new Task<>() {
                 @Override protected Void call() throws Exception {
                     ventaService.insertarVenta(ventaObj);
@@ -497,6 +524,7 @@ public class VentasListController {
             overlayRegistrarVentas.setVisible(true);
             cargarMuebles();
             cargarClientes();
+            cargarEmpleados();
         }
     }
 

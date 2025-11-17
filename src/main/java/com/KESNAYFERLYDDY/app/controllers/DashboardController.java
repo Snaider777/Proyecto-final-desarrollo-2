@@ -73,29 +73,36 @@ public class DashboardController {
     @FXML
     private void onOpenClientes(){
         ClientesListController.show(username);
-        onLogout();
+        onChangeView();
     }
 
     @FXML
     private void onOpenVentas() { 
         VentasListController.show(username);
-        onLogout();
+        onChangeView();
     }
 
     @FXML
     private void onOpenEmpleados() {
         EmpleadosListController.show(username);
-        onLogout();
+        onChangeView();
      }
 
     @FXML
     private void onOpenProductos() {
         ProductosListController.show(username);
-        onLogout();
+        onChangeView();
     }
 
     @FXML
     private void onLogout(){
+        Stage stage = (Stage) lblUser.getScene().getWindow();
+        stage.close();
+        LoginController.show();
+    }
+
+    @FXML
+    private void onChangeView(){
         Stage stage = (Stage) lblUser.getScene().getWindow();
         stage.close();
     }

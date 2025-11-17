@@ -5,10 +5,14 @@ import com.KESNAYFERLYDDY.app.services.AuthService;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
@@ -21,6 +25,22 @@ public class LoginController {
     @FXML private Label lblMsg;
 
     private final AuthService authService = new AuthService();
+
+    public static void show() {
+        try {
+            FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/fxml/login.fxml"));
+            Parent nodoRaiz = loader.load();
+            Scene scene = new Scene(nodoRaiz);
+            Stage stage = new Stage();
+            stage.setTitle("MiApp - Login");
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(LoginController.class.getResourceAsStream("/images/stageIcon.png")));
+            stage.setMaximized(true);
+            stage.show();
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+    }
 
     @FXML
     private void ocultarMensaje(){

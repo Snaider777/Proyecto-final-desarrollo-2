@@ -51,6 +51,10 @@
                             <Label text="Cliente" styleClass="input-label"/>
                             <ComboBox fx:id="comboClientes" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
                         </VBox>
+                        <VBox spacing="10">
+                            <Label text="Empleado" styleClass="input-label"/>
+                            <ComboBox fx:id="comboEmpleados" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                        </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15">
                             <Button text="Cancelar" onAction="#manejarModalRegistrarVentas" styleClass="btn-secondary"/>
                             <Button text="Guardar" onAction="#registrarVenta" styleClass="btn-primary"/>
