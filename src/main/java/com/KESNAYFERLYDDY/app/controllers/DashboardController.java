@@ -51,7 +51,7 @@ public class DashboardController {
             @Override protected Void call() throws Exception {
                 clientes = service.cantidadDeClientes();
                 ventas = service.cantidadDeVentas();
-                usuarios = service.cantidadDeUsuarios();
+                usuarios = service.cantidadDeEmpleados();
                 productos = service.cantidadDeProductos();
                 return null;
             }
@@ -83,7 +83,10 @@ public class DashboardController {
     }
 
     @FXML
-    private void onOpenUsuarios() { /* Implementa UsuariosListController.show(username) para implementar la vista de usuario y ahi editar permisos y roles */ }
+    private void onOpenEmpleados() {
+        EmpleadosListController.show(username);
+        onLogout();
+     }
 
     @FXML
     private void onOpenProductos() {
