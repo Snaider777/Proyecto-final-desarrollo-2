@@ -20,4 +20,5 @@ public class ClienteDto {
     public void setDuiCliente(String s){ this.duiCliente = s; }
     public String getDireccionCliente(){ return direccionCliente; }
     public void setDireccionCliente(String s){ this.direccionCliente = s; }
+    @Override public String toString() { return nombresCliente;}
 }

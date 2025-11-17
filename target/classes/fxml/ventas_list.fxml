@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.KESNAYFERLYDDY.app.controllers.VentasListController" stylesheets="@/styles/ventas.css" >
+            <VBox spacing="16" style="-fx-background-color: #f8f9fa;" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <BorderPane styleClass="header-ventas">
+                    <left>
+                        <Label text="Ventas" styleClass="titulo-ventas"/>
+                    </left>
+                    <right>
+                        <HBox spacing="12" alignment="CENTER_RIGHT">
+                            <Button text="Nueva venta" styleClass="btn-accion-primario" onAction="#manejarModalRegistrarVentas"/>
+                            <Button text="Cerrar" onAction="#cerrarVistaVentas" styleClass="btn-accion"/>
+                        </HBox>
+                    </right>
+                </BorderPane>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="productos-scroll" VBox.vgrow="ALWAYS">
+                    <content >
+                        <HBox spacing="16" HBox.hgrow="ALWAYS">
+                            <VBox fx:id="contenedorVentas" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"></VBox>
+                        </HBox>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+            <VBox fx:id="overlayRegistrarVentas"
+                alignment="CENTER"
+                visible="false"
+                onMouseClicked="#manejarModalRegistrarVentas"
+                xmlns:fx="http://javafx.com/fxml"
+                styleClass="overlay">
+                <Label fx:id="lblMsgRegistroVenta" id="lblMsg"/>
+                    <VBox onMouseClicked="#cancelarClickEnModal"
+                        spacing="15"
+                        styleClass="modal">
+                        <Label text="Nueva venta" styleClass="modal-title"/>
+                        <VBox fx:id = "contenedorProductos" prefHeight="200" VBox.vgrow="NEVER">
+                            <ScrollPane fx:id = "contenedorTarjetasProducto" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS" onMouseClicked="#ocultarMensajeRegistroVenta">
+                                <content>
+                                    <VBox fx:id="contenedorMuebles">
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </VBox>
+                        <VBox spacing="10">
+                            <Label text="Cliente" styleClass="input-label"/>
+                            <ComboBox fx:id="comboClientes" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="15">
+                            <Button text="Cancelar" onAction="#manejarModalRegistrarVentas" styleClass="btn-secondary"/>
+                            <Button text="Guardar" onAction="#registrarVenta" styleClass="btn-primary"/>
+                        </HBox>                                                                                                                                                                                                                                                                                                                                     
+                    </VBox>
+            </VBox>
+
+            <VBox fx:id="overlayDetalleVentas"
+                alignment="CENTER"
+                visible="false"
+                onMouseClicked="#manejarModalVerDetalles"
+                xmlns:fx="http://javafx.com/fxml"
+                styleClass="overlay">
+                <Label fx:id="lblMsgRegistroMueble" id="lblMsg"/>
+                <VBox onMouseClicked="#cancelarClickEnModal"
+                    spacing="15"
+                    styleClass="modal">
+                    <Label text="Detalles de la venta" styleClass="modal-title"/>
+                    <VBox spacing="10">
+                        <Label text="Productos vendidos" />
+                        <VBox fx:id="contenedorProductosVendidos">
+                        </VBox>
+                    </VBox>
+                    <HBox alignment="CENTER_RIGHT" spacing="15">
+                        <Button text="Cerrar" onAction="#manejarModalVerDetalles" styleClass="btn-secondary"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+</StackPane>

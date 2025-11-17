@@ -77,7 +77,10 @@ public class DashboardController {
     }
 
     @FXML
-    private void onOpenVentas() { /* Implementa VentasListController.show(username) para mostrar lo del listado de ventas */ }
+    private void onOpenVentas() { 
+        VentasListController.show(username);
+        onLogout();
+    }
 
     @FXML
     private void onOpenUsuarios() { /* Implementa UsuariosListController.show(username) para implementar la vista de usuario y ahi editar permisos y roles */ }

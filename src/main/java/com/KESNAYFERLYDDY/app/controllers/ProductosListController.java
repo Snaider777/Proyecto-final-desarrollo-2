@@ -133,10 +133,8 @@ public class ProductosListController {
     }
     
     private void mostrarCategorias(List<CategoriaDto> categorias) {
-        // Estructura de tarjetita de categorias y estilos hechos por el chalan ChatPGT
         contenedorCategorias.getChildren().clear();
         
-        // Título del contenedor de categorías
         Label titulo = new Label("Categorías");
         titulo.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2d3436; -fx-padding: 0 0 12 0;");
         
@@ -152,16 +150,13 @@ public class ProductosListController {
             nombreCategoria.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #2d3436; -fx-wrap-text: true;");
             nombreCategoria.setWrapText(true);
             
-            // Spacer para empujar los botones a la derecha
             javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
             HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
             
-            // Botones de acción con imágenes
             HBox botonesAccion = new HBox(8);
             botonesAccion.setStyle("-fx-spacing: 8;");
             botonesAccion.setAlignment(javafx.geometry.Pos.CENTER);
             
-            // Botón Editar con imagen
             try {
                 Image imgEditar = new Image(ProductosListController.class.getResourceAsStream("/images/editar.png"));
                 ImageView iconEditar = new ImageView(imgEditar);
@@ -208,35 +203,28 @@ public class ProductosListController {
     }
 
     private void mostrarMuebles(List<MuebleDto> muebles) {
-        // Estructura de tarjeta de muebles y estilos hechos por el chalan ChatPGT
-        
-        // Limpiar el contenedor y crear un FlowPane para el grid
         contenedorMuebles.getChildren().clear();
         
         FlowPane gridMuebles = new FlowPane();
-        gridMuebles.setHgap(16);  // Espaciado horizontal
-        gridMuebles.setVgap(16);  // Espaciado vertical
-        gridMuebles.setPrefWrapLength(1200); // Ancho aproximado para 4 columnas
+        gridMuebles.setHgap(16);
+        gridMuebles.setVgap(16);
+        gridMuebles.setPrefWrapLength(1200);
         gridMuebles.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         gridMuebles.setStyle("-fx-padding: 16;");
         
         for (MuebleDto mueble : muebles) {
-            // Contenedor principal de la tarjeta
             VBox tarjeta = new VBox();
             tarjeta.setStyle("-fx-background-color: white; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16; -fx-spacing: 12;");
             tarjeta.setPrefWidth(250);
             tarjeta.setMaxWidth(250);
             
-            // Nombre del mueble
             Label nombre = new Label(mueble.getNombreMueble());
             nombre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2d3436;");
             
-            // Descripción
             Label descripcion = new Label(mueble.getDescripcionMueble());
             descripcion.setStyle("-fx-font-size: 12px; -fx-text-fill: #495057; -fx-wrap-text: true;");
             descripcion.setWrapText(true);
             
-            // Contenedor de información (2 columnas)
             HBox infoRow1 = new HBox(12);
             infoRow1.setStyle("-fx-spacing: 12;");
             
@@ -256,7 +244,6 @@ public class ProductosListController {
             
             infoRow1.getChildren().addAll(infoCategoria, infoExistencia);
             
-            // Segunda fila de información
             HBox infoRow2 = new HBox(12);
             infoRow2.setStyle("-fx-spacing: 12;");
             
@@ -276,7 +263,6 @@ public class ProductosListController {
             
             infoRow2.getChildren().addAll(infoMaterial, infoEstado);
             
-            // Botones de acción
             HBox botonesAccion = new HBox(8);
             botonesAccion.setStyle("-fx-spacing: 8; -fx-padding: 8 0 0 0;");
             
@@ -289,14 +275,11 @@ public class ProductosListController {
             btnEliminar.setOnAction(event -> {setMuebleParaEliminar(mueble); manejarModalEliminar();});
             botonesAccion.getChildren().addAll(btnEditar, btnEliminar);
             
-            // Agregar todos los elementos a la tarjeta
             tarjeta.getChildren().addAll(nombre, descripcion, infoRow1, infoRow2, botonesAccion);
             
-            // Agregar la tarjeta al grid
             gridMuebles.getChildren().add(tarjeta);
         }
         
-        // Agregar el grid al contenedor principal
         contenedorMuebles.getChildren().add(gridMuebles);
     }
 

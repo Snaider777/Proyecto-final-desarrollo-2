@@ -15,6 +15,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: #2d3436;
 }
+
 #lblMsg {
     -fx-pref-width: 520;
     -fx-max-width: 400;
@@ -22,9 +23,7 @@
     -fx-font-size: 16px;
 	-fx-alignment: center;
 }
-.table-view .table-cell {
-    -fx-alignment: CENTER;
-}
+
 .eliminadoConExito {
     -fx-background-color: #eafdec;
     -fx-text-fill: #56b83e;
@@ -34,6 +33,7 @@
     -fx-padding: 10 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
+
 .error {
     -fx-background-color: #fdeaea;
     -fx-border-width: 0 0 0 4; 
@@ -44,6 +44,7 @@
     -fx-padding: 10 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
+
 .exito {
     -fx-background-color: #eafdec;
     -fx-border-width: 0 0 0 4; 
@@ -54,6 +55,7 @@
     -fx-padding: 10 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
+
 .advertencia {
     -fx-background-color: #fdf3ea;
     -fx-border-width: 0 0 0 4; 
@@ -64,6 +66,7 @@
     -fx-padding: 10 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
+
 .button {
     -fx-background-color: #fff;
     -fx-text-fill: #2d3436;
@@ -81,7 +84,7 @@
 }
 
 .button.primary {
-    -fx-background-color: #1E88E5;;
+    -fx-background-color: #4c6ef5;
     -fx-text-fill: white;
     -fx-border-color: transparent;
 }
@@ -117,6 +120,12 @@
     -fx-padding: 12px 16px;
 }
 
+.table-view .table-cell {
+    -fx-alignment: CENTER;
+    -fx-padding: 12px 16px;
+    -fx-text-fill: #495057;
+}
+
 .table-row-cell {
     -fx-background-color: white;
     -fx-border-color: transparent transparent #f1f3f5 transparent;
@@ -134,11 +143,6 @@
 
 .table-row-cell:hover {
     -fx-background-color: #f1f3f5;
-}
-
-.table-view .table-cell {
-    -fx-padding: 12px 16px;
-    -fx-text-fill: #495057;
 }
 
 .scroll-bar:vertical,
@@ -164,8 +168,6 @@
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
-
-/* Estilos para el formulario */
 
 .form-container {
     -fx-background-color: white;

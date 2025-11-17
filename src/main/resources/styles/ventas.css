@@ -1,11 +1,12 @@
+
 .root {
     -fx-background-color: #f8f9fa;
     -fx-font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont;
 }
 
 #lblMsg {
-    -fx-pref-width: 520;
-    -fx-max-width: 400;
+    -fx-pref-width: 650;
+    -fx-max-width: 650;
     -fx-padding: 15 20 15 20; 
     -fx-font-size: 16px;
 	-fx-alignment: center;
@@ -44,38 +45,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
 
-.text-field.textoIngresadoInvalido {
-    -fx-border-color: #e74c3c;  
-    -fx-border-width: 2px;
-    -fx-border-radius: 4px;
-    -fx-background-color: #ffecec;
-    -fx-focus-color: #e74c3c;
-}
-
-.errorMsjSinCategorias {
-    -fx-background-color: #ffecec;
-    -fx-text-fill: #b03a2e; 
-    -fx-font-size: 15px;
-    -fx-font-weight: 600;
-    -fx-padding: 5px 13px;
-    -fx-border-color: #e57373;  
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0.3, 2, 2);
-    -fx-alignment: center-left; 
-    -fx-opacity: 0.95;
-    -fx-max-width: 400px;
-}
-
-.header-productos {
+.header-ventas {
     -fx-background-color: white;
     -fx-padding: 16px;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
 }
 
-.titulo-productos {
+.titulo-ventas {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d3436;
@@ -139,46 +116,51 @@
     -fx-background-color: #f2f2f2;
 }
 
-.btn-editar {
+.btn-menos {
+    -fx-font-size: 13px;
+    -fx-background-color: #f1f3f5;
+    -fx-text-fill: #495057;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+}
+
+.btn-menos:hover {
+    -fx-background-color: #e9ecef;
+}
+
+.btn-mas {
+    -fx-font-size: 13px;
+    -fx-background-color: #e6f4ea;
+    -fx-text-fill: #2b8a3e;
+    -fx-border-color: #b6d9c2;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+}
+
+.btn-mas:hover {
+    -fx-background-color: #d3f4dd;
+}
+
+.btn-ver-detalles {
     -fx-background-color: #4c6ef5;
     -fx-text-fill: white;
-    -fx-padding: 6 16;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-font-size: 12px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 20;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(76,110,245,0.3), 4, 0, 0, 2);
 }
 
-.btn-editar:hover {
+.btn-ver-detalles:hover {
     -fx-background-color: #4263eb;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
-}
-
-.btn-eliminar {
-    -fx-background-color: #ff6b6b;
-    -fx-text-fill: white;
-    -fx-padding: 6 16;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-font-size: 12px;
-    -fx-cursor: hand;
-    -fx-border-color: transparent;
-}
-
-.btn-eliminar:hover {
-    -fx-background-color: #fa5252;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
-}
-
-.contenedor-categorias {
-    -fx-background-color: white;
-    -fx-border-color: #e9ecef;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-padding: 16px;
-    -fx-spacing: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(76,110,245,0.5), 6, 0, 0, 2);
 }
 
 .overlay {
@@ -192,7 +174,7 @@
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 20, 0, 0, 8);
-    -fx-max-width: 400;
+    -fx-max-width: 650;
 }
 
 .modal-title {
@@ -222,71 +204,21 @@
     -fx-background-color: #fff;
 }
 
-.contenedor-tarjetas {
-    -fx-spacing: 16;
-    -fx-padding: 20;
-}
-
-.tarjeta-mueble {
-    -fx-background-color: white;
+.contenedor-productos-modal {
+    -fx-background-color: #f9f9f9;
     -fx-border-color: #e9ecef;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-padding: 16;
-    -fx-spacing: 12;
-    -fx-max-width: 300;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+    -fx-padding: 12;
+    -fx-min-height: 200;
+    -fx-max-height: 250;
+    -fx-border-width: 1;
 }
 
-.tarjeta-mueble:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8, 0, 0, 4);
-}
-
-.tarjeta-titulo {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2d3436;
-}
-
-.tarjeta-descripcion {
+.contenedor-productos-modal Label {
     -fx-font-size: 12px;
-    -fx-text-fill: #495057;
-    -fx-wrap-text: true;
-}
-
-.tarjeta-info {
-    -fx-spacing: 12;
-    -fx-padding: 8 0;
-}
-
-.tarjeta-info-item {
-    -fx-spacing: 4;
-}
-
-.tarjeta-label {
-    -fx-font-size: 11px;
     -fx-text-fill: #868e96;
-    -fx-font-weight: bold;
-}
-
-.tarjeta-valor {
-    -fx-font-size: 13px;
-    -fx-text-fill: #2d3436;
-}
-
-.tarjeta-botones {
-    -fx-spacing: 8;
-    -fx-padding: 8 0 0 0;
-}
-
-.estado-en-stock {
-    -fx-text-fill: #51cf66;
-    -fx-font-weight: bold;
-}
-
-.estado-sin-stock {
-    -fx-text-fill: #ff6b6b;
-    -fx-font-weight: bold;
+    -fx-font-style: italic;
 }
 
 .productos-scroll {
@@ -299,4 +231,117 @@
 
 .productos-scroll:focused {
     -fx-border-color: transparent;
+}
+
+.tarjeta-producto {
+    -fx-background-color: white;
+    -fx-border-color: #dfe3e6;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 4, 0, 0, 2);
+}
+
+.precio-input {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 6;
+    -fx-font-size: 12px;
+    -fx-text-fill: #343a40;
+}
+
+.producto-nombre {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2d3436;
+    -fx-font-weight: bold;
+}
+
+.producto-cantidad {
+    -fx-font-size: 12px;
+    -fx-text-fill: #495057;
+    -fx-padding: 0 0 0 6;
+}
+
+.producto-subtotal {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2d3436;
+    -fx-font-weight: bold;
+    -fx-padding: 0 10 0 4;
+}
+
+.tarjeta-venta {
+    -fx-background-color: white;
+    -fx-border-color: #e1e8ed;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+.venta-label-titulo {
+    -fx-font-size: 13px;
+    -fx-text-fill: #657786;
+    -fx-font-weight: 500;
+}
+
+.venta-label-valor {
+    -fx-font-size: 13px;
+    -fx-text-fill: #14171a;
+    -fx-font-weight: 600;
+}
+
+.venta-label-total {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2b8a3e;
+    -fx-font-weight: bold;
+}
+
+.detalle-header {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 12 16;
+    -fx-border-color: #e1e8ed;
+    -fx-border-width: 0 0 2 0;
+}
+
+.detalle-header-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #657786;
+    -fx-font-weight: 600;
+    -fx-text-transform: uppercase;
+}
+
+.detalle-fila {
+    -fx-background-color: white;
+    -fx-padding: 12 16;
+    -fx-border-color: #e1e8ed;
+    -fx-border-width: 0 0 1 0;
+}
+
+.detalle-fila:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.detalle-producto-nombre {
+    -fx-font-size: 13px;
+    -fx-text-fill: #14171a;
+    -fx-font-weight: 600;
+}
+
+.detalle-categoria {
+    -fx-font-size: 12px;
+    -fx-text-fill: #657786;
+    -fx-font-style: italic;
+}
+
+.detalle-precio {
+    -fx-font-size: 13px;
+    -fx-text-fill: #495057;
+}
+
+.detalle-subtotal {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2b8a3e;
+    -fx-font-weight: bold;
 }

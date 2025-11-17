@@ -19,6 +19,12 @@
     -fx-text-fill: rgb(4, 4, 4);
 }
 
+.dashboard {
+    -fx-background-color: #f7ece1;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
 .btn-cerrar {
     -fx-background-color: #7a4f2e;
     -fx-text-fill: rgb(253, 252, 252);
@@ -31,12 +37,6 @@
 
 .btn-cerrar:hover {
     -fx-background-color: #a16b45;
-}
-
-.dashboard {
-    -fx-background-color: #f7ece1;
-    -fx-padding: 10;
-    -fx-alignment: center;
 }
 
 .card-button {
