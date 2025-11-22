@@ -8,12 +8,9 @@ com\KESNAYFERLYDDY\app\services\EmpleadoService$1.class
 com\KESNAYFERLYDDY\app\services\EmpleadoService.class
 com\KESNAYFERLYDDY\app\config\ApiConfig.class
 com\KESNAYFERLYDDY\app\services\DashboardService$3.class
-<<<<<<< HEAD
+com\KESNAYFERLYDDY\app\controllers\EmpleadosListController$5.class
 com\KESNAYFERLYDDY\app\controllers\VentasListController$4.class
 com\KESNAYFERLYDDY\app\controllers\VentasListController$1.class
-=======
-com\KESNAYFERLYDDY\app\controllers\EmpleadosListController$5.class
->>>>>>> origin/Nayels
 com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.class
 com\KESNAYFERLYDDY\app\controllers\VentasListController$2.class
 com\KESNAYFERLYDDY\app\models\CategoriaDto.class
@@ -33,6 +30,7 @@ com\KESNAYFERLYDDY\app\controllers\ProductosListController$4.class
 com\KESNAYFERLYDDY\app\models\ClienteDto.class
 com\KESNAYFERLYDDY\app\controllers\DashboardController$1.class
 com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.class
+com\KESNAYFERLYDDY\app\services\VentaService$3.class
 com\KESNAYFERLYDDY\app\models\MuebleDto.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$7.class
 com\KESNAYFERLYDDY\app\services\DashboardService.class
@@ -57,6 +55,7 @@ com\KESNAYFERLYDDY\app\models\VentaDto.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$5.class
 com\KESNAYFERLYDDY\app\services\MuebleService.class
 com\KESNAYFERLYDDY\app\services\CategoriaService$1.class
+com\KESNAYFERLYDDY\app\controllers\VentasListController$7.class
 com\KESNAYFERLYDDY\app\services\VentaService$1.class
 com\KESNAYFERLYDDY\app\http\ApiClient.class
 com\KESNAYFERLYDDY\app\controllers\EmpleadosListController.class

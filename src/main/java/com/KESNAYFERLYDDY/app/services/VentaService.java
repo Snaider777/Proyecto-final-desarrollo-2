@@ -58,6 +58,18 @@ public class VentaService {
         return venta;
     }
     
+    public List<DetalleVentasDto> obtenerDetallesPorVentaId(Integer idVenta) throws Exception {
+        String urlDetalles = ApiConfig.HOST + "/ventas/" + idVenta + "/detalles";
+        HttpRequest reqDetalles = ApiClient.jsonRequest(urlDetalles).GET().build();
+        HttpResponse<String> rDetalles = ApiClient.get().send(reqDetalles, HttpResponse.BodyHandlers.ofString());
+        
+        if (rDetalles.statusCode() == 200) {
+            return mapper.readValue(rDetalles.body(), new TypeReference<List<DetalleVentasDto>>() {});
+        } else {
+            throw new RuntimeException("Error al obtener detalles: " + rDetalles.statusCode());
+        }
+    }
+    
     public void insertarVenta(VentaDto venta) throws Exception {
         String url = ApiConfig.HOST + "/ventas/";
         String VentaJson = mapper.writeValueAsString(venta);
@@ -108,7 +120,7 @@ public class VentaService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            System.out.println("Venta eliminado correctamente. ID: " + ventaID);
+            System.out.println("Venta eliminada correctamente. ID: " + ventaID);
         } else if (response.statusCode() == 404) {
             throw new RuntimeException("No se encontró el Venta con ID " + ventaID);
         } else {

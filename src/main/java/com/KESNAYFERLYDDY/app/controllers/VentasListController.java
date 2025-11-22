@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+import com.KESNAYFERLYDDY.app.models.CategoriaDto;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
@@ -40,20 +41,36 @@ public class VentasListController {
     private final MuebleService muebleService = new MuebleService();
     private final ClienteService clienteService = new ClienteService();
     private final EmpleadoService empleadoService = new EmpleadoService();
-    
+
     private final Map<Integer, DetalleVentasDto> detallesPorMueble = new HashMap<>();
 
     @FXML private VBox overlayRegistrarVentas;
+    @FXML private VBox overlayEliminarVentas;
+    @FXML private VBox overlayEditarVentas;
     @FXML private VBox overlayDetalleVentas;
+
     @FXML private Label lblMsgRegistroVenta;
+    @FXML private Label lblMsgEditarVenta;
+    @FXML private Label lblEliminarVenta;
+
     @FXML private VBox contenedorVentas;
     @FXML private VBox contenedorMuebles;
+    @FXML private VBox contenedorMueblesEditar;
     @FXML private VBox contenedorProductosVendidos;
+
     @FXML private ComboBox<ClienteDto> comboClientes;
-      @FXML private ComboBox<EmpleadosDto> comboEmpleados;
+    @FXML private ComboBox<ClienteDto> comboClientesEditar;
+    @FXML private ComboBox<EmpleadosDto> comboEmpleados;
+    @FXML private ComboBox<EmpleadosDto> comboEmpleadosEditar;
+
     @FXML private ScrollPane contenedorTarjetasProducto;
+    @FXML private ScrollPane contenedorTarjetasProductoEditar;
+
+    
 
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
+    private VentaDto ventaParaEliminar;
+    private VentaDto ventaParaEditar;
 
     public static void show(String username) {
         try {
@@ -131,6 +148,25 @@ public class VentasListController {
             comboEmpleados.getItems().addAll(empleados);
         });
         task.setOnFailed(event -> {
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
+    }
+
+    public void cargarDetallesDeVenta(VentaDto venta) {
+        Task<List<DetalleVentasDto>> task = new Task<>()  {
+            @Override protected List<DetalleVentasDto> call() throws Exception{
+                return ventaService.obtenerDetallesPorVentaId(venta.getIdVenta());
+            }
+        };
+        task.setOnSucceeded(event -> {
+            List<DetalleVentasDto> detalles = task.getValue();
+            venta.setDetalles(detalles);
+            mostrarDetalles(venta);
+            overlayDetalleVentas.setVisible(true);
+        });
+        task.setOnFailed(event -> {
+            System.err.println("Error al cargar detalles: " + task.getException().getMessage());
             task.getException().printStackTrace();
         });
         new Thread(task).start();
@@ -347,34 +383,23 @@ public class VentasListController {
             
             infoDetalles.getChildren().addAll(fechaBox, totalBox);
             
-            VBox contenedorBoton = new VBox();
+            HBox contenedorBoton = new HBox();
             contenedorBoton.setAlignment(Pos.CENTER_RIGHT);
             
             Button btnVerDetalles = new Button("Ver detalles");
             btnVerDetalles.getStyleClass().add("btn-ver-detalles");
-            btnVerDetalles.setOnAction(e -> {
-                Task<VentaDto> taskVenta = new Task<>() {
-                    @Override
-                    protected VentaDto call() throws Exception {
-                        return ventaService.obtenerVentaPorId(venta.getIdVenta());
-                    }
-                };
-                taskVenta.setOnSucceeded(event -> {
-                    VentaDto ventaCompleta = taskVenta.getValue();
-                    mostrarDetalles(ventaCompleta);
-                    overlayDetalleVentas.setVisible(true);
-                });
-                
-                taskVenta.setOnFailed(event -> {
-                    System.err.println("Error al cargar detalles: " + taskVenta.getException().getMessage());
-                    taskVenta.getException().printStackTrace();
-                });
-                
-                new Thread(taskVenta).start();
-            });
+            btnVerDetalles.setOnAction(e -> cargarDetallesDeVenta(venta));
+
+            Button btnEliminarVenta = new Button("Eliminar");
+            btnEliminarVenta.setOnAction( e -> {setVentaParaEliminar(venta); manejarModalEliminarVentas();});
             
+            Button btnEditarVenta = new Button("Editar");
+            btnEditarVenta.setOnAction( e -> {setVentaParaEditar(venta); manejarModalEditarVentas();});
+
+            contenedorBoton.getChildren().add(btnEliminarVenta);
             contenedorBoton.getChildren().add(btnVerDetalles);
             
+
             tarjeta.getChildren().addAll(infoVenta, infoDetalles, contenedorBoton);
             contenedorCentrado.getChildren().add(tarjeta);
             contenedorVentas.getChildren().add(contenedorCentrado);
@@ -515,6 +540,30 @@ public class VentasListController {
         }
     }
 
+    public void eliminarVenta(){
+        Task<Void> task = new Task<>() {
+            @Override protected Void call() throws Exception {
+                ventaService.eliminarVenta(ventaParaEliminar.getIdVenta());
+                return null;
+            }
+        };
+        task.setOnSucceeded(e -> {
+            cargarVentas();
+            manejarModalEliminarVentas();
+        });
+        task.setOnFailed( e -> {
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
+    }
+
+    public void setVentaParaEliminar(VentaDto ventaParaEliminar){
+        this.ventaParaEliminar = ventaParaEliminar;
+    }
+    public void setVentaParaEditar(VentaDto ventaParaEditar){
+        this.ventaParaEditar = ventaParaEditar;
+    }
+
     @FXML
     private void manejarModalRegistrarVentas(){
         if(overlayRegistrarVentas.isVisible()){
@@ -525,6 +574,25 @@ public class VentasListController {
             cargarMuebles();
             cargarClientes();
             cargarEmpleados();
+        }
+    }
+
+    @FXML
+    public void manejarModalEliminarVentas(){
+        if(overlayEliminarVentas.isVisible()){
+            overlayEliminarVentas.setVisible(false);
+        }else{
+            lblEliminarVenta.setText("Eliminar venta");
+            overlayEliminarVentas.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void manejarModalEditarVentas(){
+        if(overlayEditarVentas.isVisible()){
+            overlayEditarVentas.setVisible(false);
+        }else{
+            overlayEditarVentas.setVisible(true);
         }
     }
 
@@ -543,7 +611,7 @@ public class VentasListController {
         if(lblMsgRegistroVenta.getOpacity() != 0){
             FadeDownAnimation.play(lblMsgRegistroVenta);
             lblMsgRegistroVenta.setOpacity(0);
-        } 
+        }
     }
 
     @FXML
