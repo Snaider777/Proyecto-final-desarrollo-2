@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.KESNAYFERLYDDY.app.controllers.LoginController"
-      stylesheets="@/styles/login.css"
-      alignment="CENTER" spacing="10"
-      id="root">
-    <Label fx:id="lblMsg" id="lblMsg" />
-    <VBox id="loginBox" alignment="CENTER" spacing="12" prefWidth="360" maxWidth="360" prefHeight="420" maxHeight="420">
-      <Label text="Iniciar sesión" />
-      <TextField fx:id="txtUser" id="txtUser" promptText="Usuario" onMouseClicked="#ocultarMensaje"/>
-      <PasswordField fx:id="txtPass" id="txtPass" promptText="Contraseña" onMouseClicked="#ocultarMensaje"/>
-      <Button text="Iniciar sesión" fx:id="btnLogin" id="btnLogin" onAction="#manejarLogin"/>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.KESNAYFERLYDDY.app.controllers.LoginController"
+           stylesheets="@/styles/login.css"
+           id="root">
+
+<ImageView fx:id="bgImageView" preserveRatio="false" pickOnBounds="true" />
+<ImageView fx:id="bgImageView2" preserveRatio="false" pickOnBounds="true" />
+<Region fx:id="bgOverlay" />
+
+
+
+    <VBox alignment="CENTER" spacing="10">
+        <Label fx:id="lblMsg" id="lblMsg" />
+        <VBox id="loginBox" alignment="CENTER" spacing="12" prefWidth="360" maxWidth="360" prefHeight="420" maxHeight="420">
+          <Label text="Iniciar sesión" />
+          <TextField fx:id="txtUser" id="txtUser" promptText="Usuario" onMouseClicked="#ocultarMensaje"/>
+          <PasswordField fx:id="txtPass" id="txtPass" promptText="Contraseña" onMouseClicked="#ocultarMensaje"/>
+          <Button text="Iniciar sesión" fx:id="btnLogin" id="btnLogin" onAction="#manejarLogin"/>
+        </VBox>
     </VBox>
-</VBox>
+</StackPane>

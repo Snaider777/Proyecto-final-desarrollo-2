@@ -1,5 +1,6 @@
 #root {
-	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #f5faff 0%, #ffffff 100%);
+    -fx-pref-width: 1000; 
+    -fx-pref-height: 700;
 }
 
 #loginBox {
@@ -8,7 +9,7 @@
 	-fx-spacing: 14;
 	-fx-pref-width: 380;
 	-fx-max-width: 420;
-	-fx-background-color: #ffffff;
+	-fx-background-color: #5C4B3D;
 	-fx-background-radius: 12;
 	-fx-border-radius: 12;
 	-fx-border-color: rgba(15,20,36,0.06);
@@ -19,7 +20,7 @@
 #loginBox > .label {
 	-fx-font-size: 20px;
 	-fx-font-weight: 600;
-	-fx-text-fill: #0f1724;
+	-fx-text-fill: #F4EFEA;
 	-fx-padding: 0 0 6 0;
 	-fx-font-family: "Segoe UI", Roboto, Arial;
 }
@@ -46,19 +47,19 @@
 
 #txtUser, #txtPass {
 	-fx-pref-width: 320;
-	-fx-background-color: #fafafa;
+	-fx-background-color: #937F6A;
 	-fx-border-color: rgba(15,20,36,0.08);
 	-fx-border-width: 1;
 	-fx-background-radius: 8;
 	-fx-border-radius: 8;
 	-fx-padding: 10 12 10 12;
-	-fx-text-fill: #0f1724;
+	-fx-text-fill: #F4EFEA;
 	-fx-prompt-text-fill: rgba(15,20,36,0.45);
 }
 
 #txtUser:focused, #txtPass:focused {
-	-fx-border-color: rgba(37,99,235,0.9);
-	-fx-effect: dropshadow(gaussian, rgba(37,99,235,0.12), 6, 0.08, 0, 2);
+    -fx-border-color: rgba(175, 154, 121, 0.9); 
+    -fx-effect: dropshadow(gaussian, rgba(175, 154, 121, 0.12), 6, 0.08, 0, 2);
 }
 
 #btnLogin {
@@ -66,20 +67,24 @@
     -fx-max-width: Infinity;
     -fx-padding: 15 20 15 20; 
     -fx-font-size: 16px;
-	-fx-effect: dropshadow(gaussian, rgba(37,99,235,0.18), 8, 0.12, 0, 3);
-	-fx-background-radius: 8;
-	-fx-background-color: linear-gradient(#3b82f6, #2563eb);
-	-fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.18), 8, 0.12, 0, 3);
+    -fx-background-radius: 8;
+    -fx-background-color: #937F6A;
+    -fx-text-fill: #F4EFEA;
+    -fx-effect: dropshadow(gaussian, rgba(175, 154, 121, 0.18), 8, 0.12, 0, 3);
 }
 
 #btnLogin:hover {
-	-fx-background-color: linear-gradient(#60a5fa, #3b82f6);
-	-fx-cursor: hand;
+    -fx-background-color: #AF9A79;
+    -fx-cursor: hand;
 }
 
 #btnLogin:pressed {
-	-fx-translate-y: 1;
+    -fx-translate-y: 1;
+    -fx-background-color: #7A6652;
 }
+
+
 
 .hint {
 	-fx-text-fill: rgba(15,20,36,0.55);
@@ -89,4 +94,16 @@
 @media screen and (max-width: 420px) {
 	#loginBox { -fx-pref-width: 92%; -fx-max-width: 92%; }
 	#txtUser, #txtPass, #btnLogin { -fx-pref-width: 86%; }
+}
+
+/*SLIDER*/
+#bgImageView {
+    -fx-fit-width: 100%;
+    -fx-fit-height: 100%;
+}
+
+#bgOverlay {
+    -fx-background-color: rgba(0,0,0,0.28);
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100%;
 }
