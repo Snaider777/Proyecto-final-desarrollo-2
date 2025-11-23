@@ -17,6 +17,7 @@
             </center>
             <right>
                 <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnUsuario" text="Roles y Permisos" onAction="#accionRolesPermisos" />
                     <Button text="Reporte" styleClass="button,primary" onAction="#accionReporte"/>
                     <Button text="Nuevo" styleClass="button,primary" onAction="#manejarModalRegistrar"/>
                     <Button text="Cerrar" onAction="#cerrarVistaEmpleados"/>

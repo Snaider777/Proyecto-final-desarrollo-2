@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
+
 <HBox spacing="5" alignment="CENTER"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
       stylesheets="@/styles/empleados_botones.css">
+
     <Button fx:id="btnEditar" text="Editar" />
     <Button fx:id="btnEliminar" text="Eliminar" />
+    <Button fx:id="btnUsuario" text="Usuario" />
 </HBox>
