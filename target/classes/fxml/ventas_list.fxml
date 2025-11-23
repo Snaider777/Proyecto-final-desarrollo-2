@@ -14,6 +14,13 @@
                     </left>
                     <right>
                         <HBox spacing="12" alignment="CENTER_RIGHT">
+                            <HBox spacing="5" alignment="CENTER_LEFT" styleClass="filtro-reportes">
+                                <Label text="Desde:"/>
+                                <DatePicker fx:id="dpFechaInicio" promptText="Fecha inicio" />
+                                <Label text="Hasta:"/>
+                                <DatePicker fx:id="dpFechaFin" promptText="Fecha fin" />
+                            </HBox>
+                            <Button text="Reporte" styleClass="btn-accion-primario" onAction="#accionReporte"/>
                             <Button text="Nueva venta" styleClass="btn-accion-primario" onAction="#manejarModalRegistrarVentas"/>
                             <Button text="Cerrar" onAction="#cerrarVistaVentas" styleClass="btn-accion"/>
                         </HBox>
@@ -74,7 +81,7 @@
                         styleClass="modal">
                         <Label text="Modificar venta" styleClass="modal-title"/>
                         <VBox fx:id = "contenedorProductosEditar" prefHeight="200" VBox.vgrow="NEVER">
-                            <ScrollPane fx:id = "contenedorTarjetasProductoEditar" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS" onMouseClicked="#ocultarMensajeEditarVenta">
+                            <ScrollPane fx:id = "contenedorTarjetasProductoEditar" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                 <content>
                                     <VBox fx:id="contenedorMueblesEditar">
                                     </VBox>
@@ -83,11 +90,11 @@
                         </VBox>
                         <VBox spacing="10">
                             <Label text="Cliente" styleClass="input-label"/>
-                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
+                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" />
                         </VBox>
                         <VBox spacing="10">
                             <Label text="Empleado" styleClass="input-label"/>
-                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
+                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity"/>
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15">
                             <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="btn-secondary"/>
