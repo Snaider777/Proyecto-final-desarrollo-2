@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.KESNAYFERLYDDY.app.controllers.EmpleadoUsuarioController"
+            stylesheets="@/styles/empleados_usuarios.css"
+            prefWidth="800" prefHeight="500">
+
+    <top>
+        <ToolBar>
+            <Label fx:id="lblTitulo" text="Gestión de Usuario para Empleado" styleClass="title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Cerrar" onAction="#accionCerrarModal"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <HBox spacing="15">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Información de Cuenta" styleClass="form-title" style="-fx-font-weight: bold;"/>
+                
+                <GridPane vgap="10" hgap="10">
+                    <Label text="Estado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label fx:id="lblEstadoUsuario" text="No asignado" style="-fx-text-fill: red; -fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Usuario:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtUsername" promptText="Ej. jpereza" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Correo:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtCorreo" promptText="correo@ejemplo.com" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Contraseña:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <PasswordField fx:id="txtPassword" promptText="******" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnCrearEditar" text="Crear Usuario" onAction="#guardarUsuario" styleClass="button,primary"/>
+                    <Button fx:id="btnEliminar" text="Eliminar Usuario" onAction="#eliminarUsuarioActual" style="-fx-background-color: #ff4444; -fx-text-fill: white;" disable="true"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Roles Asignados al Usuario" styleClass="form-title" style="-fx-font-weight: bold;"/>
+                
+                <TableView fx:id="tablaRolesAsignados" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colRolNombre" text="Rol" prefWidth="150"/>
+                        <TableColumn fx:id="colRolAccion" text="Acción" prefWidth="100"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="El usuario no tiene roles asignados"/>
+                    </placeholder>
+                </TableView>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+    <ComboBox fx:id="comboRolesDisponibles" promptText="Seleccionar Rol..." prefWidth="200"/>
+    <Button fx:id="btnAsignarRol" text="Asignar Rol" onAction="#asignarRol" />
+</HBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

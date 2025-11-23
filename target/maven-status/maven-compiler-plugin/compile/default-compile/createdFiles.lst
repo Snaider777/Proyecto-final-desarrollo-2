@@ -16,6 +16,7 @@ com\KESNAYFERLYDDY\app\models\EmpleadosDto.class
 com\KESNAYFERLYDDY\app\services\DashboardService$2.class
 com\KESNAYFERLYDDY\app\models\ClienteDto.class
 com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.class
+com\KESNAYFERLYDDY\app\services\VentaService$3.class
 com\KESNAYFERLYDDY\app\models\MuebleDto.class
 com\KESNAYFERLYDDY\app\services\VentaService$2.class
 com\KESNAYFERLYDDY\app\controllers\ClientesListController$1.class
@@ -31,6 +32,7 @@ com\KESNAYFERLYDDY\app\MainApp.class
 com\KESNAYFERLYDDY\app\services\VentaService$1.class
 com\KESNAYFERLYDDY\app\http\ApiClient.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$2.class
+com\KESNAYFERLYDDY\app\controllers\VentasListController$8.class
 com\KESNAYFERLYDDY\app\animations\FadeOutAnimation.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$1.class
 com\KESNAYFERLYDDY\app\animations\FadeDownAnimation.class
@@ -57,6 +59,7 @@ com\KESNAYFERLYDDY\app\models\VentaDto.class
 com\KESNAYFERLYDDY\app\controllers\ProductosListController$5.class
 com\KESNAYFERLYDDY\app\services\MuebleService.class
 com\KESNAYFERLYDDY\app\services\CategoriaService$1.class
+com\KESNAYFERLYDDY\app\controllers\VentasListController$7.class
 com\KESNAYFERLYDDY\app\controllers\EmpleadosListController.class
 com\KESNAYFERLYDDY\app\services\CategoriaService.class
 com\KESNAYFERLYDDY\app\models\UsuarioDto.class

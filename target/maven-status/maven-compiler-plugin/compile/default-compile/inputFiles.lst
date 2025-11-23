@@ -1,31 +1,43 @@
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeDownAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInLeftAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutRightAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\config\ApiConfig.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesListController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\DashboardController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosButtonsController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosListController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\LoginController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ProductosListController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\VentasListController.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\http\ApiClient.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\MainApp.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\CategoriaDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\ClienteDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\DetalleVentasDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\EmpleadosDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\MuebleDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\UsuarioDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\VentaDto.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\AuthService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\CategoriaService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\ClienteService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\DashboardService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\EmpleadoService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\MuebleService.java
-C:\Users\ADMIN\Documents\projects\GitHub Destkop\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\VentaService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeDownAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInLeftAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutRightAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\config\ApiConfig.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesListController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\DashboardController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosButtonsController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosListController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadoUsuarioController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\LoginController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ProductosListController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\RolesPermisosController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\VentasListController.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\http\ApiClient.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\MainApp.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\AsignacionDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\CategoriaDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\ClienteDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\DetalleVentasDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\EmpleadosDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\MuebleDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\PermisoDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\RolDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\UsuarioDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\VentaDto.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\AuthService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\CategoriaService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\ClienteService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\DashboardService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\EmpleadoClienteService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\EmpleadoService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\MuebleService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\PermisoService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\RolPermisoService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\RolService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\UsuarioPermisoService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\UsuarioRolService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\UsuarioService.java
+C:\Users\snaid\OneDrive\Escritorio\mynextproject\MCI\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\VentaService.java

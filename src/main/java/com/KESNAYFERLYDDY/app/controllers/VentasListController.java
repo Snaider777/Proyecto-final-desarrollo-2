@@ -1,38 +1,50 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.math.BigDecimal;
+import java.io.InputStream;
+import java.util.Date;
 
-import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
+import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.KESNAYFERLYDDY.app.models.VentaDto;
-import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
+import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.VentaService;
-import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class VentasListController {
     private static String user = "";
@@ -40,21 +52,38 @@ public class VentasListController {
     private final MuebleService muebleService = new MuebleService();
     private final ClienteService clienteService = new ClienteService();
     private final EmpleadoService empleadoService = new EmpleadoService();
-    
+
     private final Map<Integer, DetalleVentasDto> detallesPorMueble = new HashMap<>();
 
     @FXML private VBox overlayRegistrarVentas;
+    @FXML private VBox overlayEliminarVentas;
+    @FXML private VBox overlayEditarVentas;
     @FXML private VBox overlayDetalleVentas;
+
     @FXML private Label lblMsgRegistroVenta;
+    @FXML private Label lblMsgEditarVenta;
+    @FXML private Label lblEliminarVenta;
+
     @FXML private VBox contenedorVentas;
     @FXML private VBox contenedorMuebles;
+    @FXML private VBox contenedorMueblesEditar;
     @FXML private VBox contenedorProductosVendidos;
+
     @FXML private ComboBox<ClienteDto> comboClientes;
-      @FXML private ComboBox<EmpleadosDto> comboEmpleados;
+    @FXML private ComboBox<ClienteDto> comboClientesEditar;
+    @FXML private ComboBox<EmpleadosDto> comboEmpleados;
+    @FXML private ComboBox<EmpleadosDto> comboEmpleadosEditar;
+
     @FXML private ScrollPane contenedorTarjetasProducto;
+    @FXML private ScrollPane contenedorTarjetasProductoEditar;
+
+    @FXML private DatePicker dpFechaInicio; 
+    @FXML private DatePicker dpFechaFin;
 
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
-
+    private VentaDto ventaParaEliminar;
+    private VentaDto ventaParaEditar;
+    
     public static void show(String username) {
         try {
             user = username;
@@ -86,7 +115,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarMuebles(){
+    public void cargarMuebles(String vistaDeModal){
         Task<List<MuebleDto>> task = new Task<>() {
             @Override protected List<MuebleDto> call() throws Exception {
                 return muebleService.listarMuebles();
@@ -94,7 +123,11 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<MuebleDto> muebles = task.getValue();
-            mostrarMuebles(muebles);
+            if(vistaDeModal.equals("Editar")){
+                mostrarMuebles(muebles, "Editar");
+            }else if(vistaDeModal.equals("Registrar")){
+                mostrarMuebles(muebles, "Registrar");
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -102,7 +135,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarClientes() {
+    public void cargarClientes(String vistaDeModal) {
         Task<List<ClienteDto>> task = new Task<>() {
             @Override protected List<ClienteDto> call() throws Exception {
                 return clienteService.listarClientes();
@@ -110,8 +143,13 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<ClienteDto> clientes = task.getValue();
-            comboClientes.getItems().clear();
-            comboClientes.getItems().addAll(clientes);
+            if(vistaDeModal.equals("Editar")){
+                comboClientesEditar.getItems().clear();
+                comboClientesEditar.getItems().addAll(clientes);
+            }else if(vistaDeModal.equals("Registrar")){
+                comboClientes.getItems().clear();
+                comboClientes.getItems().addAll(clientes);
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -119,7 +157,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarEmpleados() {
+    public void cargarEmpleados(String vistaDeModal) {
         Task<List<EmpleadosDto>> task = new Task<>() {
             @Override protected List<EmpleadosDto> call() throws Exception {
                 return empleadoService.listarEmpleados();
@@ -127,8 +165,13 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<EmpleadosDto> empleados = task.getValue();
-            comboEmpleados.getItems().clear();
-            comboEmpleados.getItems().addAll(empleados);
+            if(vistaDeModal.equals("Editar")){
+                comboEmpleadosEditar.getItems().clear();
+                comboEmpleadosEditar.getItems().addAll(empleados);
+            }else if(vistaDeModal.equals("Registrar")){
+                comboEmpleados.getItems().clear();
+                comboEmpleados.getItems().addAll(empleados);
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -136,15 +179,39 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    private void mostrarMuebles(List<MuebleDto> muebles){
-        contenedorMuebles.getChildren().clear();
+    public void cargarDetallesDeVenta(VentaDto venta) {
+        Task<List<DetalleVentasDto>> task = new Task<>()  {
+            @Override protected List<DetalleVentasDto> call() throws Exception{
+                return ventaService.obtenerDetallesPorVentaId(venta.getIdVenta());
+            }
+        };
+        task.setOnSucceeded(event -> {
+            List<DetalleVentasDto> detalles = task.getValue();
+            venta.setDetalles(detalles);
+            mostrarDetalles(venta);
+            overlayDetalleVentas.setVisible(true);
+        });
+        task.setOnFailed(event -> {
+            System.err.println("Error al cargar detalles: " + task.getException().getMessage());
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
+    }
+
+    private void mostrarMuebles(List<MuebleDto> muebles, String vistaDeModal){
+        // Limpiar el contenedor correcto según el modal
+        if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().clear();
+        } else {
+            contenedorMuebles.getChildren().clear();
+        }
         
         VBox columnaMuebles = new VBox(10);
         columnaMuebles.setPadding(new Insets(8));
         columnaMuebles.setStyle("-fx-background-color: transparent;");
         
-        for (MuebleDto muebleId : muebles){
-            DetalleVentasDto detalleExistente = detallesPorMueble.get(muebleId.getIdMueble());
+        for (MuebleDto mueble : muebles){
+            DetalleVentasDto detalleExistente = detallesPorMueble.get(mueble.getIdMueble());
             int cantidadInicial = (detalleExistente != null && detalleExistente.getCantidad() != null) 
                 ? detalleExistente.getCantidad() : 0;
             BigDecimal precioInicial = (detalleExistente != null && detalleExistente.getPrecio() != null)
@@ -173,8 +240,8 @@ public class VentasListController {
             btnMenos.getStyleClass().add("btn-menos");
             
             leftBox.getChildren().addAll(txtPrecio, btnMenos);
-            
-            Label lblNombre = new Label(muebleId.getNombreMueble() != null ? muebleId.getNombreMueble() : "Sin nombre");
+
+            Label lblNombre = new Label(mueble.getNombreMueble() != null ? mueble.getNombreMueble() : "Sin nombre");
             lblNombre.getStyleClass().add("producto-nombre");
             lblNombre.setWrapText(true);
 
@@ -199,7 +266,7 @@ public class VentasListController {
             rightBox.getChildren().addAll(btnMas, lblSubtotal);
             
             Runnable recalcular = () -> {
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null || detalle.getCantidad() == null || detalle.getCantidad() <= 0) {
                     lblSubtotal.setText("$0");
                     return;
@@ -217,43 +284,52 @@ public class VentasListController {
             btnMas.setOnAction(event -> {
                 ocultarMensajeRegistroVenta();
                 int cantidadActual = 0;
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle != null && detalle.getCantidad() != null) {
                     cantidadActual = detalle.getCantidad();
                 }
-                cantidadActual++;
-                lblCantidad.setText("(" + cantidadActual + ")");
-                
-                BigDecimal precioValor = BigDecimal.ZERO;
-                String textoPrecio = txtPrecio.getText();
-                if (textoPrecio != null && !textoPrecio.isBlank()) {
-                    try { precioValor = new BigDecimal(textoPrecio.trim()); } catch (NumberFormatException ex) { precioValor = BigDecimal.ZERO; }
+                if(mueble.getExistencia() == cantidadActual){
+                    lblMsgRegistroVenta.getStyleClass().removeAll("error", "exito");
+                    lblMsgRegistroVenta.getStyleClass().add("error");
+                    lblMsgRegistroVenta.setText("Sobrepasa la cantidad de productos disponibles");
+                    FadeUpAnimation.play(lblMsgRegistroVenta);
+                    lblCantidad.setStyle("-fx-text-fill: rgb(235,62,62);");
+                }else{
+                    cantidadActual++;
+                    lblCantidad.setText("(" + cantidadActual + ")");
+                    
+                    BigDecimal precioValor = BigDecimal.ZERO;
+                    String textoPrecio = txtPrecio.getText();
+                    if (textoPrecio != null && !textoPrecio.isBlank()) {
+                        try { precioValor = new BigDecimal(textoPrecio.trim()); } catch (NumberFormatException ex) { precioValor = BigDecimal.ZERO; }
+                    }
+                    
+                    if (detalle == null) {
+                        detalle = new DetalleVentasDto();
+                        detalle.setMuebleId(mueble.getIdMueble());
+                    }
+                    detalle.setCantidad(cantidadActual);
+                    detalle.setPrecio(precioValor);
+                    detallesPorMueble.put(mueble.getIdMueble(), detalle);
+                    recalcular.run();
                 }
-                
-                if (detalle == null) {
-                    detalle = new DetalleVentasDto();
-                    detalle.setMuebleId(muebleId.getIdMueble());
-                }
-                detalle.setCantidad(cantidadActual);
-                detalle.setPrecio(precioValor);
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
-                recalcular.run();
             });
             
             btnMenos.setOnAction(e -> {
+                lblCantidad.setStyle("-fx-text-fill: black;");
                 ocultarMensajeRegistroVenta();
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null || detalle.getCantidad() == null || detalle.getCantidad() <= 0) { return; }
                 int nuevaCantidad = detalle.getCantidad() - 1;
                 detalle.setCantidad(nuevaCantidad);
                 lblCantidad.setText("(" + nuevaCantidad + ")");
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
+                detallesPorMueble.put(mueble.getIdMueble(), detalle);
                 recalcular.run();
             });
             
 
             txtPrecio.textProperty().addListener((obs, oldV, newV) -> {
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null) { return; }
                 BigDecimal precioValor;
                 try { 
@@ -262,22 +338,26 @@ public class VentasListController {
                     precioValor = BigDecimal.ZERO; 
                 }
                 detalle.setPrecio(precioValor);
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
+                detallesPorMueble.put(mueble.getIdMueble(), detalle);
                 recalcular.run();
             });
             
             tarjeta.getChildren().addAll(leftBox, centerBox, rightBox);
             columnaMuebles.getChildren().add(tarjeta);
         }
-        contenedorMuebles.getChildren().add(columnaMuebles);
+        if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().add(columnaMuebles);
+        }else if(vistaDeModal.equals("Registrar")){
+            contenedorMuebles.getChildren().add(columnaMuebles);
+        }
     }
-    
+
     private void mostrarVentas(List<VentaDto> ventas){
         contenedorVentas.getChildren().clear();
         contenedorVentas.setAlignment(Pos.TOP_CENTER);
         contenedorVentas.setSpacing(16);
         contenedorVentas.setPadding(new Insets(20));
-        
+
         for (VentaDto venta : ventas) {
             VBox contenedorCentrado = new VBox();
             contenedorCentrado.setMaxWidth(Double.MAX_VALUE);
@@ -347,32 +427,21 @@ public class VentasListController {
             
             infoDetalles.getChildren().addAll(fechaBox, totalBox);
             
-            VBox contenedorBoton = new VBox();
+            HBox contenedorBoton = new HBox();
             contenedorBoton.setAlignment(Pos.CENTER_RIGHT);
             
             Button btnVerDetalles = new Button("Ver detalles");
             btnVerDetalles.getStyleClass().add("btn-ver-detalles");
-            btnVerDetalles.setOnAction(e -> {
-                Task<VentaDto> taskVenta = new Task<>() {
-                    @Override
-                    protected VentaDto call() throws Exception {
-                        return ventaService.obtenerVentaPorId(venta.getIdVenta());
-                    }
-                };
-                taskVenta.setOnSucceeded(event -> {
-                    VentaDto ventaCompleta = taskVenta.getValue();
-                    mostrarDetalles(ventaCompleta);
-                    overlayDetalleVentas.setVisible(true);
-                });
-                
-                taskVenta.setOnFailed(event -> {
-                    System.err.println("Error al cargar detalles: " + taskVenta.getException().getMessage());
-                    taskVenta.getException().printStackTrace();
-                });
-                
-                new Thread(taskVenta).start();
-            });
+            btnVerDetalles.setOnAction(e -> cargarDetallesDeVenta(venta));
+
+            Button btnEliminarVenta = new Button("Eliminar");
+            btnEliminarVenta.setOnAction( e -> {setVentaParaEliminar(venta); manejarModalEliminarVentas();});
             
+            Button btnEditarVenta = new Button("Editar");
+            btnEditarVenta.setOnAction( e -> {setVentaParaEditar(venta); manejarModalEditarVentas();});
+
+            contenedorBoton.getChildren().add(btnEditarVenta);
+            contenedorBoton.getChildren().add(btnEliminarVenta);
             contenedorBoton.getChildren().add(btnVerDetalles);
             
             tarjeta.getChildren().addAll(infoVenta, infoDetalles, contenedorBoton);
@@ -463,13 +532,20 @@ public class VentasListController {
             .forEach(listaDetalles::add);
     }
 
-    private void limpiarFormularioVenta() {
+    private void limpiarFormularioVenta(String vistaDeModal) {
         detallesPorMueble.clear();
         listaDetalles.clear();
-        comboClientes.setValue(null);
-        comboEmpleados.setValue(null);
-        contenedorMuebles.getChildren().clear();
-        cargarMuebles();
+        if(vistaDeModal.equals("Registrar")){
+            contenedorMuebles.getChildren().clear();
+            comboClientes.setValue(null);
+            comboEmpleados.setValue(null);
+            cargarMuebles("Registrar");
+        }else if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().clear();
+            comboClientesEditar.setValue(null);
+            comboEmpleadosEditar.setValue(null);
+            cargarMuebles("Editar");
+        }
     }
 
     public void registrarVenta(){
@@ -506,7 +582,7 @@ public class VentasListController {
                 lblMsgRegistroVenta.setText("Venta registrada con éxito");
                 FadeUpAnimation.play(lblMsgRegistroVenta);
                 cargarVentas();
-                limpiarFormularioVenta();
+                limpiarFormularioVenta("Registrar");
             });
             task.setOnFailed(event -> {
                 task.getException().printStackTrace();
@@ -515,16 +591,112 @@ public class VentasListController {
         }
     }
 
+    public void editarVenta(){
+        sincronizarDetalles();
+        if(listaDetalles.isEmpty()){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar almenos un producto");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else if(comboClientesEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar un cliente");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else if(comboEmpleadosEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar un empleado");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else{
+            VentaDto ventaObj = new VentaDto();
+            ventaObj.setIdVenta(ventaParaEditar.getIdVenta());
+            ventaObj.setDetalles(listaDetalles);
+            ventaObj.setClienteId(comboClientesEditar.getValue().getIdCliente());
+            ventaObj.setEmpleadoId(comboEmpleadosEditar.getValue().getIdEmpleado());
+            Task<Void> task = new Task<>() {
+                @Override protected Void call() throws Exception {
+                    ventaService.editarVenta(ventaObj);
+                    return null;
+                }
+            };
+            task.setOnSucceeded(event -> {
+                lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+                lblMsgEditarVenta.getStyleClass().add("exito");
+                lblMsgEditarVenta.setText("Venta actualizada con éxito");
+                FadeUpAnimation.play(lblMsgEditarVenta);
+                cargarVentas();
+                limpiarFormularioVenta("Editar");
+            });
+            task.setOnFailed(event -> {
+                task.getException().printStackTrace();
+            });
+            new Thread(task).start();
+        }
+    }
+
+    public void eliminarVenta(){
+        Task<Void> task = new Task<>() {
+            @Override protected Void call() throws Exception {
+                ventaService.eliminarVenta(ventaParaEliminar.getIdVenta());
+                return null;
+            }
+        };
+        task.setOnSucceeded(e -> {
+            cargarVentas();
+            manejarModalEliminarVentas();
+        });
+        task.setOnFailed( e -> {
+            task.getException().printStackTrace();
+        });
+        new Thread(task).start();
+    }
+
+    public void setVentaParaEliminar(VentaDto ventaParaEliminar){
+        this.ventaParaEliminar = ventaParaEliminar;
+    }
+    public void setVentaParaEditar(VentaDto ventaParaEditar){
+        this.ventaParaEditar = ventaParaEditar;
+    }
+
     @FXML
     private void manejarModalRegistrarVentas(){
         if(overlayRegistrarVentas.isVisible()){
             overlayRegistrarVentas.setVisible(false);
             FadeDownAnimation.play(lblMsgRegistroVenta);
         }else{
+            // Limpiar el HashMap antes de mostrar el modal
+            detallesPorMueble.clear();
+            listaDetalles.clear();
             overlayRegistrarVentas.setVisible(true);
-            cargarMuebles();
-            cargarClientes();
-            cargarEmpleados();
+            cargarMuebles("Registrar");
+            cargarClientes("Registrar");
+            cargarEmpleados("Registrar");
+        }
+    }
+
+    @FXML
+    public void manejarModalEliminarVentas(){
+        if(overlayEliminarVentas.isVisible()){
+            overlayEliminarVentas.setVisible(false);
+        }else{
+            lblEliminarVenta.setText("Eliminar venta");
+            overlayEliminarVentas.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void manejarModalEditarVentas(){
+        if(overlayEditarVentas.isVisible()){
+            overlayEditarVentas.setVisible(false);
+        }else{
+            // Limpiar el HashMap antes de mostrar el modal
+            detallesPorMueble.clear();
+            listaDetalles.clear();
+            overlayEditarVentas.setVisible(true);
+            cargarClientes("Editar");
+            cargarEmpleados("Editar");
+            cargarMuebles("Editar");
         }
     }
 
@@ -543,7 +715,15 @@ public class VentasListController {
         if(lblMsgRegistroVenta.getOpacity() != 0){
             FadeDownAnimation.play(lblMsgRegistroVenta);
             lblMsgRegistroVenta.setOpacity(0);
-        } 
+        }
+    }
+
+    @FXML
+    private void ocultarMensajeEditarVenta(){
+        if(lblMsgEditarVenta.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgEditarVenta);
+            lblMsgEditarVenta.setOpacity(0);
+        }
     }
 
     @FXML
@@ -552,4 +732,61 @@ public class VentasListController {
         stage.close();
         DashboardController.showDashboard(user);
     }
+
+    @FXML 
+    public void generarReportePorFechas(String username) { 
+        LocalDate localDateInicio = dpFechaInicio.getValue();
+        LocalDate localDateFin = dpFechaFin.getValue();
+
+        if (localDateInicio == null || localDateFin == null) {
+            new Alert(Alert.AlertType.WARNING, "Debes seleccionar una fecha de inicio y una fecha de fin para el reporte.").show();
+            return;
+        }
+
+        Date fechaInicio = Date.from(localDateInicio.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fechaFin = Date.from(localDateFin.atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant());
+
+        Task<JasperPrint> task = new Task<JasperPrint>() {
+            @Override
+            protected JasperPrint call() throws Exception {
+                String user = username; 
+                
+                InputStream reporteStream = getClass().getResourceAsStream("/reportes/ventas_reporte.jrxml");
+                if (reporteStream == null) {
+                    throw new RuntimeException("No se encontró el reporte ventas_reporte.jrxml");
+                }
+
+                JasperReport jasperReport = JasperCompileManager.compileReport(reporteStream);
+
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("usuarioImpresion", user);
+                parametros.put("fechaImpresion", new java.util.Date());
+                parametros.put("fechaInicio", localDateInicio.toString()); 
+                parametros.put("fechaFin", localDateFin.toString());
+
+                List<VentaDto> ventas = ventaService.listarVentasFechas(fechaInicio, fechaFin);
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(ventas);
+
+                return JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+            }
+        };
+        
+        task.setOnSucceeded(e -> {
+            JasperPrint jasperPrint = task.getValue();
+            JasperViewer.viewReport(jasperPrint, false);
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error al generar reporte de ventas: " + task.getException().getMessage()).show();
+        });
+
+        new Thread(task).start();
+    }
+
+    @FXML
+    public void accionReporte() {
+        generarReportePorFechas(user);
+    }
+
 }

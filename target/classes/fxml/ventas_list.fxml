@@ -14,6 +14,13 @@
                     </left>
                     <right>
                         <HBox spacing="12" alignment="CENTER_RIGHT">
+                            <HBox spacing="5" alignment="CENTER_LEFT" styleClass="filtro-reportes">
+                                <Label text="Desde:"/>
+                                <DatePicker fx:id="dpFechaInicio" promptText="Fecha inicio" />
+                                <Label text="Hasta:"/>
+                                <DatePicker fx:id="dpFechaFin" promptText="Fecha fin" />
+                            </HBox>
+                            <Button text="Reporte" styleClass="btn-accion-primario" onAction="#accionReporte"/>
                             <Button text="Nueva venta" styleClass="btn-accion-primario" onAction="#manejarModalRegistrarVentas"/>
                             <Button text="Cerrar" onAction="#cerrarVistaVentas" styleClass="btn-accion"/>
                         </HBox>
@@ -62,6 +69,40 @@
                     </VBox>
             </VBox>
 
+            <VBox fx:id="overlayEditarVentas"
+                alignment="CENTER"
+                visible="false"
+                onMouseClicked="#manejarModalEditarVentas"
+                xmlns:fx="http://javafx.com/fxml"
+                styleClass="overlay">
+                <Label fx:id="lblMsgEditarVenta" id="lblMsg"/>
+                    <VBox onMouseClicked="#cancelarClickEnModal"
+                        spacing="15"
+                        styleClass="modal">
+                        <Label text="Modificar venta" styleClass="modal-title"/>
+                        <VBox fx:id = "contenedorProductosEditar" prefHeight="200" VBox.vgrow="NEVER">
+                            <ScrollPane fx:id = "contenedorTarjetasProductoEditar" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                <content>
+                                    <VBox fx:id="contenedorMueblesEditar">
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </VBox>
+                        <VBox spacing="10">
+                            <Label text="Cliente" styleClass="input-label"/>
+                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" />
+                        </VBox>
+                        <VBox spacing="10">
+                            <Label text="Empleado" styleClass="input-label"/>
+                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity"/>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="15">
+                            <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="btn-secondary"/>
+                            <Button text="Guardar" onAction="#editarVenta" styleClass="btn-primary"/>
+                        </HBox>                                                                                                                                                                                                                                                                                                                                     
+                    </VBox>
+            </VBox>
+
             <VBox fx:id="overlayDetalleVentas"
                 alignment="CENTER"
                 visible="false"
@@ -80,6 +121,16 @@
                     </VBox>
                     <HBox alignment="CENTER_RIGHT" spacing="15">
                         <Button text="Cerrar" onAction="#manejarModalVerDetalles" styleClass="btn-secondary"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <VBox alignment="CENTER" visible="false" fx:id="overlayEliminarVentas" styleClass="overlay" onMouseClicked="#manejarModalEliminarVentas">
+                <VBox onMouseClicked="#cancelarClickEnModal" styleClass="modal">
+                    <Label fx:id="lblEliminarVenta" styleClass="modal-title"/>
+                    <HBox alignment="CENTER_RIGHT" spacing="15">
+                        <Button text="Cancelar" onAction="#manejarModalEliminarVentas" styleClass="btn-secondary"/>
+                        <Button text="Eliminar" styleClass="btn-primary" onAction="#eliminarVenta"/>
                     </HBox>
                 </VBox>
             </VBox>

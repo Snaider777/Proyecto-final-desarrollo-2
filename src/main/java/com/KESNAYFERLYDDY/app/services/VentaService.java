@@ -12,6 +12,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Date;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class VentaService {
     private final ObjectMapper mapper;
@@ -56,6 +59,18 @@ public class VentaService {
             System.err.println("Error al obtener detalles: " + e.getMessage());
         }
         return venta;
+    }
+    
+    public List<DetalleVentasDto> obtenerDetallesPorVentaId(Integer idVenta) throws Exception {
+        String urlDetalles = ApiConfig.HOST + "/ventas/" + idVenta + "/detalles";
+        HttpRequest reqDetalles = ApiClient.jsonRequest(urlDetalles).GET().build();
+        HttpResponse<String> rDetalles = ApiClient.get().send(reqDetalles, HttpResponse.BodyHandlers.ofString());
+        
+        if (rDetalles.statusCode() == 200) {
+            return mapper.readValue(rDetalles.body(), new TypeReference<List<DetalleVentasDto>>() {});
+        } else {
+            throw new RuntimeException("Error al obtener detalles: " + rDetalles.statusCode());
+        }
     }
     
     public void insertarVenta(VentaDto venta) throws Exception {
@@ -108,12 +123,37 @@ public class VentaService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            System.out.println("Venta eliminado correctamente. ID: " + ventaID);
+            System.out.println("Venta eliminada correctamente. ID: " + ventaID);
         } else if (response.statusCode() == 404) {
             throw new RuntimeException("No se encontró el Venta con ID " + ventaID);
         } else {
         throw new RuntimeException("Error al eliminar Venta: " 
             + response.statusCode() + " - " + response.body());
+        }
     }
-}
+
+    public List<VentaDto> listarVentasFechas(Date fechaInicio, Date fechaFin) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        String inicioStr = fechaInicio.toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime()
+                                    .format(formatter);
+                                    
+        String finStr = fechaFin.toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDateTime()
+                                .format(formatter);
+    
+        String url = String.format("%s/ventas/rango?inicio=%s&fin=%s", ApiConfig.HOST, inicioStr, finStr);
+        
+        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        
+        if (r.statusCode() == 200) {
+            return mapper.readValue(r.body(), new TypeReference<List<VentaDto>>() {});
+        } 
+        else {
+            throw new RuntimeException("Error al listar Ventas por rango (" + r.statusCode() + "): " + r.body());
+        }
+    }
 }
