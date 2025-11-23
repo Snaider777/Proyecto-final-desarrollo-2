@@ -12,6 +12,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Date;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class VentaService {
     private final ObjectMapper mapper;
@@ -126,6 +129,31 @@ public class VentaService {
         } else {
         throw new RuntimeException("Error al eliminar Venta: " 
             + response.statusCode() + " - " + response.body());
+        }
     }
-}
+
+    public List<VentaDto> listarVentasFechas(Date fechaInicio, Date fechaFin) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        String inicioStr = fechaInicio.toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime()
+                                    .format(formatter);
+                                    
+        String finStr = fechaFin.toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDateTime()
+                                .format(formatter);
+    
+        String url = String.format("%s/ventas/rango?inicio=%s&fin=%s", ApiConfig.HOST, inicioStr, finStr);
+        
+        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        
+        if (r.statusCode() == 200) {
+            return mapper.readValue(r.body(), new TypeReference<List<VentaDto>>() {});
+        } 
+        else {
+            throw new RuntimeException("Error al listar Ventas por rango (" + r.statusCode() + "): " + r.body());
+        }
+    }
 }
