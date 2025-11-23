@@ -84,7 +84,6 @@ public class DashboardController {
                     lblUsuariosCount.setText(String.valueOf(usuarios));
                     lblProductosCount.setText(String.valueOf(productos));
                     
-                    // Configurar LineChart
                     XYChart.Series<String, Number> seriesVentas = new XYChart.Series<>();
                     seriesVentas.setName("Ventas del Mes");
                     Map<String, Double> ventasPorDia = ventasMes.stream()
@@ -100,7 +99,6 @@ public class DashboardController {
                     lineChartVentas.getData().clear();
                     lineChartVentas.getData().add(seriesVentas);
 
-                    // Configurar BarChart
                     XYChart.Series<String, Number> seriesMuebles = new XYChart.Series<>();
                     seriesMuebles.setName("Muebles Más Vendidos del Mes");
                     mueblesMasVendidos.stream().forEach(m -> {
