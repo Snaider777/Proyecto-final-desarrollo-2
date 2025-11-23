@@ -45,6 +45,37 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
 }
 
+.filtro-reportes {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 6px;
+    -fx-spacing: 8px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.filtro-reportes Label {
+    -fx-text-fill: #495057;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.filtro-reportes .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 4px 6px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.filtro-reportes .date-picker:hover {
+    -fx-border-color: #4c6ef5;
+    -fx-effect: dropshadow(gaussian, rgba(76,110,245,0.25), 4, 0, 0, 1);
+}
+
 .header-ventas {
     -fx-background-color: white;
     -fx-padding: 16px;

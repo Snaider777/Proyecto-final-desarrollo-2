@@ -1,39 +1,50 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.math.BigDecimal;
+import java.io.InputStream;
+import java.util.Date;
 
-import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
-import com.KESNAYFERLYDDY.app.models.CategoriaDto;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
+import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.KESNAYFERLYDDY.app.models.VentaDto;
-import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
+import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.VentaService;
-import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class VentasListController {
     private static String user = "";
@@ -66,7 +77,8 @@ public class VentasListController {
     @FXML private ScrollPane contenedorTarjetasProducto;
     @FXML private ScrollPane contenedorTarjetasProductoEditar;
 
-    
+    @FXML private DatePicker dpFechaInicio; 
+    @FXML private DatePicker dpFechaFin;
 
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
     private VentaDto ventaParaEliminar;
@@ -720,4 +732,61 @@ public class VentasListController {
         stage.close();
         DashboardController.showDashboard(user);
     }
+
+    @FXML 
+    public void generarReportePorFechas(String username) { 
+        LocalDate localDateInicio = dpFechaInicio.getValue();
+        LocalDate localDateFin = dpFechaFin.getValue();
+
+        if (localDateInicio == null || localDateFin == null) {
+            new Alert(Alert.AlertType.WARNING, "Debes seleccionar una fecha de inicio y una fecha de fin para el reporte.").show();
+            return;
+        }
+
+        Date fechaInicio = Date.from(localDateInicio.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fechaFin = Date.from(localDateFin.atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant());
+
+        Task<JasperPrint> task = new Task<JasperPrint>() {
+            @Override
+            protected JasperPrint call() throws Exception {
+                String user = username; 
+                
+                InputStream reporteStream = getClass().getResourceAsStream("/reportes/ventas_reporte.jrxml");
+                if (reporteStream == null) {
+                    throw new RuntimeException("No se encontró el reporte ventas_reporte.jrxml");
+                }
+
+                JasperReport jasperReport = JasperCompileManager.compileReport(reporteStream);
+
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("usuarioImpresion", user);
+                parametros.put("fechaImpresion", new java.util.Date());
+                parametros.put("fechaInicio", localDateInicio.toString()); 
+                parametros.put("fechaFin", localDateFin.toString());
+
+                List<VentaDto> ventas = ventaService.listarVentasFechas(fechaInicio, fechaFin);
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(ventas);
+
+                return JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+            }
+        };
+        
+        task.setOnSucceeded(e -> {
+            JasperPrint jasperPrint = task.getValue();
+            JasperViewer.viewReport(jasperPrint, false);
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error al generar reporte de ventas: " + task.getException().getMessage()).show();
+        });
+
+        new Thread(task).start();
+    }
+
+    @FXML
+    public void accionReporte() {
+        generarReportePorFechas(user);
+    }
+
 }

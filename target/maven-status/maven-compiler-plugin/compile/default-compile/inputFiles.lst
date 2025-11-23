@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/controllers/VentasListController.java
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/models/EmpleadosDto.java
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/controllers/EmpleadosButtonsController.java
@@ -29,3 +30,36 @@
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/services/VentaService.java
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/animations/FadeInLeftAnimation.java
 /home/chaper/Documentos/ProyectoDesarrollo/Front/Proyecto-final-desarrollo-2/src/main/java/com/KESNAYFERLYDDY/app/models/UsuarioDto.java
+=======
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeDownAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeInLeftAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeOutRightAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\animations\FadeUpAnimation.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\config\ApiConfig.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesButtonsController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ClientesListController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\DashboardController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosButtonsController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\EmpleadosListController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\LoginController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\ProductosListController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\controllers\VentasListController.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\http\ApiClient.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\MainApp.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\CategoriaDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\ClienteDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\DetalleVentasDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\EmpleadosDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\MuebleDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\UsuarioDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\models\VentaDto.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\AuthService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\CategoriaService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\ClienteService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\DashboardService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\EmpleadoService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\MuebleService.java
+C:\Users\nayel\OneDrive\Documentos\GitHub\Proyecto-final-desarrollo-2\src\main\java\com\KESNAYFERLYDDY\app\services\VentaService.java
+>>>>>>> origin/Nayels

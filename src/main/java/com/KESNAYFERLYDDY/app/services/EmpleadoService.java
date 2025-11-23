@@ -87,12 +87,4 @@ public class EmpleadoService {
         }
     }
 
-    public static Connection getConexion() throws Exception {
-        String url = "jdbc:sqlserver://LOCALHOST:1433;databaseName=Muebleria;encrypt=true;trustServerCertificate=true";
-        String usuario = "sqluser";
-        String password = "nayeliadmin123456";
-
-        Connection conexion = DriverManager.getConnection(url, usuario, password);
-        return conexion;
-    }
 }
