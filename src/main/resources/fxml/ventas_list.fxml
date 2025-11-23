@@ -91,7 +91,7 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15">
                             <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="btn-secondary"/>
-                            <Button text="Guardar" onAction="#registrarVenta" styleClass="btn-primary"/>
+                            <Button text="Guardar" onAction="#editarVenta" styleClass="btn-primary"/>
                         </HBox>                                                                                                                                                                                                                                                                                                                                     
                     </VBox>
             </VBox>

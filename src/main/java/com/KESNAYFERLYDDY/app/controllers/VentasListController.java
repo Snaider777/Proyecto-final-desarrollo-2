@@ -71,7 +71,7 @@ public class VentasListController {
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
     private VentaDto ventaParaEliminar;
     private VentaDto ventaParaEditar;
-
+    
     public static void show(String username) {
         try {
             user = username;
@@ -103,7 +103,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarMuebles(){
+    public void cargarMuebles(String vistaDeModal){
         Task<List<MuebleDto>> task = new Task<>() {
             @Override protected List<MuebleDto> call() throws Exception {
                 return muebleService.listarMuebles();
@@ -111,7 +111,11 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<MuebleDto> muebles = task.getValue();
-            mostrarMuebles(muebles);
+            if(vistaDeModal.equals("Editar")){
+                mostrarMuebles(muebles, "Editar");
+            }else if(vistaDeModal.equals("Registrar")){
+                mostrarMuebles(muebles, "Registrar");
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -119,7 +123,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarClientes() {
+    public void cargarClientes(String vistaDeModal) {
         Task<List<ClienteDto>> task = new Task<>() {
             @Override protected List<ClienteDto> call() throws Exception {
                 return clienteService.listarClientes();
@@ -127,8 +131,13 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<ClienteDto> clientes = task.getValue();
-            comboClientes.getItems().clear();
-            comboClientes.getItems().addAll(clientes);
+            if(vistaDeModal.equals("Editar")){
+                comboClientesEditar.getItems().clear();
+                comboClientesEditar.getItems().addAll(clientes);
+            }else if(vistaDeModal.equals("Registrar")){
+                comboClientes.getItems().clear();
+                comboClientes.getItems().addAll(clientes);
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -136,7 +145,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarEmpleados() {
+    public void cargarEmpleados(String vistaDeModal) {
         Task<List<EmpleadosDto>> task = new Task<>() {
             @Override protected List<EmpleadosDto> call() throws Exception {
                 return empleadoService.listarEmpleados();
@@ -144,8 +153,13 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<EmpleadosDto> empleados = task.getValue();
-            comboEmpleados.getItems().clear();
-            comboEmpleados.getItems().addAll(empleados);
+            if(vistaDeModal.equals("Editar")){
+                comboEmpleadosEditar.getItems().clear();
+                comboEmpleadosEditar.getItems().addAll(empleados);
+            }else if(vistaDeModal.equals("Registrar")){
+                comboEmpleados.getItems().clear();
+                comboEmpleados.getItems().addAll(empleados);
+            }
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -172,15 +186,20 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    private void mostrarMuebles(List<MuebleDto> muebles){
-        contenedorMuebles.getChildren().clear();
+    private void mostrarMuebles(List<MuebleDto> muebles, String vistaDeModal){
+        // Limpiar el contenedor correcto según el modal
+        if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().clear();
+        } else {
+            contenedorMuebles.getChildren().clear();
+        }
         
         VBox columnaMuebles = new VBox(10);
         columnaMuebles.setPadding(new Insets(8));
         columnaMuebles.setStyle("-fx-background-color: transparent;");
         
-        for (MuebleDto muebleId : muebles){
-            DetalleVentasDto detalleExistente = detallesPorMueble.get(muebleId.getIdMueble());
+        for (MuebleDto mueble : muebles){
+            DetalleVentasDto detalleExistente = detallesPorMueble.get(mueble.getIdMueble());
             int cantidadInicial = (detalleExistente != null && detalleExistente.getCantidad() != null) 
                 ? detalleExistente.getCantidad() : 0;
             BigDecimal precioInicial = (detalleExistente != null && detalleExistente.getPrecio() != null)
@@ -209,8 +228,8 @@ public class VentasListController {
             btnMenos.getStyleClass().add("btn-menos");
             
             leftBox.getChildren().addAll(txtPrecio, btnMenos);
-            
-            Label lblNombre = new Label(muebleId.getNombreMueble() != null ? muebleId.getNombreMueble() : "Sin nombre");
+
+            Label lblNombre = new Label(mueble.getNombreMueble() != null ? mueble.getNombreMueble() : "Sin nombre");
             lblNombre.getStyleClass().add("producto-nombre");
             lblNombre.setWrapText(true);
 
@@ -235,7 +254,7 @@ public class VentasListController {
             rightBox.getChildren().addAll(btnMas, lblSubtotal);
             
             Runnable recalcular = () -> {
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null || detalle.getCantidad() == null || detalle.getCantidad() <= 0) {
                     lblSubtotal.setText("$0");
                     return;
@@ -253,43 +272,52 @@ public class VentasListController {
             btnMas.setOnAction(event -> {
                 ocultarMensajeRegistroVenta();
                 int cantidadActual = 0;
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle != null && detalle.getCantidad() != null) {
                     cantidadActual = detalle.getCantidad();
                 }
-                cantidadActual++;
-                lblCantidad.setText("(" + cantidadActual + ")");
-                
-                BigDecimal precioValor = BigDecimal.ZERO;
-                String textoPrecio = txtPrecio.getText();
-                if (textoPrecio != null && !textoPrecio.isBlank()) {
-                    try { precioValor = new BigDecimal(textoPrecio.trim()); } catch (NumberFormatException ex) { precioValor = BigDecimal.ZERO; }
+                if(mueble.getExistencia() == cantidadActual){
+                    lblMsgRegistroVenta.getStyleClass().removeAll("error", "exito");
+                    lblMsgRegistroVenta.getStyleClass().add("error");
+                    lblMsgRegistroVenta.setText("Sobrepasa la cantidad de productos disponibles");
+                    FadeUpAnimation.play(lblMsgRegistroVenta);
+                    lblCantidad.setStyle("-fx-text-fill: rgb(235,62,62);");
+                }else{
+                    cantidadActual++;
+                    lblCantidad.setText("(" + cantidadActual + ")");
+                    
+                    BigDecimal precioValor = BigDecimal.ZERO;
+                    String textoPrecio = txtPrecio.getText();
+                    if (textoPrecio != null && !textoPrecio.isBlank()) {
+                        try { precioValor = new BigDecimal(textoPrecio.trim()); } catch (NumberFormatException ex) { precioValor = BigDecimal.ZERO; }
+                    }
+                    
+                    if (detalle == null) {
+                        detalle = new DetalleVentasDto();
+                        detalle.setMuebleId(mueble.getIdMueble());
+                    }
+                    detalle.setCantidad(cantidadActual);
+                    detalle.setPrecio(precioValor);
+                    detallesPorMueble.put(mueble.getIdMueble(), detalle);
+                    recalcular.run();
                 }
-                
-                if (detalle == null) {
-                    detalle = new DetalleVentasDto();
-                    detalle.setMuebleId(muebleId.getIdMueble());
-                }
-                detalle.setCantidad(cantidadActual);
-                detalle.setPrecio(precioValor);
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
-                recalcular.run();
             });
             
             btnMenos.setOnAction(e -> {
+                lblCantidad.setStyle("-fx-text-fill: black;");
                 ocultarMensajeRegistroVenta();
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null || detalle.getCantidad() == null || detalle.getCantidad() <= 0) { return; }
                 int nuevaCantidad = detalle.getCantidad() - 1;
                 detalle.setCantidad(nuevaCantidad);
                 lblCantidad.setText("(" + nuevaCantidad + ")");
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
+                detallesPorMueble.put(mueble.getIdMueble(), detalle);
                 recalcular.run();
             });
             
 
             txtPrecio.textProperty().addListener((obs, oldV, newV) -> {
-                DetalleVentasDto detalle = detallesPorMueble.get(muebleId.getIdMueble());
+                DetalleVentasDto detalle = detallesPorMueble.get(mueble.getIdMueble());
                 if (detalle == null) { return; }
                 BigDecimal precioValor;
                 try { 
@@ -298,22 +326,26 @@ public class VentasListController {
                     precioValor = BigDecimal.ZERO; 
                 }
                 detalle.setPrecio(precioValor);
-                detallesPorMueble.put(muebleId.getIdMueble(), detalle);
+                detallesPorMueble.put(mueble.getIdMueble(), detalle);
                 recalcular.run();
             });
             
             tarjeta.getChildren().addAll(leftBox, centerBox, rightBox);
             columnaMuebles.getChildren().add(tarjeta);
         }
-        contenedorMuebles.getChildren().add(columnaMuebles);
+        if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().add(columnaMuebles);
+        }else if(vistaDeModal.equals("Registrar")){
+            contenedorMuebles.getChildren().add(columnaMuebles);
+        }
     }
-    
+
     private void mostrarVentas(List<VentaDto> ventas){
         contenedorVentas.getChildren().clear();
         contenedorVentas.setAlignment(Pos.TOP_CENTER);
         contenedorVentas.setSpacing(16);
         contenedorVentas.setPadding(new Insets(20));
-        
+
         for (VentaDto venta : ventas) {
             VBox contenedorCentrado = new VBox();
             contenedorCentrado.setMaxWidth(Double.MAX_VALUE);
@@ -396,10 +428,10 @@ public class VentasListController {
             Button btnEditarVenta = new Button("Editar");
             btnEditarVenta.setOnAction( e -> {setVentaParaEditar(venta); manejarModalEditarVentas();});
 
+            contenedorBoton.getChildren().add(btnEditarVenta);
             contenedorBoton.getChildren().add(btnEliminarVenta);
             contenedorBoton.getChildren().add(btnVerDetalles);
             
-
             tarjeta.getChildren().addAll(infoVenta, infoDetalles, contenedorBoton);
             contenedorCentrado.getChildren().add(tarjeta);
             contenedorVentas.getChildren().add(contenedorCentrado);
@@ -488,13 +520,20 @@ public class VentasListController {
             .forEach(listaDetalles::add);
     }
 
-    private void limpiarFormularioVenta() {
+    private void limpiarFormularioVenta(String vistaDeModal) {
         detallesPorMueble.clear();
         listaDetalles.clear();
-        comboClientes.setValue(null);
-        comboEmpleados.setValue(null);
-        contenedorMuebles.getChildren().clear();
-        cargarMuebles();
+        if(vistaDeModal.equals("Registrar")){
+            contenedorMuebles.getChildren().clear();
+            comboClientes.setValue(null);
+            comboEmpleados.setValue(null);
+            cargarMuebles("Registrar");
+        }else if(vistaDeModal.equals("Editar")){
+            contenedorMueblesEditar.getChildren().clear();
+            comboClientesEditar.setValue(null);
+            comboEmpleadosEditar.setValue(null);
+            cargarMuebles("Editar");
+        }
     }
 
     public void registrarVenta(){
@@ -531,7 +570,51 @@ public class VentasListController {
                 lblMsgRegistroVenta.setText("Venta registrada con éxito");
                 FadeUpAnimation.play(lblMsgRegistroVenta);
                 cargarVentas();
-                limpiarFormularioVenta();
+                limpiarFormularioVenta("Registrar");
+            });
+            task.setOnFailed(event -> {
+                task.getException().printStackTrace();
+            });
+            new Thread(task).start();
+        }
+    }
+
+    public void editarVenta(){
+        sincronizarDetalles();
+        if(listaDetalles.isEmpty()){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar almenos un producto");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else if(comboClientesEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar un cliente");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else if(comboEmpleadosEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar un empleado");
+            FadeUpAnimation.play(lblMsgEditarVenta);
+        }else{
+            VentaDto ventaObj = new VentaDto();
+            ventaObj.setIdVenta(ventaParaEditar.getIdVenta());
+            ventaObj.setDetalles(listaDetalles);
+            ventaObj.setClienteId(comboClientesEditar.getValue().getIdCliente());
+            ventaObj.setEmpleadoId(comboEmpleadosEditar.getValue().getIdEmpleado());
+            Task<Void> task = new Task<>() {
+                @Override protected Void call() throws Exception {
+                    ventaService.editarVenta(ventaObj);
+                    return null;
+                }
+            };
+            task.setOnSucceeded(event -> {
+                lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+                lblMsgEditarVenta.getStyleClass().add("exito");
+                lblMsgEditarVenta.setText("Venta actualizada con éxito");
+                FadeUpAnimation.play(lblMsgEditarVenta);
+                cargarVentas();
+                limpiarFormularioVenta("Editar");
             });
             task.setOnFailed(event -> {
                 task.getException().printStackTrace();
@@ -570,10 +653,13 @@ public class VentasListController {
             overlayRegistrarVentas.setVisible(false);
             FadeDownAnimation.play(lblMsgRegistroVenta);
         }else{
+            // Limpiar el HashMap antes de mostrar el modal
+            detallesPorMueble.clear();
+            listaDetalles.clear();
             overlayRegistrarVentas.setVisible(true);
-            cargarMuebles();
-            cargarClientes();
-            cargarEmpleados();
+            cargarMuebles("Registrar");
+            cargarClientes("Registrar");
+            cargarEmpleados("Registrar");
         }
     }
 
@@ -592,7 +678,13 @@ public class VentasListController {
         if(overlayEditarVentas.isVisible()){
             overlayEditarVentas.setVisible(false);
         }else{
+            // Limpiar el HashMap antes de mostrar el modal
+            detallesPorMueble.clear();
+            listaDetalles.clear();
             overlayEditarVentas.setVisible(true);
+            cargarClientes("Editar");
+            cargarEmpleados("Editar");
+            cargarMuebles("Editar");
         }
     }
 
@@ -611,6 +703,14 @@ public class VentasListController {
         if(lblMsgRegistroVenta.getOpacity() != 0){
             FadeDownAnimation.play(lblMsgRegistroVenta);
             lblMsgRegistroVenta.setOpacity(0);
+        }
+    }
+
+    @FXML
+    private void ocultarMensajeEditarVenta(){
+        if(lblMsgEditarVenta.getOpacity() != 0){
+            FadeDownAnimation.play(lblMsgEditarVenta);
+            lblMsgEditarVenta.setOpacity(0);
         }
     }
 
