@@ -13,6 +13,7 @@ import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -370,5 +371,40 @@ public class EmpleadosListController {
     @FXML
     public void accionReporte() {
         generarReporteEmpleados(user);
+    }
+    @FXML
+    public void accionRolesPermisos(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(EmpleadosListController.class.getResource("/fxml/roles_permisos_modal.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Roles y Permisos");
+            stage.initOwner(tablaEmpleados.getScene().getWindow());
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error abriendo Roles y Permisos: " + e.getMessage()).show();
+        }
+    }
+    @FXML
+    public void showEmpleadoUsuarioModal(EmpleadosDto empleado) {
+        try {
+            FXMLLoader loader = new FXMLLoader(EmpleadosListController.class.getResource("/fxml/empleados_usuario_modal.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Usuario - " + empleado.getNombresEmpleado() + " " + empleado.getApellidosEmpleado());
+            // obtener el controlador del modal y pasarle el empleado
+            com.KESNAYFERLYDDY.app.controllers.EmpleadoUsuarioController controller = loader.getController();
+            controller.setEmpleado(empleado);
+            stage.initOwner(tablaEmpleados.getScene().getWindow()); // modal vinculado a la ventana padre
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error abriendo gestión de usuario: " + ex.getMessage()).show();
+        }
     }
 }

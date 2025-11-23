@@ -1,27 +1,28 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.math.BigDecimal;
 
-import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
-import com.KESNAYFERLYDDY.app.models.CategoriaDto;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
+import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.KESNAYFERLYDDY.app.models.VentaDto;
-import com.KESNAYFERLYDDY.app.models.EmpleadosDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
+import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.VentaService;
-import com.KESNAYFERLYDDY.app.services.EmpleadoService;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,10 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class VentasListController {
@@ -603,7 +602,7 @@ public class VentasListController {
 
     @FXML
     private void cancelarClickEnModal(MouseEvent event) {
-         event.consume();
+        event.consume();
     }
 
     @FXML

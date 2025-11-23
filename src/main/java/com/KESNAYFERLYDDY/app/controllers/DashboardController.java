@@ -1,6 +1,7 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
 import com.KESNAYFERLYDDY.app.services.DashboardService;
+import com.KESNAYFERLYDDY.app.services.PermisoService;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -18,10 +20,13 @@ public class DashboardController {
     @FXML private Label lblVentasCount;
     @FXML private Label lblUsuariosCount;
     @FXML private Label lblProductosCount;
-
+    @FXML private Button btnEmpleados;
+    @FXML private Button btnClientes;
+    @FXML private Button btnVentas;
+    @FXML private Button btnProductos;
     private final DashboardService service = new DashboardService();
     private String username;
-
+    private final PermisoService permisoService = new PermisoService();
     public static void showDashboard(String username) {
         try {
             FXMLLoader loader = new FXMLLoader(DashboardController.class.getResource("/fxml/dashboard.fxml"));
@@ -42,7 +47,9 @@ public class DashboardController {
     public void iniciar(String username) {
         this.username = username;
         lblUser.setText("Hola, " + username);
-        cargarDatos();
+        
+        cargarDatos();      
+        validarPermisos(); 
     }
 
     private void cargarDatos() {
@@ -69,6 +76,34 @@ public class DashboardController {
         };
         new Thread(task).start();
     }
+    private void validarPermisos() {
+        // Ejecutamos en un hilo secundario para no congelar la pantalla
+        Task<Void> task = new Task<>() {
+            boolean puedeVerEmpleados = false;
+
+            @Override
+            protected Void call() throws Exception {
+                // Preguntamos al backend
+                puedeVerEmpleados = permisoService.tienePermiso(username, "ver_empleado");
+                return null;
+            }
+
+            @Override
+            protected void succeeded() {
+                // Actualizamos la interfaz gráfica
+                if (!puedeVerEmpleados) {
+                    btnEmpleados.setVisible(false);  // Lo hace invisible
+                    btnEmpleados.setManaged(false); 
+                }
+            }
+            
+            @Override
+            protected void failed() {
+                getException().printStackTrace();
+            }
+        };
+        new Thread(task).start();
+    }
 
     @FXML
     private void onOpenClientes(){
@@ -86,7 +121,7 @@ public class DashboardController {
     private void onOpenEmpleados() {
         EmpleadosListController.show(username);
         onChangeView();
-     }
+    }
 
     @FXML
     private void onOpenProductos() {
