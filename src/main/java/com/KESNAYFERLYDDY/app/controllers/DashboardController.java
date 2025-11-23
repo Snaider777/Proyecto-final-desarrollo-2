@@ -80,11 +80,12 @@ public class DashboardController {
         // Ejecutamos en un hilo secundario para no congelar la pantalla
         Task<Void> task = new Task<>() {
             boolean puedeVerEmpleados = false;
-
+            boolean puedenVerClientes = false;
             @Override
             protected Void call() throws Exception {
                 // Preguntamos al backend
-                puedeVerEmpleados = permisoService.tienePermiso(username, "ver_empleado");
+                puedeVerEmpleados = permisoService.tienePermiso(username, "VER_EMPLEADOS");
+                puedenVerClientes = permisoService.tienePermiso(username, "VER CLIENTES");
                 return null;
             }
 
@@ -94,6 +95,8 @@ public class DashboardController {
                 if (!puedeVerEmpleados) {
                     btnEmpleados.setVisible(false);  // Lo hace invisible
                     btnEmpleados.setManaged(false); 
+                    btnClientes.setVisible(false);
+                    btnClientes.setManaged(false);
                 }
             }
             

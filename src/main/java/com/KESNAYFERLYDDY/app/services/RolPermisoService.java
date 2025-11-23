@@ -2,9 +2,12 @@ package com.KESNAYFERLYDDY.app.services;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.KESNAYFERLYDDY.app.config.ApiConfig;
 import com.KESNAYFERLYDDY.app.http.ApiClient;
+import com.KESNAYFERLYDDY.app.models.PermisoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RolPermisoService {
@@ -41,6 +44,17 @@ public class RolPermisoService {
         if (resp.statusCode() != 200 && resp.statusCode() != 204) {
             throw new RuntimeException("Error eliminar rol-permiso: " + resp.statusCode());
         }
+    }
+
+    public List<PermisoDto> listarPermisosPorRol(Integer idRol) throws Exception {
+        String url = ApiConfig.HOST + "/rol_permisos/rol/" + idRol;
+        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+        HttpResponse<String> res = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        
+        if (res.statusCode() == 200) {
+            return new ObjectMapper().readValue(res.body(), new TypeReference<List<PermisoDto>>(){});
+        }
+        return List.of(); // Retorna lista vacía si falla o no hay
     }
 
     // helper DTO para el body
