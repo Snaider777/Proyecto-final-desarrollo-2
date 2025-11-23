@@ -34,6 +34,10 @@
                 <HBox spacing="8" alignment="CENTER_LEFT">
                     <TextField fx:id="txtNuevoRol" promptText="Nombre de rol" />
                     <Button text="Crear" onAction="#crearRol" styleClass="button,primary"/>
+                    <Separator/>
+                    <Label text="Permisos asignados al rol seleccionado:" style="-fx-font-size: 11px; -fx-text-fill: grey;"/>
+                    
+                    <ListView fx:id="listaPermisosAsignados" VBox.vgrow="ALWAYS" prefHeight="150"/>
                 </HBox>
             </VBox>
 

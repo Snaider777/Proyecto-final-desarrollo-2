@@ -16,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -40,7 +42,7 @@ public class RolesPermisosController {
     @FXML private TableColumn<PermisoDto, Integer> colPermisoId;
     @FXML private TableColumn<PermisoDto, String> colPermisoNombre;
     @FXML private TextField txtNuevoPermiso;
-
+    @FXML private ListView<PermisoDto> listaPermisosAsignados;
     private final RolService rolService = new RolService();
     private final PermisoService permisoService = new PermisoService();
     private final RolPermisoService rolPermisoService = new RolPermisoService();
@@ -52,7 +54,27 @@ public class RolesPermisosController {
 
         colPermisoId.setCellValueFactory(new PropertyValueFactory<>("idPermiso"));
         colPermisoNombre.setCellValueFactory(new PropertyValueFactory<>("permiso"));
-
+        listaPermisosAsignados.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(PermisoDto item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getPermiso());
+                }
+            }
+        });
+        tablaRoles.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                cargarPermisosDelRol(newVal.getIdRol());
+            } else {
+                listaPermisosAsignados.getItems().clear();
+            }
+        });
+        
+        cargarRoles();
+        cargarPermisos();
         // al hacer clic derecho en fila de rol -> menú (Editar / Eliminar / Asignar permiso)
         tablaRoles.setRowFactory(tv -> {
             TableRow<RolDto> row = new TableRow<>();
@@ -71,7 +93,7 @@ public class RolesPermisosController {
             row.contextMenuProperty().bind(javafx.beans.binding.Bindings.when(row.emptyProperty()).then((ContextMenu)null).otherwise(menu));
             return row;
         });
-
+        
         // clic derecho en permiso -> editar/eliminar/asignar a rol o usuario (aquí solo rol)
         tablaPermisos.setRowFactory(tv -> {
             TableRow<PermisoDto> row = new TableRow<>();
@@ -93,6 +115,25 @@ public class RolesPermisosController {
 
         cargarRoles();
         cargarPermisos();
+    }
+
+    private void cargarPermisosDelRol(Integer idRol) {
+        // Usamos un hilo para no congelar la app
+        Task<List<PermisoDto>> task = new Task<>() {
+            @Override protected List<PermisoDto> call() throws Exception {
+                return rolPermisoService.listarPermisosPorRol(idRol);
+            }
+        };
+        
+        task.setOnSucceeded(e -> {
+            listaPermisosAsignados.setItems(FXCollections.observableArrayList(task.getValue()));
+        });
+        
+        task.setOnFailed(e -> {
+            e.getSource().getException().printStackTrace();
+        });
+        
+        new Thread(task).start();
     }
 
     private void cargarRoles() {
