@@ -31,6 +31,8 @@ public class DashboardController {
     @FXML private Label lblVentasCount;
     @FXML private Label lblUsuariosCount;
     @FXML private Label lblProductosCount;
+    @FXML private Label lblVentasCountVendedor;
+    @FXML private Label lblProductosCountVendedor;
     @FXML private LineChart<String, Number> lineChartVentas;
     @FXML private BarChart<String, Number> barChartMuebles;
     @FXML private Button btnEmpleados;
@@ -87,6 +89,14 @@ public class DashboardController {
                     lblVentasCount.setText(String.valueOf(ventas));
                     lblUsuariosCount.setText(String.valueOf(usuarios));
                     lblProductosCount.setText(String.valueOf(productos));
+                    
+                    // Actualizar también los contadores del GridPane de vendedor
+                    if (lblVentasCountVendedor != null) {
+                        lblVentasCountVendedor.setText(String.valueOf(ventas));
+                    }
+                    if (lblProductosCountVendedor != null) {
+                        lblProductosCountVendedor.setText(String.valueOf(productos));
+                    }
                     
                     XYChart.Series<String, Number> seriesVentas = new XYChart.Series<>();
                     seriesVentas.setName("Ventas del Mes");
