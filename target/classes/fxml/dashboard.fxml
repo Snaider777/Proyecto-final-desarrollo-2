@@ -53,7 +53,8 @@
                         styleClass="dashboard-subtitle"/>
                 </VBox>
                 
-                <GridPane styleClass="card-grid" alignment="CENTER" prefHeight="600">
+                <!-- GridPane para Administrador (todas las tarjetas) -->
+                <GridPane fx:id="gridAdmin" styleClass="card-grid" alignment="CENTER" prefHeight="600">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
@@ -66,7 +67,8 @@
                     <Button fx:id="btnClientes" onAction="#onOpenClientes" 
                         styleClass="card-button card-clientes" 
                         GridPane.columnIndex="0" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -89,7 +91,8 @@
                     <Button fx:id="btnEmpleados" onAction="#onOpenEmpleados" 
                         styleClass="card-button card-empleados" 
                         GridPane.columnIndex="1" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -112,7 +115,8 @@
                     <Button fx:id="btnVentas" onAction="#onOpenVentas" 
                         styleClass="card-button card-ventas" 
                         GridPane.columnIndex="0" GridPane.rowIndex="1"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -135,7 +139,8 @@
                     <Button fx:id="btnProductos" onAction="#onOpenProductos" 
                         styleClass="card-button card-productos" 
                         GridPane.columnIndex="1" GridPane.rowIndex="1"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -147,6 +152,65 @@
                                     <HBox spacing="20" alignment="CENTER_LEFT">
                                         <Label text="Inventario" styleClass="card-title"/>
                                         <Label fx:id="lblProductosCount" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Administre el inventario de muebles, categorías, precios, niveles de stock y control de existencias."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </GridPane>
+
+                <!-- GridPane para Vendedor (solo Ventas e Inventario) -->
+                <GridPane fx:id="gridVendedor" styleClass="card-grid" alignment="CENTER" prefHeight="600" visible="false" managed="false">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="100" valignment="CENTER" vgrow="ALWAYS" prefHeight="300"/>
+                    </rowConstraints>
+
+                    <Button fx:id="btnVentasVendedor" onAction="#onOpenVentas" 
+                        styleClass="card-button card-ventas" 
+                        GridPane.columnIndex="0" GridPane.rowIndex="0"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/ventasdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Ventas" styleClass="card-title"/>
+                                        <Label fx:id="lblVentasCountVendedor" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Controle ventas, facturación, reportes financieros, análisis de rendimiento y métricas comerciales."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                    
+                    <Button fx:id="btnProductosVendedor" onAction="#onOpenProductos" 
+                        styleClass="card-button card-productos" 
+                        GridPane.columnIndex="1" GridPane.rowIndex="0"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/mueblesdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Inventario" styleClass="card-title"/>
+                                        <Label fx:id="lblProductosCountVendedor" text="0" styleClass="card-count"/>
                                     </HBox>
                                     <Label text="Administre el inventario de muebles, categorías, precios, niveles de stock y control de existencias."
                                         styleClass="card-description" wrapText="true"/>

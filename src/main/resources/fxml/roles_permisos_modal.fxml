@@ -6,64 +6,81 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.KESNAYFERLYDDY.app.controllers.RolesPermisosController"
-            stylesheets="@/styles/empleados_usuarios.css">
+            stylesheets="@/styles/empleados_usuarios.css"
+            prefWidth="1000" prefHeight="600">
 
     <top>
-        <ToolBar>
-            <Label text="Administrar Roles y Permisos" styleClass="title"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Cerrar" onAction="#accionCerrar"/>
-        </ToolBar>
+        <BorderPane styleClass="modal-header" prefHeight="50">
+            <left>
+                <VBox spacing="2">
+                    <Label text="Administrar Roles y Permisos" styleClass="modal-title"/>
+                    <Label text="Gestione los roles y permisos del sistema" styleClass="modal-subtitle"/>
+                </VBox>
+            </left>
+            <right>
+                <Button text="Cerrar" onAction="#accionCerrar" styleClass="btn-close"/>
+            </right>
+        </BorderPane>
     </top>
 
     <center>
-        <HBox spacing="12">
-        <padding>
-        <Insets top="12" right="12" bottom="12" left="12"/>
-    </padding>
-            <!-- Roles -->
-            <VBox spacing="8" VBox.vgrow="ALWAYS">
-                <Label text="Roles" styleClass="form-title"/>
-                <TableView fx:id="tablaRoles" prefWidth="320" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="colRolId" text="ID" prefWidth="60"/>
-                        <TableColumn fx:id="colRolNombre" text="Rol" prefWidth="200"/>
-                    </columns>
-                </TableView>
+        <HBox spacing="15" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
 
-                <HBox spacing="8" alignment="CENTER_LEFT">
-                    <TextField fx:id="txtNuevoRol" promptText="Nombre de rol" />
-                    <Button text="Crear" onAction="#crearRol" styleClass="button,primary"/>
-                    <Separator/>
-                    <Label text="Permisos asignados al rol seleccionado:" style="-fx-font-size: 11px; -fx-text-fill: grey;"/>
-                    
-                    <ListView fx:id="listaPermisosAsignados" VBox.vgrow="ALWAYS" prefHeight="150"/>
-                </HBox>
+            <VBox spacing="12" prefWidth="400" styleClass="form-panel">
+                <Label text="Roles del Sistema" styleClass="form-title"/>
+                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaRoles" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colRolId" text="ID" prefWidth="80" styleClass="table-column"/>
+                            <TableColumn fx:id="colRolNombre" text="Rol" prefWidth="200" styleClass="table-column"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Nuevo Rol" styleClass="form-label"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtNuevoRol" promptText="Nombre del rol" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
+                        <Button text="Crear Rol" onAction="#crearRol" styleClass="button,primary"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Permisos Asignados" styleClass="form-label"/>
+                    <ListView fx:id="listaPermisosAsignados" styleClass="form-input-full" prefHeight="120"/>
+                </VBox>
             </VBox>
 
-            <!-- Permisos -->
-            <VBox spacing="8" VBox.vgrow="ALWAYS">
-                <Label text="Permisos" styleClass="form-title"/>
-                <TableView fx:id="tablaPermisos" prefWidth="420" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="colPermisoId" text="ID" prefWidth="80"/>
-                        <TableColumn fx:id="colPermisoNombre" text="Permiso" prefWidth="320"/>
-                    </columns>
-                </TableView>
+            <VBox spacing="12" prefWidth="400" styleClass="form-panel">
+                <Label text="Permisos del Sistema" styleClass="form-title"/>
+                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaPermisos" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colPermisoId" text="ID" prefWidth="80" styleClass="table-column"/>
+                            <TableColumn fx:id="colPermisoNombre" text="Permiso" prefWidth="250" styleClass="table-column"/>
+                        </columns>
+                    </TableView>
+                </VBox>
 
-                <HBox spacing="8" alignment="CENTER_LEFT">
-                    <TextField fx:id="txtNuevoPermiso" promptText="Nombre de permiso" />
-                    <Button text="Crear" onAction="#crearPermiso" styleClass="button,primary"/>
-                </HBox>
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Nuevo Permiso" styleClass="form-label"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="txtNuevoPermiso" promptText="Nombre del permiso" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
+                        <Button text="Crear Permiso" onAction="#crearPermiso" styleClass="button,primary"/>
+                    </HBox>
+                </VBox>
             </VBox>
         </HBox>
     </center>
-<bottom>
-        <HBox spacing="8" alignment="CENTER_RIGHT">
-            <padding>
-                <Insets top="12" right="12" bottom="12" left="12"/>
-            </padding>
-            <Label text="Sugerencia: clic derecho en un rol/permiso para acciones"/>
-        </HBox>
+
+    <bottom>
+        <BorderPane styleClass="footer-panel" prefHeight="40">
+            <left>
+                <Label text="Sugerencia: clic derecho en un rol/permiso para acciones" styleClass="footer-text"/>
+            </left>
+        </BorderPane>
     </bottom>
 </BorderPane>
