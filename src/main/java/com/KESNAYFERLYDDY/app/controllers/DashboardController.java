@@ -12,6 +12,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import com.KESNAYFERLYDDY.app.models.MuebleDto;
+import com.KESNAYFERLYDDY.app.models.VentaDto;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import java.time.format.DateTimeFormatter;
 
 public class DashboardController {
 
@@ -20,6 +29,8 @@ public class DashboardController {
     @FXML private Label lblVentasCount;
     @FXML private Label lblUsuariosCount;
     @FXML private Label lblProductosCount;
+    @FXML private LineChart<String, Number> lineChartVentas;
+    @FXML private BarChart<String, Number> barChartMuebles;
     @FXML private Button btnEmpleados;
     @FXML private Button btnClientes;
     @FXML private Button btnVentas;
@@ -55,11 +66,15 @@ public class DashboardController {
     private void cargarDatos() {
         Task<Void> task = new Task<>() {
             int clientes = 0, ventas = 0, usuarios = 0, productos = 0;
+            List<VentaDto> ventasMes;
+            List<com.KESNAYFERLYDDY.app.models.MuebleVendidoDto> mueblesMasVendidos;
             @Override protected Void call() throws Exception {
                 clientes = service.cantidadDeClientes();
                 ventas = service.cantidadDeVentas();
                 usuarios = service.cantidadDeEmpleados();
                 productos = service.cantidadDeProductos();
+                ventasMes = service.ventasDelMes();
+                mueblesMasVendidos = service.mueblesMasVendidosDelMes();
                 return null;
             }
             @Override protected void succeeded() {
@@ -68,6 +83,30 @@ public class DashboardController {
                     lblVentasCount.setText(String.valueOf(ventas));
                     lblUsuariosCount.setText(String.valueOf(usuarios));
                     lblProductosCount.setText(String.valueOf(productos));
+                    
+                    XYChart.Series<String, Number> seriesVentas = new XYChart.Series<>();
+                    seriesVentas.setName("Ventas del Mes");
+                    Map<String, Double> ventasPorDia = ventasMes.stream()
+                        .collect(Collectors.groupingBy(
+                            v -> v.getFechaVenta().toLocalDate().format(DateTimeFormatter.ofPattern("dd")),
+                            Collectors.summingDouble(venta -> venta.getTotal().doubleValue())
+                        ));
+                    
+                    ventasPorDia.entrySet().stream()
+                        .sorted(Map.Entry.comparingByKey())
+                        .forEach(entry -> seriesVentas.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue())));
+                    
+                    lineChartVentas.getData().clear();
+                    lineChartVentas.getData().add(seriesVentas);
+
+                    XYChart.Series<String, Number> seriesMuebles = new XYChart.Series<>();
+                    seriesMuebles.setName("Muebles Más Vendidos del Mes");
+                    mueblesMasVendidos.stream().forEach(m -> {
+                        seriesMuebles.getData().add(new XYChart.Data<>(m.getMueble().getNombreMueble(), m.getCantidadVendida()));
+                    });
+                    
+                    barChartMuebles.getData().clear();
+                    barChartMuebles.getData().add(seriesMuebles);
                 });
             }
             @Override protected void failed() {

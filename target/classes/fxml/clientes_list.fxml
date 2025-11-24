@@ -2,114 +2,219 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.KESNAYFERLYDDY.app.controllers.ClientesListController" stylesheets="@/styles/clientes.css" >
-    <VBox spacing="16">
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
-        <BorderPane styleClass="header">
-            <left>
-                <Label text="Clientes" styleClass="title"/>
-            </left>
-            <center>
-                <Label fx:id="lblEliminadoCorrectamente"/>
-            </center>
-            <right>
-                <HBox spacing="12" alignment="CENTER_RIGHT">
-                    <Button text="Nuevo" styleClass="button,primary" onAction="#manejarModalRegistrar"/>
-                    <Button text="Cerrar" onAction="#cerrarVistaClientes"/>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.KESNAYFERLYDDY.app.controllers.ClientesListController"
+           stylesheets="@/styles/clientes.css">
+
+    <BorderPane prefWidth="1400" prefHeight="800">
+        
+        <top>
+            <BorderPane styleClass="navbar" prefHeight="70">
+                <left>
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <ImageView fitWidth="45" fitHeight="45" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/Loguito.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="2">
+                            <Label text="MUEBLERÍA USO" styleClass="navbar-brand"/>
+                            <Label text="Gestión de Clientes" styleClass="navbar-subtitle"/>
+                        </VBox>
+                    </HBox>
+                </left>
+                
+                <right>
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <VBox spacing="2" alignment="CENTER_RIGHT">
+                            <Label text="Bienvenido," styleClass="user-info"/>
+                            <Label fx:id="lblUser" text="Administrador" styleClass="user-info" 
+                                   style="-fx-font-weight: 700; -fx-font-size: 15px;"/>
+                        </VBox>
+                        <Button text="Volver al Dashboard" onAction="#cerrarVistaClientes" styleClass="btn-logout"/>
+                    </HBox>
+                </right>
+            </BorderPane>
+        </top>
+        
+        <center>
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+                <VBox alignment="TOP_CENTER" spacing="0" styleClass="content-container">
+                    <BorderPane styleClass="content-header" prefHeight="70">
+                        <left>
+                            <VBox spacing="2">
+                                <Label text="Gestión de Clientes" styleClass="content-title"/>
+                                <Label text="Administre la base de datos de clientes de la mueblería" 
+                                       styleClass="content-subtitle"/>
+                            </VBox>
+                        </left>
+                        <right>
+                            <HBox spacing="12" alignment="CENTER_RIGHT">
+                                <Button text="Nuevo Cliente" styleClass="button,primary" onAction="#manejarModalRegistrar"/>
+                            </HBox>
+                        </right>
+                    </BorderPane>
+
+                    <VBox alignment="CENTER" spacing="5" visible="false" fx:id="messageContainer" prefHeight="0">
+                        <Label fx:id="lblEliminadoCorrectamente" styleClass="success-message"/>
+                    </VBox>
+                    
+                    <VBox styleClass="table-container" VBox.vgrow="ALWAYS" style="-fx-padding: 0;">
+                        <padding><Insets top="0" right="0" bottom="0" left="0" /></padding>
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="80" styleClass="table-column"/>
+                                <TableColumn fx:id="colNombres" text="Nombres" prefWidth="200" styleClass="table-column"/>
+                                <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="200" styleClass="table-column"/>
+                                <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="150" styleClass="table-column"/>
+                                <TableColumn fx:id="colDui" text="DUI" prefWidth="150" styleClass="table-column"/>
+                                <TableColumn fx:id="colDireccion" text="Dirección" prefWidth="200" styleClass="table-column"/>
+                                <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="180" styleClass="table-column"/>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+                    </VBox>
+                    
+                    <Label text="Mueblería Uso © 2024 - Sistema desarrollado con JavaFX"
+                           styleClass="footer"/>
+                </VBox>
+            </ScrollPane>
+        </center>
+        
+    </BorderPane>
+    
+    <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayRegistrar" onMouseClicked="#manejarModalRegistrar">
+        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <ImageView fitWidth="48" fitHeight="48" styleClass="modal-icon">
+                        <image>
+                            <Image url="@/images/clientesdash.png" />
+                        </image>
+                    </ImageView>
+                    <Label text="Nuevo Cliente" styleClass="modal-title"/>
                 </HBox>
-            </right>
-        </BorderPane>
-        <TableView fx:id="table" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
-                <TableColumn fx:id="colNombres" text="Nombres" prefWidth="200"/>
-                <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="200"/>
-                <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="150"/>
-                <TableColumn fx:id="colDui" text="DUI" prefWidth="150"/>
-                <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="150"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-    </VBox>
-    <VBox alignment="CENTER" styleClass="overlay" visible="false" fx:id="overlayRegistrar" onMouseClicked="#manejarModalRegistrar">
-        <Label fx:id="lblMsgRegistro" id="lblMsg"/>
-        <VBox styleClass="form-container" onMouseClicked="#cancelarClickEnModal">
-            <Label text="Nuevo Cliente" styleClass="form-title"/>
-            
-            <VBox styleClass="form-field">
-                <Label text="Nombres"/>
-                <TextField fx:id="txtNombres" promptText="Ingrese los nombres" onMouseClicked="#ocultarMensajeRegistro"/>
+                
+                <Label fx:id="lblMsgRegistro" styleClass="modal-message"/>
+                
+                <GridPane hgap="16" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                    </columnConstraints>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Nombres *" styleClass="form-label"/>
+                        <TextField fx:id="txtNombresRegistro" promptText="Ingrese los nombres" 
+                                  styleClass="form-input" onMouseClicked="#ocultarMensajeRegistro"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Apellidos *" styleClass="form-label"/>
+                        <TextField fx:id="txtApellidosRegistro" promptText="Ingrese los apellidos" 
+                                  styleClass="form-input" onMouseClicked="#ocultarMensajeRegistro"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Teléfono *" styleClass="form-label"/>
+                        <TextField fx:id="txtTelefonoRegistro" promptText="Ej: 7123-4567" 
+                                  styleClass="form-input" onMouseClicked="#ocultarMensajeRegistro"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="DUI *" styleClass="form-label"/>
+                        <TextField fx:id="txtDuiRegistro" promptText="Ej: 12345678-9" 
+                                  styleClass="form-input" onMouseClicked="#ocultarMensajeRegistro"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Label text="Dirección" styleClass="form-label"/>
+                        <TextField fx:id="txtDireccionRegistro" promptText="Ingrese la dirección del cliente" 
+                                  styleClass="form-input" onMouseClicked="#ocultarMensajeRegistro"/>
+                    </VBox>
+                    
+                </GridPane>
+                
+                <HBox styleClass="modal-buttons" alignment="CENTER_RIGHT" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalRegistrar" styleClass="button,secondary"/>
+                    <Button text="Guardar Cliente" styleClass="button,primary" onAction="#registrarCliente"/>
+                </HBox>
             </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="Apellidos"/>
-                <TextField fx:id="txtApellidos" promptText="Ingrese los apellidos" onMouseClicked="#ocultarMensajeRegistro"/>
-            </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="Teléfono"/>
-                <TextField fx:id="txtTelefono" promptText="Ej: 7123-4567" onMouseClicked="#ocultarMensajeRegistro"/>
-            </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="DUI"/>
-                <TextField fx:id="txtDui" promptText="Ej: 12345678-9" onMouseClicked="#ocultarMensajeRegistro"/>
-            </VBox>
-            <VBox styleClass="form-field">
-                <Label text="Direccion"/>
-                <TextField fx:id="txtDireccion" promptText="Ej: Calle Oriente y Avenida Central Final, Colonia 14 de Diciembre" onMouseClicked="#ocultarMensajeRegistro"/>
-            </VBox>
-            <HBox styleClass="form-buttons" alignment="CENTER_RIGHT">
-                <Button text="Cancelar" onAction="#manejarModalRegistrar"/>
-                <Button text="Guardar" styleClass="button,primary" onAction="#registrarCliente"/>
-            </HBox>
         </VBox>
     </VBox>
-    <VBox alignment="CENTER" styleClass="overlay" visible="false" fx:id="overlayEditar" onMouseClicked="#manejarModalEditar">
-        <Label fx:id="lblMsgEdicion" id="lblMsg"/>
-        <VBox styleClass="form-container" onMouseClicked="#cancelarClickEnModal">
-            <Label text="Editar cliente" styleClass="form-title"/>
-            <VBox styleClass="form-field">
-                <Label text="Nombres"/>
-                <TextField fx:id="txtNombresEditar" onMouseClicked="#ocultarMensajeEdicion"/>
+    
+    <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayEditar" onMouseClicked="#manejarModalEditar">
+        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <ImageView fitWidth="48" fitHeight="48" styleClass="modal-icon">
+                        <image>
+                            <Image url="@/images/clientesdash.png" />
+                        </image>
+                    </ImageView>
+                    <Label text="Editar Cliente" styleClass="modal-title"/>
+                </HBox>
+                
+                <Label fx:id="lblMsgEdicion" styleClass="modal-message"/>
+                
+                <GridPane hgap="16" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                    </columnConstraints>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Nombres *" styleClass="form-label"/>
+                        <TextField fx:id="txtNombresEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeEdicion"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Apellidos *" styleClass="form-label"/>
+                        <TextField fx:id="txtApellidosEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeEdicion"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Teléfono *" styleClass="form-label"/>
+                        <TextField fx:id="txtTelefonoEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeEdicion"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="DUI *" styleClass="form-label"/>
+                        <TextField fx:id="txtDuiEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeEdicion"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Label text="Dirección" styleClass="form-label"/>
+                        <TextField fx:id="txtDireccionEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeEdicion"/>
+                    </VBox>
+                    
+                </GridPane>
+                
+                <HBox styleClass="modal-buttons" alignment="CENTER_RIGHT" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalEditar" styleClass="button,secondary"/>
+                    <Button text="Actualizar Cliente" styleClass="button,primary" onAction="#editarCliente"/>
+                </HBox>
             </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="Apellidos"/>
-                <TextField fx:id="txtApellidosEditar" onMouseClicked="#ocultarMensajeEdicion"/>
-            </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="Teléfono"/>
-                <TextField fx:id="txtTelefonoEditar" onMouseClicked="#ocultarMensajeEdicion"/>
-            </VBox>
-            
-            <VBox styleClass="form-field">
-                <Label text="DUI"/>
-                <TextField fx:id="txtDuiEditar" onMouseClicked="#ocultarMensajeEdicion"/>
-            </VBox>
-            <VBox styleClass="form-field">
-                <Label text="Direccion"/>
-                <TextField fx:id="txtDireccionEditar" onMouseClicked="#ocultarMensajeEdicion"/>
-            </VBox>
-            <HBox styleClass="form-buttons" alignment="CENTER_RIGHT">
-                <Button text="Cancelar" onAction="#manejarModalEditar"/>
-                <Button text="Actualizar" styleClass="button,primary" onAction="#editarCliente"/>
-            </HBox>
         </VBox>
     </VBox>
-    <VBox alignment="CENTER" visible="false" fx:id="overlayEliminar" styleClass="overlay" onMouseClicked="#manejarModalEliminar">
-        <VBox styleClass="form-container" onMouseClicked="#cancelarClickEnModal">
-            <Label fx:id="lblEliminar" styleClass="form-title"/>
-            <HBox styleClass="form-buttons" alignment="CENTER_RIGHT">
-                <Button text="Cancelar" onAction="#manejarModalEliminar"/>
-                <Button text="Eliminar" styleClass="button,primary" onAction="#eliminarCliente"/>
-            </HBox>
+    
+    <VBox alignment="CENTER" visible="false" fx:id="overlayEliminar" styleClass="modal-overlay" onMouseClicked="#manejarModalEliminar">
+        <VBox styleClass="modal-container,delete-modal" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="16" alignment="CENTER">
+                <Label text="⚠" styleClass="warning-icon"/>
+                <Label fx:id="lblEliminar" styleClass="warning-title" wrapText="true"/>
+                <Label text="Esta acción no se puede deshacer" styleClass="warning-subtitle"/>
+                <HBox styleClass="modal-buttons" alignment="CENTER" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalEliminar" styleClass="button,secondary"/>
+                    <Button text="Eliminar Cliente" styleClass="button,danger" onAction="#eliminarCliente"/>
+                </HBox>
+            </VBox>
         </VBox>
     </VBox>
 </StackPane>

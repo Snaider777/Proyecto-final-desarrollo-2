@@ -2,39 +2,71 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.KESNAYFERLYDDY.app.controllers.VentasListController" stylesheets="@/styles/ventas.css" >
-            <VBox spacing="16" style="-fx-background-color: #f8f9fa;" VBox.vgrow="ALWAYS">
-                <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
-                </padding>
-                <BorderPane styleClass="header-ventas">
-                    <left>
-                        <Label text="Ventas" styleClass="titulo-ventas"/>
-                    </left>
-                    <right>
-                        <HBox spacing="12" alignment="CENTER_RIGHT">
-                            <HBox spacing="5" alignment="CENTER_LEFT" styleClass="filtro-reportes">
-                                <Label text="Desde:"/>
-                                <DatePicker fx:id="dpFechaInicio" promptText="Fecha inicio" />
-                                <Label text="Hasta:"/>
-                                <DatePicker fx:id="dpFechaFin" promptText="Fecha fin" />
-                            </HBox>
-                            <Button text="Reporte" styleClass="btn-accion-primario" onAction="#accionReporte"/>
-                            <Button text="Nueva venta" styleClass="btn-accion-primario" onAction="#manejarModalRegistrarVentas"/>
-                            <Button text="Cerrar" onAction="#cerrarVistaVentas" styleClass="btn-accion"/>
-                        </HBox>
-                    </right>
-                </BorderPane>
-                <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="productos-scroll" VBox.vgrow="ALWAYS">
-                    <content >
-                        <HBox spacing="16" HBox.hgrow="ALWAYS">
-                            <VBox fx:id="contenedorVentas" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"></VBox>
-                        </HBox>
-                    </content>
-                </ScrollPane>
-            </VBox>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
+<StackPane xmlns="http://javafx.com/javafx" 
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.KESNAYFERLYDDY.app.controllers.VentasListController" 
+           stylesheets="@/styles/ventas.css">
+
+    <BorderPane prefWidth="1400" prefHeight="800">
+        
+        <top>
+            <BorderPane styleClass="navbar" prefHeight="70">
+                <left>
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <ImageView fitWidth="45" fitHeight="45" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/Loguito.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="2">
+                            <Label text="MUEBLERÍA USO" styleClass="navbar-brand"/>
+                            <Label text="Gestión de Ventas" styleClass="navbar-subtitle"/>
+                        </VBox>
+                    </HBox>
+                </left>
+                
+                <right>
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <VBox spacing="2" alignment="CENTER_RIGHT">
+                            <Label text="Bienvenido," styleClass="user-info"/>
+                            <Label fx:id="lblUser" text="Administrador" styleClass="user-info" 
+                                   style="-fx-font-weight: 700; -fx-font-size: 15px;"/>
+                        </VBox>
+                        <Button text="Volver al Dashboard" onAction="#cerrarVistaVentas" styleClass="btn-logout"/>
+                    </HBox>
+                </right>
+            </BorderPane>
+        </top>
+        
+        <center>
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+                <VBox alignment="TOP_CENTER" spacing="2" styleClass="content-container">
+                    <BorderPane styleClass="content-header" prefHeight="70">
+                        <left>
+                            <VBox spacing="2">
+                                <Label text="Gestión de Ventas" styleClass="content-title"/>
+                                <Label text="Administre las ventas y genere reportes" 
+                                       styleClass="content-subtitle"/>
+                            </VBox>
+                        </left>
+                        <right>
+                            <HBox spacing="12" alignment="CENTER_RIGHT">
+                                <HBox spacing="8" alignment="CENTER_LEFT" styleClass="filtro-container">
+                                    <Label text="Desde:" styleClass="filtro-label"/>
+                                    <DatePicker fx:id="dpFechaInicio" styleClass="filtro-datepicker" promptText="Fecha inicio" />
+                                    <Label text="Hasta:" styleClass="filtro-label"/>
+                                    <DatePicker fx:id="dpFechaFin" styleClass="filtro-datepicker" promptText="Fecha fin" />
+                                </HBox>
+                                <Button text="Generar Reporte" onAction="#accionReporte" styleClass="button,secondary"/>
+                                <Button text="Nueva Venta" onAction="#manejarModalRegistrarVentas" styleClass="button,primary"/>
+                            </HBox>
+                        </right>
+                    </BorderPane>
+
+<<<<<<< HEAD
             <VBox fx:id="overlayRegistrarVentas"
                 alignment="CENTER"
                 visible="false"
@@ -118,17 +150,133 @@
                     <HBox alignment="CENTER_RIGHT" spacing="15">
                         <Button text="Cerrar" onAction="#manejarModalVerDetalles" styleClass="btn-secondary"/>
                     </HBox>
+=======
+                    <VBox fx:id="contenedorVentas" styleClass="ventas-container" VBox.vgrow="ALWAYS"/>
+                    
+                    <Label text="Mueblería Uso © 2024 - Sistema desarrollado con JavaFX"
+                           styleClass="footer"/>
+>>>>>>> origin/main
                 </VBox>
-            </VBox>
+            </ScrollPane>
+        </center>
+    </BorderPane>
 
-            <VBox alignment="CENTER" visible="false" fx:id="overlayEliminarVentas" styleClass="overlay" onMouseClicked="#manejarModalEliminarVentas">
-                <VBox onMouseClicked="#cancelarClickEnModal" styleClass="modal">
-                    <Label fx:id="lblEliminarVenta" styleClass="modal-title"/>
-                    <HBox alignment="CENTER_RIGHT" spacing="15">
-                        <Button text="Cancelar" onAction="#manejarModalEliminarVentas" styleClass="btn-secondary"/>
-                        <Button text="Eliminar" styleClass="btn-primary" onAction="#eliminarVenta"/>
-                    </HBox>
+    <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayRegistrarVentas" onMouseClicked="#manejarModalRegistrarVentas">
+        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="💰" styleClass="modal-icon-text"/>
+                    <Label text="Nueva Venta" styleClass="modal-title"/>
+                </HBox>
+                
+                <Label fx:id="lblMsgRegistroVenta" styleClass="modal-message"/>
+                
+                <VBox styleClass="contenedor-productos-modal">
+                    <Label text="Productos Disponibles" styleClass="form-label"/>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-pane" prefHeight="200">
+                        <VBox fx:id="contenedorMuebles" styleClass="products-grid"/>
+                    </ScrollPane>
                 </VBox>
+
+                <GridPane hgap="16" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                    </columnConstraints>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Cliente *" styleClass="form-label"/>
+                        <ComboBox fx:id="comboClientes" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Empleado *" styleClass="form-label"/>
+                        <ComboBox fx:id="comboEmpleados" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                    </VBox>
+                </GridPane>
+                
+                <HBox styleClass="modal-buttons" alignment="CENTER_RIGHT" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalRegistrarVentas" styleClass="button,secondary"/>
+                    <Button text="Registrar Venta" styleClass="button,primary" onAction="#registrarVenta"/>
+                </HBox>
             </VBox>
+        </VBox>
+    </VBox>
+
+    <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayEditarVentas" onMouseClicked="#manejarModalEditarVentas">
+        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="💰" styleClass="modal-icon-text"/>
+                    <Label text="Modificar Venta" styleClass="modal-title"/>
+                </HBox>
+                
+                <Label fx:id="lblMsgEditarVenta" styleClass="modal-message"/>
+                
+                <VBox styleClass="contenedor-productos-modal">
+                    <Label text="Productos Disponibles" styleClass="form-label"/>
+                    <ScrollPane fitToWidth="true" styleClass="scroll-pane" prefHeight="200">
+                        <VBox fx:id="contenedorMueblesEditar" styleClass="products-grid"/>
+                    </ScrollPane>
+                </VBox>
+
+                <GridPane hgap="16" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="50" halignment="LEFT"/>
+                    </columnConstraints>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Cliente *" styleClass="form-label"/>
+                        <ComboBox fx:id="comboClientesEditar" styleClass="form-input"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Empleado *" styleClass="form-label"/>
+                        <ComboBox fx:id="comboEmpleadosEditar" styleClass="form-input"/>
+                    </VBox>
+                </GridPane>
+                
+                <HBox styleClass="modal-buttons" alignment="CENTER_RIGHT" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="button,secondary"/>
+                    <Button text="Actualizar Venta" styleClass="button,primary" onAction="#editarVenta"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+
+    <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayDetalleVentas" onMouseClicked="#manejarModalVerDetalles">
+        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="📋" styleClass="modal-icon-text"/>
+                    <Label text="Detalles de la Venta" styleClass="modal-title"/>
+                </HBox>
+                
+                <VBox spacing="12">
+                    <Label text="Productos Vendidos" styleClass="form-label"/>
+                    <VBox fx:id="contenedorProductosVendidos" styleClass="detalles-container"/>
+                </VBox>
+                
+                <HBox styleClass="modal-buttons" alignment="CENTER_RIGHT" spacing="12">
+                    <Button text="Cerrar" onAction="#manejarModalVerDetalles" styleClass="button,secondary"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+
+    <VBox alignment="CENTER" visible="false" fx:id="overlayEliminarVentas" styleClass="modal-overlay" onMouseClicked="#manejarModalEliminarVentas">
+        <VBox styleClass="modal-container,delete-modal" onMouseClicked="#cancelarClickEnModal">
+            <VBox spacing="16" alignment="CENTER">
+                <Label text="⚠" styleClass="warning-icon"/>
+                <Label fx:id="lblEliminarVenta" styleClass="warning-title" wrapText="true"/>
+                <Label text="Esta acción no se puede deshacer" styleClass="warning-subtitle"/>
+                <HBox styleClass="modal-buttons" alignment="CENTER" spacing="12">
+                    <Button text="Cancelar" onAction="#manejarModalEliminarVentas" styleClass="button,secondary"/>
+                    <Button text="Eliminar Venta" styleClass="button,danger" onAction="#eliminarVenta"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
 
 </StackPane>

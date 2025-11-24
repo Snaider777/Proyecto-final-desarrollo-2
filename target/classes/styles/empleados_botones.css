@@ -3,7 +3,7 @@
     -fx-alignment: center;
 }
 
-#btnEditar, #btnEliminar {
+#btnEditar, #btnEliminar, #btnUsuario {
     -fx-background-color: transparent;
     -fx-font-size: 13px;
     -fx-font-weight: 600;
