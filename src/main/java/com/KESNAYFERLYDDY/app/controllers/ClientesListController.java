@@ -3,12 +3,13 @@ package com.KESNAYFERLYDDY.app.controllers;
 import java.util.List;
 
 import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
-import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeInAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeOutAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.ClienteDto;
 import com.KESNAYFERLYDDY.app.services.ClienteService;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
@@ -16,14 +17,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class ClientesListController {
@@ -33,17 +33,18 @@ public class ClientesListController {
     @FXML private TableColumn<ClienteDto, String> colApellidos;
     @FXML private TableColumn<ClienteDto, String> colTelefono;
     @FXML private TableColumn<ClienteDto, String> colDui;
+    @FXML private TableColumn<ClienteDto, String> colDireccion;
     @FXML private TableColumn<ClienteDto, Void> colAcciones;
 
     @FXML private VBox overlayRegistrar;
     @FXML private VBox overlayEliminar;
     @FXML private VBox overlayEditar;
 
-    @FXML private TextField txtNombres;
-    @FXML private TextField txtApellidos;
-    @FXML private TextField txtTelefono;
-    @FXML private TextField txtDui;
-    @FXML private TextField txtDireccion;
+    @FXML private TextField txtNombresRegistro;
+    @FXML private TextField txtApellidosRegistro;
+    @FXML private TextField txtTelefonoRegistro;
+    @FXML private TextField txtDuiRegistro;
+    @FXML private TextField txtDireccionRegistro;
 
     @FXML private TextField txtNombresEditar;
     @FXML private TextField txtApellidosEditar;
@@ -83,6 +84,7 @@ public class ClientesListController {
         colApellidos.setCellValueFactory(cd -> new javafx.beans.property.SimpleStringProperty(cd.getValue().getApellidosCliente()));
         colTelefono.setCellValueFactory(cd -> new javafx.beans.property.SimpleStringProperty(cd.getValue().getTelefonoCliente()));
         colDui.setCellValueFactory(cd -> new javafx.beans.property.SimpleStringProperty(cd.getValue().getDuiCliente()));
+        colDireccion.setCellValueFactory(cd -> new javafx.beans.property.SimpleStringProperty(cd.getValue().getDireccionCliente()));
         colAcciones.setCellFactory(col -> new ClientesButtonsController(this));
     }
 
@@ -104,7 +106,7 @@ public class ClientesListController {
     }
 
     public void registrarCliente() {
-        if(txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtDui.getText().isEmpty() || txtTelefono.getText().isEmpty()){
+        if(txtNombresRegistro.getText().isEmpty() || txtApellidosRegistro.getText().isEmpty() || txtDuiRegistro.getText().isEmpty() || txtTelefonoRegistro.getText().isEmpty() || txtDireccionRegistro.getText().isEmpty()){
             Platform.runLater(() -> {
                 lblMsgRegistro.getStyleClass().remove("exito");
                 lblMsgRegistro.getStyleClass().add("error");
@@ -113,11 +115,11 @@ public class ClientesListController {
             });
         }else{
             ClienteDto cliente = new ClienteDto();
-            cliente.setNombresCliente(txtNombres.getText());
-            cliente.setApellidosCliente(txtApellidos.getText());
-            cliente.setDireccionCliente(txtDireccion.getText());
-            cliente.setDuiCliente(txtDui.getText());
-            cliente.setTelefonoCliente(txtTelefono.getText());
+            cliente.setNombresCliente(txtNombresRegistro.getText());
+            cliente.setApellidosCliente(txtApellidosRegistro.getText());
+            cliente.setDuiCliente(txtDuiRegistro.getText());
+            cliente.setTelefonoCliente(txtTelefonoRegistro.getText());
+            cliente.setDireccionCliente(txtDireccionRegistro.getText());
             Task<Void> task = new Task<>() {
                 @Override protected Void call() throws Exception {
                     client.insertarCliente(cliente);
@@ -128,11 +130,11 @@ public class ClientesListController {
                 lblMsgRegistro.getStyleClass().remove("error");
                 lblMsgRegistro.getStyleClass().add("exito");
                 lblMsgRegistro.setText("Cliente registrado exitosamente");
-                txtNombres.setText("");
-                txtApellidos.setText("");
-                txtDireccion.setText("");
-                txtDui.setText("");
-                txtTelefono.setText("");
+                txtNombresRegistro.setText("");
+                txtApellidosRegistro.setText("");
+                txtDuiRegistro.setText("");
+                txtTelefonoRegistro.setText("");
+                txtDireccionRegistro.setText("");
                 FadeUpAnimation.play(lblMsgRegistro);
                 cargarClientes();
             }));
@@ -154,9 +156,9 @@ public class ClientesListController {
         if(
             txtNombresEditar.getText().isEmpty() ||
             txtApellidosEditar.getText().isEmpty() ||
-            txtDireccionEditar.getText().isEmpty() ||
             txtDuiEditar.getText().isEmpty() ||
-            txtTelefonoEditar.getText().isEmpty()
+            txtTelefonoEditar.getText().isEmpty() ||
+            txtDireccionEditar.getText().isEmpty()
         ){
             lblMsgEdicion.getStyleClass().removeAll("exito", "error", "advertencia");
             lblMsgEdicion.getStyleClass().add("error");
@@ -165,9 +167,9 @@ public class ClientesListController {
         }else if(
             txtNombresEditar.getText().equals(clienteParaEditar.getNombresCliente()) &&
             txtApellidosEditar.getText().equals(clienteParaEditar.getApellidosCliente()) &&
-            txtDireccionEditar.getText().equals(clienteParaEditar.getDireccionCliente()) &&
             txtDuiEditar.getText().equals(clienteParaEditar.getDuiCliente()) &&
-            txtTelefonoEditar.getText().equals(clienteParaEditar.getTelefonoCliente())
+            txtTelefonoEditar.getText().equals(clienteParaEditar.getTelefonoCliente()) &&
+            txtDireccionEditar.getText().equals(clienteParaEditar.getDireccionCliente())
         ){
             lblMsgEdicion.getStyleClass().removeAll("exito", "error", "advertencia");
             lblMsgEdicion.getStyleClass().add("advertencia");
@@ -178,9 +180,9 @@ public class ClientesListController {
             cliente.setIdCliente(clienteParaEditar.getIdCliente());
             cliente.setNombresCliente(txtNombresEditar.getText());
             cliente.setApellidosCliente(txtApellidosEditar.getText());
-            cliente.setDireccionCliente(txtDireccionEditar.getText());
             cliente.setDuiCliente(txtDuiEditar.getText());
             cliente.setTelefonoCliente(txtTelefonoEditar.getText());
+            cliente.setDireccionCliente(txtDireccionEditar.getText());
             Task<Void> task = new Task<>() {
                 @Override protected Void call() throws Exception {
                     client.editarCliente(cliente);
@@ -272,9 +274,9 @@ public class ClientesListController {
         }else{
             txtNombresEditar.setText(clienteParaEditar.getNombresCliente());
             txtApellidosEditar.setText(clienteParaEditar.getApellidosCliente());
-            txtDireccionEditar.setText(clienteParaEditar.getDireccionCliente());
             txtDuiEditar.setText(clienteParaEditar.getDuiCliente());
             txtTelefonoEditar.setText(clienteParaEditar.getTelefonoCliente());
+            txtDireccionEditar.setText(clienteParaEditar.getDireccionCliente());
             overlayEditar.setVisible(true);
         }
     }
@@ -284,7 +286,7 @@ public class ClientesListController {
         if(overlayEliminar.isVisible()){
             overlayEliminar.setVisible(false);
         }else{
-            lblEliminar.setText("Seguro que quiere eliminar a " + clienteParaEliminar.getNombresCliente() + "?");
+            lblEliminar.setText("¿Seguro que quiere eliminar a " + clienteParaEliminar.getNombresCliente() + "?");
             overlayEliminar.setVisible(true);
         }
     }
