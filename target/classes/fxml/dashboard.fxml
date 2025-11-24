@@ -67,7 +67,8 @@
                     <Button fx:id="btnClientes" onAction="#onOpenClientes" 
                         styleClass="card-button card-clientes" 
                         GridPane.columnIndex="0" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -90,7 +91,8 @@
                     <Button fx:id="btnEmpleados" onAction="#onOpenEmpleados" 
                         styleClass="card-button card-empleados" 
                         GridPane.columnIndex="1" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -113,7 +115,8 @@
                     <Button fx:id="btnVentas" onAction="#onOpenVentas" 
                         styleClass="card-button card-ventas" 
                         GridPane.columnIndex="0" GridPane.rowIndex="1"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -136,7 +139,8 @@
                     <Button fx:id="btnProductos" onAction="#onOpenProductos" 
                         styleClass="card-button card-productos" 
                         GridPane.columnIndex="1" GridPane.rowIndex="1"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -170,7 +174,8 @@
                     <Button fx:id="btnVentasVendedor" onAction="#onOpenVentas" 
                         styleClass="card-button card-ventas" 
                         GridPane.columnIndex="0" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
@@ -193,7 +198,8 @@
                     <Button fx:id="btnProductosVendedor" onAction="#onOpenProductos" 
                         styleClass="card-button card-productos" 
                         GridPane.columnIndex="1" GridPane.rowIndex="0"
-                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"
+                        minWidth="0" maxWidth="Infinity">
                         <graphic>
                             <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
                                 <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
