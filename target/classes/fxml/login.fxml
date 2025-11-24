@@ -19,7 +19,6 @@
             <Label text="Iniciar sesión" />
             <TextField fx:id="txtUser" id="txtUser" promptText="Usuario" onMouseClicked="#ocultarMensaje"/>
 
-            <!-- HBox con PasswordField + TextField visible + botón 'ojito' -->
             <HBox alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS" style="-fx-alignment: CENTER_RIGHT;">
                 <PasswordField fx:id="txtPass" id="txtPass" promptText="Contraseña" onMouseClicked="#ocultarMensaje" HBox.hgrow="ALWAYS"/>
                 <TextField fx:id="txtPassVisible" promptText="Contraseña" onMouseClicked="#ocultarMensaje"
