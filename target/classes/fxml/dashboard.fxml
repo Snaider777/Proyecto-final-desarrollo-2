@@ -53,12 +53,8 @@
                         styleClass="dashboard-subtitle"/>
                 </VBox>
                 
-<<<<<<< HEAD
-                <GridPane styleClass="card-grid" alignment="CENTER">
-=======
                 <!-- GridPane para Administrador (todas las tarjetas) -->
                 <GridPane fx:id="gridAdmin" styleClass="card-grid" alignment="CENTER" prefHeight="600">
->>>>>>> origin/main
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>

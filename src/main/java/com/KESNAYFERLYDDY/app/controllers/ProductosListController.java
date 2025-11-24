@@ -19,16 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-<<<<<<< HEAD
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-=======
 import javafx.scene.control.Button;
->>>>>>> origin/main
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -219,21 +210,6 @@ public class ProductosListController {
         GridPane gridMuebles = new GridPane();
         gridMuebles.setHgap(16);
         gridMuebles.setVgap(16);
-<<<<<<< HEAD
-        gridMuebles.setPadding(new javafx.geometry.Insets(16));
-        
-        // Configurar columnas para que ocupen 50% cada una
-        javafx.scene.layout.ColumnConstraints col1 = new javafx.scene.layout.ColumnConstraints();
-        col1.setPercentWidth(50);
-        col1.setHalignment(javafx.geometry.HPos.CENTER);
-        javafx.scene.layout.ColumnConstraints col2 = new javafx.scene.layout.ColumnConstraints();
-        col2.setPercentWidth(50);
-        col2.setHalignment(javafx.geometry.HPos.CENTER);
-        gridMuebles.getColumnConstraints().addAll(col1, col2);
-        
-        int row = 0;
-        int col = 0;
-=======
         gridMuebles.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         gridMuebles.setStyle("-fx-padding: 16;");
 
@@ -245,19 +221,13 @@ public class ProductosListController {
         col2.setPercentWidth(50);
         col2.setHgrow(Priority.ALWAYS);
         gridMuebles.getColumnConstraints().addAll(col1, col2);
->>>>>>> origin/main
         
         for (MuebleDto m : muebles) {
             VBox tarjeta = new VBox();
             tarjeta.setStyle("-fx-background-color: white; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16; -fx-spacing: 12;");
-<<<<<<< HEAD
-            tarjeta.setMaxWidth(Double.MAX_VALUE);
-            GridPane.setHgrow(tarjeta, javafx.scene.layout.Priority.ALWAYS);
-=======
             // Allow tarjeta to grow to fill half the column width
             tarjeta.setPrefWidth(Region.USE_COMPUTED_SIZE);
             tarjeta.setMaxWidth(Double.MAX_VALUE);
->>>>>>> origin/main
             
             Label nombre = new Label(m.getNombreMueble());
             nombre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2d3436;");
@@ -323,21 +293,11 @@ public class ProductosListController {
             
             tarjeta.getChildren().addAll(nombre, descripcion, infoRow1, infoRow2, botonesAccion);
             
-<<<<<<< HEAD
-            gridMuebles.add(tarjeta, col, row);
-            
-            col++;
-            if (col > 1) {
-                col = 0;
-                row++;
-            }
-=======
             int index = gridMuebles.getChildren().size();
             int col = index % 2;
             int row = index / 2;
             gridMuebles.add(tarjeta, col, row);
             GridPane.setHgrow(tarjeta, Priority.ALWAYS);
->>>>>>> origin/main
         }
         
         contenedorMuebles.getChildren().add(gridMuebles);
