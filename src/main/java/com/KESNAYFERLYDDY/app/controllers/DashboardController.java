@@ -68,7 +68,7 @@ public class DashboardController {
             int clientes = 0, ventas = 0, usuarios = 0, productos = 0;
             List<VentaDto> ventasMes;
             List<com.KESNAYFERLYDDY.app.models.MuebleVendidoDto> mueblesMasVendidos;
-            @Override protected Void call() throws Exception {
+            @Override protected Void call() {
                 clientes = service.cantidadDeClientes();
                 ventas = service.cantidadDeVentas();
                 usuarios = service.cantidadDeEmpleados();

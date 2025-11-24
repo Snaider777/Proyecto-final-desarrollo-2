@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -205,18 +206,28 @@ public class ProductosListController {
     private void mostrarMuebles(List<MuebleDto> muebles) {
         contenedorMuebles.getChildren().clear();
         
-        FlowPane gridMuebles = new FlowPane();
+        GridPane gridMuebles = new GridPane();
         gridMuebles.setHgap(16);
         gridMuebles.setVgap(16);
-        gridMuebles.setPrefWrapLength(1200);
-        gridMuebles.setAlignment(javafx.geometry.Pos.TOP_LEFT);
-        gridMuebles.setStyle("-fx-padding: 16;");
+        gridMuebles.setPadding(new javafx.geometry.Insets(16));
+        
+        // Configurar columnas para que ocupen 50% cada una
+        javafx.scene.layout.ColumnConstraints col1 = new javafx.scene.layout.ColumnConstraints();
+        col1.setPercentWidth(50);
+        col1.setHalignment(javafx.geometry.HPos.CENTER);
+        javafx.scene.layout.ColumnConstraints col2 = new javafx.scene.layout.ColumnConstraints();
+        col2.setPercentWidth(50);
+        col2.setHalignment(javafx.geometry.HPos.CENTER);
+        gridMuebles.getColumnConstraints().addAll(col1, col2);
+        
+        int row = 0;
+        int col = 0;
         
         for (MuebleDto mueble : muebles) {
             VBox tarjeta = new VBox();
             tarjeta.setStyle("-fx-background-color: white; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16; -fx-spacing: 12;");
-            tarjeta.setPrefWidth(250);
-            tarjeta.setMaxWidth(250);
+            tarjeta.setMaxWidth(Double.MAX_VALUE);
+            GridPane.setHgrow(tarjeta, javafx.scene.layout.Priority.ALWAYS);
             
             Label nombre = new Label(mueble.getNombreMueble());
             nombre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2d3436;");
@@ -277,7 +288,13 @@ public class ProductosListController {
             
             tarjeta.getChildren().addAll(nombre, descripcion, infoRow1, infoRow2, botonesAccion);
             
-            gridMuebles.getChildren().add(tarjeta);
+            gridMuebles.add(tarjeta, col, row);
+            
+            col++;
+            if (col > 1) {
+                col = 0;
+                row++;
+            }
         }
         
         contenedorMuebles.getChildren().add(gridMuebles);

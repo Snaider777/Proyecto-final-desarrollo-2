@@ -53,14 +53,14 @@
                         styleClass="dashboard-subtitle"/>
                 </VBox>
                 
-                <GridPane styleClass="card-grid" alignment="CENTER" prefHeight="600">
+                <GridPane styleClass="card-grid" alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
                         <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints percentHeight="50" valignment="CENTER" vgrow="ALWAYS" prefHeight="300"/>
-                        <RowConstraints percentHeight="50" valignment="CENTER" vgrow="ALWAYS" prefHeight="300"/>
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
                     </rowConstraints>
 
                     <Button fx:id="btnClientes" onAction="#onOpenClientes" 

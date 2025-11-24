@@ -77,8 +77,6 @@
 .card-grid {
     -fx-hgap: 25;
     -fx-vgap: 25;
-    -fx-pref-height: 600px;
-    -fx-max-height: 600px;
 }
 
 .card-button {
@@ -87,12 +85,9 @@
     -fx-border-width: 1;
     -fx-border-radius: 6; 
     -fx-background-radius: 6; 
-    -fx-min-width: 0;
     -fx-max-width: infinity;
-    -fx-min-height: 0;
-    -fx-max-height: infinity;
-    -fx-pref-width: 100%;
-    -fx-pref-height: 100%;
+    -fx-pref-height: 220px;
+    -fx-min-height: 220px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 4);
 }
@@ -124,9 +119,9 @@
 }
 
 .card-content {
-    -fx-spacing: 25;
+    -fx-spacing: 20;
     -fx-alignment: center-left;
-    -fx-padding: 35;
+    -fx-padding: 25;
 }
 
 .card-icon {

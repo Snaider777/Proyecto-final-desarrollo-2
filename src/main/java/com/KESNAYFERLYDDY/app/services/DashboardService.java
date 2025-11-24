@@ -20,51 +20,81 @@ public class DashboardService {
         this.ventaService = new VentaService();
     }
 
-    public List<VentaDto> ventasDelMes() throws Exception {
-        return ventaService.listarVentasMesActual();
+    public List<VentaDto> ventasDelMes() {
+        try {
+            return ventaService.listarVentasMesActual();
+        } catch (Exception e) {
+            System.err.println("Error al obtener ventas del mes: " + e.getMessage());
+            return List.of();
+        }
     }
 
-    public List<MuebleVendidoDto> mueblesMasVendidosDelMes() throws Exception {
-        return ventaService.obtenerMueblesMasVendidosDelMes();
+    public List<MuebleVendidoDto> mueblesMasVendidosDelMes() {
+        try {
+            return ventaService.obtenerMueblesMasVendidosDelMes();
+        } catch (Exception e) {
+            System.err.println("Error al obtener muebles más vendidos: " + e.getMessage());
+            return List.of();
+        }
     }
 
-    public int cantidadDeClientes() throws Exception {
-        String url = ApiConfig.HOST + "/clientes/";
-        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (respuesta.statusCode() == 200) {
-            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
-            return list.size();
-        } else return 0;
+    public int cantidadDeClientes() {
+        try {
+            String url = ApiConfig.HOST + "/clientes/";
+            HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+            HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+            if (respuesta.statusCode() == 200) {
+                List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
+                return list.size();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al obtener cantidad de clientes: " + e.getMessage());
+        }
+        return 0;
     }
 
-    public int cantidadDeVentas() throws Exception {
-        String url = ApiConfig.HOST + "/ventas/";
-        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (respuesta.statusCode() == 200) {
-            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
-            return list.size();
-        } else return 0;
+    public int cantidadDeVentas() {
+        try {
+            String url = ApiConfig.HOST + "/ventas/";
+            HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+            HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+            if (respuesta.statusCode() == 200) {
+                List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
+                return list.size();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al obtener cantidad de ventas: " + e.getMessage());
+        }
+        return 0;
     }
 
-    public int cantidadDeProductos() throws Exception {
-        String url = ApiConfig.HOST + "/muebles/";
-        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (respuesta.statusCode() == 200) {
-            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
-            return list.size();
-        } else return 0;
+    public int cantidadDeProductos() {
+        try {
+            String url = ApiConfig.HOST + "/muebles/";
+            HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+            HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+            if (respuesta.statusCode() == 200) {
+                List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
+                return list.size();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al obtener cantidad de productos: " + e.getMessage());
+        }
+        return 0;
     }
 
-    public int cantidadDeEmpleados() throws Exception {
-        String url = ApiConfig.HOST + "/empleados/";
-        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
-        HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
-        if (respuesta.statusCode() == 200) {
-            List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
-            return list.size();
-        } else return 0;
+    public int cantidadDeEmpleados() {
+        try {
+            String url = ApiConfig.HOST + "/empleados/";
+            HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+            HttpResponse<String> respuesta = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+            if (respuesta.statusCode() == 200) {
+                List<?> list = mapper.readValue(respuesta.body(), new TypeReference<List<Object>>() {});
+                return list.size();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al obtener cantidad de empleados: " + e.getMessage());
+        }
+        return 0;
     }
 }

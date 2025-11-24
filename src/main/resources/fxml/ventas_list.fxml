@@ -66,110 +66,25 @@
                         </right>
                     </BorderPane>
 
-<<<<<<< HEAD
-            <VBox fx:id="overlayRegistrarVentas"
-                alignment="CENTER"
-                visible="false"
-                onMouseClicked="#manejarModalRegistrarVentas"
-                xmlns:fx="http://javafx.com/fxml"
-                styleClass="overlay">
-                <Label fx:id="lblMsgRegistroVenta" id="lblMsg"/>
-                    <VBox onMouseClicked="#cancelarClickEnModal"
-                        spacing="15"
-                        styleClass="modal">
-                        <Label text="Nueva venta" styleClass="modal-title"/>
-                        <VBox fx:id = "contenedorProductos" prefHeight="200" VBox.vgrow="NEVER">
-                            <ScrollPane fx:id = "contenedorTarjetasProducto" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS" onMouseClicked="#ocultarMensajeRegistroVenta">
-                                <content>
-                                    <VBox fx:id="contenedorMuebles">
-                                    </VBox>
-                                </content>
-                            </ScrollPane>
-                        </VBox>
-                        <VBox spacing="10">
-                            <Label text="Cliente" styleClass="input-label"/>
-                            <ComboBox fx:id="comboClientes" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
-                        </VBox>
-                        <VBox spacing="10">
-                            <Label text="Empleado" styleClass="input-label"/>
-                            <ComboBox fx:id="comboEmpleados" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
-                        </VBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="15">
-                            <Button text="Cancelar" onAction="#manejarModalRegistrarVentas" styleClass="btn-secondary"/>
-                            <Button text="Guardar" onAction="#registrarVenta" styleClass="btn-primary"/>
-                        </HBox>                                                                                                                                                                                                                                                                                                                                     
-                    </VBox>
-            </VBox>
-
-            <VBox fx:id="overlayEditarVentas"
-                alignment="CENTER"
-                visible="false"
-                onMouseClicked="#manejarModalEditarVentas"
-                xmlns:fx="http://javafx.com/fxml"
-                styleClass="overlay">
-                <Label fx:id="lblMsgEditarVenta" id="lblMsg"/>
-                    <VBox onMouseClicked="#cancelarClickEnModal"
-                        spacing="15"
-                        styleClass="modal">
-                        <Label text="Modificar venta" styleClass="modal-title"/>
-                        <VBox spacing="10">
-                            <Label text="Cliente" styleClass="input-label"/>
-                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
-                        </VBox>
-                        <VBox spacing="10">
-                            <Label text="Empleado" styleClass="input-label"/>
-                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
-                        </VBox>
-                        <VBox spacing="10">
-                            <Label text="Fecha de venta" styleClass="input-label"/>
-                            <DatePicker fx:id="dpFechaVentaEditar" styleClass="date-picker-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
-                        </VBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="15">
-                            <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="btn-secondary"/>
-                            <Button text="Guardar" onAction="#editarVenta" styleClass="btn-primary"/>
-                        </HBox>                                                                                                                                                                                                                                                                                                                                     
-                    </VBox>
-            </VBox>
-
-            <VBox fx:id="overlayDetalleVentas"
-                alignment="CENTER"
-                visible="false"
-                onMouseClicked="#manejarModalVerDetalles"
-                xmlns:fx="http://javafx.com/fxml"
-                styleClass="overlay">
-                <Label fx:id="lblMsgRegistroMueble" id="lblMsg"/>
-                <VBox onMouseClicked="#cancelarClickEnModal"
-                    spacing="15"
-                    styleClass="modal">
-                    <Label text="Detalles de la venta" styleClass="modal-title"/>
-                    <VBox spacing="10">
-                        <Label text="Productos vendidos" />
-                        <VBox fx:id="contenedorProductosVendidos">
-                        </VBox>
-                    </VBox>
-                    <HBox alignment="CENTER_RIGHT" spacing="15">
-                        <Button text="Cerrar" onAction="#manejarModalVerDetalles" styleClass="btn-secondary"/>
-                    </HBox>
-=======
                     <VBox fx:id="contenedorVentas" styleClass="ventas-container" VBox.vgrow="ALWAYS"/>
                     
                     <Label text="Mueblería Uso © 2024 - Sistema desarrollado con JavaFX"
                            styleClass="footer"/>
->>>>>>> origin/main
                 </VBox>
             </ScrollPane>
         </center>
     </BorderPane>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayRegistrarVentas" onMouseClicked="#manejarModalRegistrarVentas">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="💰" styleClass="modal-icon-text"/>
-                    <Label text="Nueva Venta" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgRegistroVenta" styleClass="modal-message"/>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgRegistroVenta" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="💰" styleClass="modal-icon-text"/>
+                        <Label text="Nueva Venta" styleClass="modal-title"/>
+                    </HBox>
                 
                 <VBox styleClass="contenedor-productos-modal">
                     <Label text="Productos Disponibles" styleClass="form-label"/>
@@ -186,12 +101,12 @@
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <Label text="Cliente *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboClientes" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                        <ComboBox fx:id="comboClientes" styleClass="form-input" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
                     </VBox>
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
                         <Label text="Empleado *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboEmpleados" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroVenta"/>
+                        <ComboBox fx:id="comboEmpleados" styleClass="form-input" maxWidth="Infinity" onMouseClicked="#ocultarMensajeRegistroVenta"/>
                     </VBox>
                 </GridPane>
                 
@@ -199,26 +114,21 @@
                     <Button text="Cancelar" onAction="#manejarModalRegistrarVentas" styleClass="button,secondary"/>
                     <Button text="Registrar Venta" styleClass="button,primary" onAction="#registrarVenta"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayEditarVentas" onMouseClicked="#manejarModalEditarVentas">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="💰" styleClass="modal-icon-text"/>
-                    <Label text="Modificar Venta" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgEditarVenta" styleClass="modal-message"/>
-                
-                <VBox styleClass="contenedor-productos-modal">
-                    <Label text="Productos Disponibles" styleClass="form-label"/>
-                    <ScrollPane fitToWidth="true" styleClass="scroll-pane" prefHeight="200">
-                        <VBox fx:id="contenedorMueblesEditar" styleClass="products-grid"/>
-                    </ScrollPane>
-                </VBox>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgEditarVenta" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="💰" styleClass="modal-icon-text"/>
+                        <Label text="Modificar Venta" styleClass="modal-title"/>
+                    </HBox>
 
                 <GridPane hgap="16" vgap="8">
                     <columnConstraints>
@@ -228,12 +138,17 @@
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <Label text="Cliente *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboClientesEditar" styleClass="form-input"/>
+                        <ComboBox fx:id="comboClientesEditar" styleClass="form-input" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
                     </VBox>
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0">
                         <Label text="Empleado *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboEmpleadosEditar" styleClass="form-input"/>
+                        <ComboBox fx:id="comboEmpleadosEditar" styleClass="form-input" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
+                    </VBox>
+                    
+                    <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Fecha de Venta *" styleClass="form-label"/>
+                        <DatePicker fx:id="dpFechaVentaEditar" styleClass="form-input" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
                     </VBox>
                 </GridPane>
                 
@@ -241,6 +156,7 @@
                     <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="button,secondary"/>
                     <Button text="Actualizar Venta" styleClass="button,primary" onAction="#editarVenta"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>
