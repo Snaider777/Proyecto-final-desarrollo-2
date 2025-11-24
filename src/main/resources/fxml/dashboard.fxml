@@ -3,104 +3,179 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.KESNAYFERLYDDY.app.controllers.DashboardController"
             stylesheets="@/styles/dashboard.css"
-            prefWidth="900" prefHeight="600">
-<top>
-<StackPane prefHeight="150" styleClass="header-fondo">
-    <ImageView fitWidth="1545" fitHeight="150" preserveRatio="false">
-        <image>
-            <Image url="@/images/banner.jpg" />
-        </image>
-    </ImageView>
-    <BorderPane fx:id="header" styleClass="header">
-        <left>
-        <VBox  spacing="1" alignment="CENTER_LEFT"> 
-            <ImageView fitWidth="147" fitHeight="147">
-                <image>
-                    <Image url="@/images/Loguito.png" />
-                </image>
-            </ImageView>
-        </VBox>
-        </left>
-        <center>
-            <Label text="MUEBLERÍA USO" styleClass="titulo-principal" BorderPane.alignment="CENTER"/>
-        </center>
-        <right>
-            <VBox spacing="30" alignment="CENTER_RIGHT">
-                <Button text="Cerrar sesión" onAction="#onLogout" styleClass="btn-cerrar"/>
-                <Label fx:id="lblUser" text="Usuario:" styleClass="nombre-usuario"/>
+            prefWidth="1400" prefHeight="800">
+    
+    <top>
+        <BorderPane styleClass="navbar" prefHeight="70">
+            <left>
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <ImageView fitWidth="45" fitHeight="45" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/Loguito.png" />
+                        </image>
+                    </ImageView>
+                    <VBox spacing="2">
+                        <Label text="MUEBLERÍA USO" styleClass="navbar-brand"/>
+                        <Label text="Sistema Integral de Gestión" styleClass="navbar-subtitle"/>
+                    </VBox>
+                </HBox>
+            </left>
+            
+            <right>
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <VBox spacing="2" alignment="CENTER_RIGHT">
+                        <Label text="Bienvenido," styleClass="user-info"/>
+                        <Label fx:id="lblUser" text="Administrador" styleClass="user-info" 
+                               style="-fx-font-weight: 700; -fx-font-size: 15px;"/>
+                    </VBox>
+                    <Button text="Cerrar Sesión" onAction="#onLogout" styleClass="btn-logout"/>
+                </HBox>
+            </right>
+        </BorderPane>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+            <VBox alignment="TOP_CENTER" spacing="30" styleClass="dashboard">
+                <VBox spacing="8" alignment="CENTER">
+                    <Label text="Panel de Control Principal" styleClass="dashboard-title"/>
+                    <Label text="Gestione todos los aspectos de su mueblería desde un solo lugar" 
+                        styleClass="dashboard-subtitle"/>
+                </VBox>
+                
+                <GridPane styleClass="card-grid" alignment="CENTER" prefHeight="600">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="50" halignment="CENTER" hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="50" valignment="CENTER" vgrow="ALWAYS" prefHeight="300"/>
+                        <RowConstraints percentHeight="50" valignment="CENTER" vgrow="ALWAYS" prefHeight="300"/>
+                    </rowConstraints>
+
+                    <Button fx:id="btnClientes" onAction="#onOpenClientes" 
+                        styleClass="card-button card-clientes" 
+                        GridPane.columnIndex="0" GridPane.rowIndex="0"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/clientesdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Clientes" styleClass="card-title"/>
+                                        <Label fx:id="lblClientesCount" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Gestione la base de datos de clientes, historial de compras, información de contacto y segmentación de clientes."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                    
+                    <Button fx:id="btnEmpleados" onAction="#onOpenEmpleados" 
+                        styleClass="card-button card-empleados" 
+                        GridPane.columnIndex="1" GridPane.rowIndex="0"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/empleadosdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Empleados" styleClass="card-title"/>
+                                        <Label fx:id="lblUsuariosCount" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Administre el personal, permisos, horarios, información laboral y desempeño de los empleados."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="btnVentas" onAction="#onOpenVentas" 
+                        styleClass="card-button card-ventas" 
+                        GridPane.columnIndex="0" GridPane.rowIndex="1"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/ventasdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Ventas" styleClass="card-title"/>
+                                        <Label fx:id="lblVentasCount" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Controle ventas, facturación, reportes financieros, análisis de rendimiento y métricas comerciales."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                    
+                    <Button fx:id="btnProductos" onAction="#onOpenProductos" 
+                        styleClass="card-button card-productos" 
+                        GridPane.columnIndex="1" GridPane.rowIndex="1"
+                        GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <graphic>
+                            <HBox styleClass="card-content" spacing="20" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="90" fitHeight="90" styleClass="card-icon">
+                                    <image>
+                                        <Image url="@/images/mueblesdash.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15" alignment="CENTER_LEFT">
+                                    <HBox spacing="20" alignment="CENTER_LEFT">
+                                        <Label text="Inventario" styleClass="card-title"/>
+                                        <Label fx:id="lblProductosCount" text="0" styleClass="card-count"/>
+                                    </HBox>
+                                    <Label text="Administre el inventario de muebles, categorías, precios, niveles de stock y control de existencias."
+                                        styleClass="card-description" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </GridPane>
+
+                <HBox spacing="30" alignment="CENTER" prefHeight="800">
+                    <VBox styleClass="chart-container" spacing="15" HBox.hgrow="ALWAYS" prefHeight="800">
+                        <Label text="Ventas del Mes" styleClass="chart-title"/>
+                        <LineChart fx:id="lineChartVentas" animated="false" prefHeight="700" styleClass="large-chart">
+                            <xAxis><CategoryAxis label="Día del Mes"/></xAxis>
+                            <yAxis><NumberAxis label="Total Ventas ($)"/></yAxis>
+                        </LineChart>
+                    </VBox>
+                    <VBox styleClass="chart-container" spacing="15" HBox.hgrow="ALWAYS" prefHeight="800">
+                        <Label text="Top 10 Muebles Más Vendidos" styleClass="chart-title"/>
+                        <BarChart fx:id="barChartMuebles" animated="false" prefHeight="700" styleClass="large-chart">
+                            <xAxis><CategoryAxis label="Mueble"/></xAxis>
+                            <yAxis><NumberAxis label="Cantidad Vendida"/></yAxis>
+                        </BarChart>
+                    </VBox>
+                </HBox>
+                
+                <Label text="Mueblería Uso © 2024 - Sistema desarrollado con JavaFX" 
+                    styleClass="footer"/>
             </VBox>
-        </right>
-    </BorderPane>
-</StackPane>
-</top>
-  <center>
-  <GridPane hgap="5" vgap="7" BorderPane.alignment="CENTER" styleClass="dashboard" prefWidth="1200" maxWidth="1200">
-    <columnConstraints>
-        <ColumnConstraints prefWidth="900" halignment="CENTER" hgrow="NEVER"/>
-        <ColumnConstraints prefWidth="900" halignment="CENTER" hgrow="NEVER"/>
-    </columnConstraints>
-
-    <rowConstraints>
-        <RowConstraints prefHeight="350"/>
-        <RowConstraints prefHeight="350"/>
-    </rowConstraints>
-
-    <Button fx:id="btnClientes" onAction="#onOpenClientes" styleClass="card-button" GridPane.columnIndex="0" GridPane.rowIndex="0">
-       <graphic>
-        <VBox alignment="CENTER">
-        <ImageView fitWidth="150" fitHeight="150">
-            <image>
-                <Image url="@/images/clientesdash.png" />
-            </image>
-        </ImageView>
-            <Label text="Clientes" styleClass="card-label"/>
-            <Label fx:id="lblClientesCount" text="..." styleClass="card-count"/>
-        </VBox>
-        </graphic>
-    </Button>
-    <Button fx:id="btnEmpleados" onAction="#onOpenEmpleados" styleClass="card-button" GridPane.columnIndex="1" GridPane.rowIndex="0">
-    <graphic>
-        <VBox alignment="CENTER">
-        <ImageView fitWidth="150" fitHeight="150">
-            <image>
-                <Image url="@/images/empleadosdash.png" />
-            </image>
-        </ImageView>
-            <Label text="Empleados" styleClass="card-label"/>
-            <Label fx:id="lblUsuariosCount" text="..." styleClass="card-count"/>
-        </VBox>
-        </graphic>
-    </Button>
-    <Button fx:id="btnVentas" onAction="#onOpenVentas" styleClass="card-button" GridPane.columnIndex="0" GridPane.rowIndex="1">
-        <graphic>
-        <VBox alignment="CENTER">
-        <ImageView fitWidth="150" fitHeight="150">
-            <image>
-                <Image url="@/images/ventasdash.png" />
-            </image>
-        </ImageView>
-            <Label text="Ventas" styleClass="card-label"/>
-            <Label fx:id="lblVentasCount" text="..." styleClass="card-count"/>
-        </VBox>
-        </graphic>
-    </Button>
-    <Button fx:id="btnProductos" onAction="#onOpenProductos" styleClass="card-button" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <graphic>
-        <VBox alignment="CENTER">
-        <ImageView fitWidth="150" fitHeight="150">
-            <image>
-                <Image url="@/images/mueblesdash.png" />
-            </image>
-        </ImageView>
-            <Label text="Muebles" styleClass="card-label"/>
-            <Label fx:id="lblProductosCount" text="..." styleClass="card-count"/>
-        </VBox>
-        </graphic>
-    </Button>
-</GridPane>
-</center>
+        </ScrollPane>
+    </center>
 </BorderPane>

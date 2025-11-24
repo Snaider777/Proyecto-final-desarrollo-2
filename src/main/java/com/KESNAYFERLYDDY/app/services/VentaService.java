@@ -3,6 +3,7 @@ import com.KESNAYFERLYDDY.app.config.ApiConfig;
 import com.KESNAYFERLYDDY.app.http.ApiClient;
 import com.KESNAYFERLYDDY.app.models.VentaDto;
 import com.KESNAYFERLYDDY.app.models.DetalleVentasDto;
+import com.KESNAYFERLYDDY.app.models.MuebleDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -154,6 +155,28 @@ public class VentaService {
         } 
         else {
             throw new RuntimeException("Error al listar Ventas por rango (" + r.statusCode() + "): " + r.body());
+        }
+    }
+
+    public List<VentaDto> listarVentasMesActual() throws Exception {
+        String url = ApiConfig.HOST + "/ventas/mes-actual";
+        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (r.statusCode() == 200) {
+            return mapper.readValue(r.body(), new TypeReference<List<VentaDto>>() {});
+        } else {
+            throw new RuntimeException("Error al listar Ventas del mes actual: " + r.statusCode());
+        }
+    }
+
+    public List<com.KESNAYFERLYDDY.app.models.MuebleVendidoDto> obtenerMueblesMasVendidosDelMes() throws Exception {
+        String url = ApiConfig.HOST + "/ventas/muebles-mas-vendidos-mes";
+        HttpRequest req = ApiClient.jsonRequest(url).GET().build();
+        HttpResponse<String> r = ApiClient.get().send(req, HttpResponse.BodyHandlers.ofString());
+        if (r.statusCode() == 200) {
+            return mapper.readValue(r.body(), new TypeReference<List<com.KESNAYFERLYDDY.app.models.MuebleVendidoDto>>() {});
+        } else {
+            throw new RuntimeException("Error al obtener muebles más vendidos: " + r.statusCode());
         }
     }
 }
