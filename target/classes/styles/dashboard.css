@@ -308,3 +308,25 @@
     -fx-shape: " ";
     -fx-padding: 0;
 }
+
+.card-grid-vendedor {
+    -fx-hgap: 25;
+    -fx-vgap: 25;
+    -fx-pref-height: 300px;
+    -fx-max-height: 300px;
+}
+
+.grid-vendedor .card-button {
+    -fx-min-height: 280px;
+    -fx-pref-height: 280px;
+}
+
+.card-grid {
+    -fx-transition: all 0.3s ease;
+}
+
+.dashboard {
+    -fx-background-color: #f1f5f9;
+    -fx-padding: 30;
+    -fx-alignment: top-center;
+}

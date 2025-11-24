@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.KESNAYFERLYDDY.app.controllers.RolesPermisosController"
+            fx:controller="com.KESNAYFERLYDDY.app.controllers.EmpleadoUsuarioController"
             stylesheets="@/styles/empleados_usuarios.css"
             prefWidth="1000" prefHeight="600">
 
@@ -18,60 +18,63 @@
                 </VBox>
             </left>
             <right>
-                <Button text="Cerrar" onAction="#accionCerrar" styleClass="btn-close"/>
+                <Button text="Cerrar" onAction="#accionCerrarModal" styleClass="btn-close"/>
             </right>
         </BorderPane>
     </top>
 
     <center>
-        <HBox spacing="15" alignment="TOP_CENTER">
+        <HBox spacing="20" alignment="TOP_CENTER">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
 
-            <VBox spacing="12" prefWidth="400" styleClass="form-panel">
-                <Label text="Roles del Sistema" styleClass="form-title"/>
-                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
-                    <TableView fx:id="tablaRoles" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn fx:id="colRolId" text="ID" prefWidth="80" styleClass="table-column"/>
-                            <TableColumn fx:id="colRolNombre" text="Rol" prefWidth="200" styleClass="table-column"/>
-                        </columns>
-                    </TableView>
+            <!-- Formulario de usuario (izquierda) -->
+            <VBox spacing="12" prefWidth="480" styleClass="form-panel">
+                <Label fx:id="lblTitulo" text="Usuario" styleClass="form-title"/>
+
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Estado" styleClass="form-label"/>
+                    <Label fx:id="lblEstadoUsuario" text="NO ASIGNADO" styleClass="form-input-full"/>
                 </VBox>
 
                 <VBox spacing="8" styleClass="form-field-full">
-                    <Label text="Nuevo Rol" styleClass="form-label"/>
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <TextField fx:id="txtNuevoRol" promptText="Nombre del rol" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
-                        <Button text="Crear Rol" onAction="#crearRol" styleClass="button,primary"/>
-                    </HBox>
+                    <Label text="Usuario" styleClass="form-label"/>
+                    <TextField fx:id="txtUsername" promptText="Nombre de usuario" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
                 </VBox>
 
-                <VBox spacing="8" styleClass="form-field-full" VBox.vgrow="ALWAYS">
-                    <Label text="Permisos Asignados" styleClass="form-label"/>
-                    <ListView fx:id="listaPermisosAsignados" styleClass="form-input-full,large-list" VBox.vgrow="ALWAYS"/>
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Correo" styleClass="form-label"/>
+                    <TextField fx:id="txtCorreo" promptText="correo@ejemplo.com" styleClass="form-input-full"/>
                 </VBox>
+
+                <VBox spacing="8" styleClass="form-field-full">
+                    <Label text="Contraseña" styleClass="form-label"/>
+                    <PasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="form-input-full"/>
+                </VBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="btnCrearEditar" text="Crear Usuario" onAction="#guardarUsuario" styleClass="button,primary"/>
+                    <Button fx:id="btnEliminar" text="Eliminar Usuario" onAction="#eliminarUsuarioActual" styleClass="button,danger" disable="true"/>
+                </HBox>
             </VBox>
 
-            <VBox spacing="12" prefWidth="400" styleClass="form-panel">
-                <Label text="Permisos del Sistema" styleClass="form-title"/>
+            <!-- Panel de roles (derecha) -->
+            <VBox spacing="12" prefWidth="480" styleClass="form-panel">
+                <Label text="Roles asignados" styleClass="form-title"/>
                 <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
-                    <TableView fx:id="tablaPermisos" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="tablaRolesAsignados" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colPermisoId" text="ID" prefWidth="80" styleClass="table-column"/>
-                            <TableColumn fx:id="colPermisoNombre" text="Permiso" prefWidth="250" styleClass="table-column"/>
+                            <TableColumn fx:id="colRolNombre" text="Rol" prefWidth="300" styleClass="table-column"/>
+                            <TableColumn fx:id="colRolAccion" text="Acción" prefWidth="120" styleClass="table-column"/>
                         </columns>
                     </TableView>
                 </VBox>
 
-                <VBox spacing="8" styleClass="form-field-full">
-                    <Label text="Nuevo Permiso" styleClass="form-label"/>
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <TextField fx:id="txtNuevoPermiso" promptText="Nombre del permiso" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
-                        <Button text="Crear Permiso" onAction="#crearPermiso" styleClass="button,primary"/>
-                    </HBox>
-                </VBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <ComboBox fx:id="comboRolesDisponibles" promptText="Seleccionar rol" styleClass="form-input-full" HBox.hgrow="ALWAYS"/>
+                    <Button text="Asignar" onAction="#asignarRol" styleClass="button,primary"/>
+                </HBox>
             </VBox>
         </HBox>
     </center>

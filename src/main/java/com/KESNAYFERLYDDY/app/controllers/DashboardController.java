@@ -1,5 +1,12 @@
 package com.KESNAYFERLYDDY.app.controllers;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.KESNAYFERLYDDY.app.models.VentaDto;
 import com.KESNAYFERLYDDY.app.services.DashboardService;
 import com.KESNAYFERLYDDY.app.services.PermisoService;
 
@@ -9,18 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import com.KESNAYFERLYDDY.app.models.MuebleDto;
-import com.KESNAYFERLYDDY.app.models.VentaDto;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import java.time.format.DateTimeFormatter;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class DashboardController {
 
@@ -35,6 +37,8 @@ public class DashboardController {
     @FXML private Button btnClientes;
     @FXML private Button btnVentas;
     @FXML private Button btnProductos;
+    @FXML private GridPane gridAdmin;
+    @FXML private GridPane gridVendedor;
     private final DashboardService service = new DashboardService();
     private String username;
     private final PermisoService permisoService = new PermisoService();
@@ -124,18 +128,55 @@ public class DashboardController {
             protected Void call() throws Exception {
                 // Preguntamos al backend
                 puedeVerEmpleados = permisoService.tienePermiso(username, "VER_EMPLEADOS");
-                puedenVerClientes = permisoService.tienePermiso(username, "VER CLIENTES");
+                puedenVerClientes = permisoService.tienePermiso(username, "VER_CLIENTES");
                 return null;
             }
 
             @Override
             protected void succeeded() {
                 // Actualizamos la interfaz gráfica
-                if (!puedeVerEmpleados) {
-                    btnEmpleados.setVisible(false);  // Lo hace invisible
-                    btnEmpleados.setManaged(false); 
-                    btnClientes.setVisible(false);
-                    btnClientes.setManaged(false);
+                // Si el usuario no puede ver empleados ni clientes, mostramos la vista de vendedor
+                if (!puedeVerEmpleados && !puedenVerClientes) {
+                    if (gridAdmin != null) {
+                        gridAdmin.setVisible(false);
+                        gridAdmin.setManaged(false);
+                    }
+                    if (gridVendedor != null) {
+                        gridVendedor.setVisible(true);
+                        gridVendedor.setManaged(true);
+                    }
+                    return;
+                }
+
+                // Si estamos aquí, mostramos la vista de admin y reordenamos las tarjetas
+                if (gridAdmin != null) {
+                    // Preparar la lista de tarjetas que deben mostrarse
+                    List<Button> tarjetas = new ArrayList<>();
+                    if (puedenVerClientes) tarjetas.add(btnClientes);
+                    if (puedeVerEmpleados) tarjetas.add(btnEmpleados);
+                    // Ventas y Productos se muestran por defecto
+                    tarjetas.add(btnVentas);
+                    tarjetas.add(btnProductos);
+
+                    // Limpiar y volver a agregar en orden compacto (2 columnas)
+                    gridAdmin.getChildren().clear();
+                    for (int i = 0; i < tarjetas.size(); i++) {
+                        Button b = tarjetas.get(i);
+                        if (b == null) continue;
+                        b.setVisible(true);
+                        b.setManaged(true);
+                        int col = i % 2;
+                        int row = i / 2;
+                        gridAdmin.add(b, col, row);
+                    }
+                    gridAdmin.setVisible(true);
+                    gridAdmin.setManaged(true);
+                }
+
+                // Asegurarse de ocultar la vista de vendedor si existe
+                if (gridVendedor != null) {
+                    gridVendedor.setVisible(false);
+                    gridVendedor.setManaged(false);
                 }
             }
             
