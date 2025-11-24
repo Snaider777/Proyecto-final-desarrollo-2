@@ -140,3 +140,32 @@
     -fx-pref-width: 100%;
     -fx-pref-height: 100%;
 }
+
+/* Estilo para el botón-ojito (sin texto, solo gráfico) */
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 6 8;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+/* círculo sutil detrás del icono al pasar el mouse */
+.icon-button:hover {
+    -fx-background-color: rgba(42,111,176,0.08); /* tono azulado suave */
+    -fx-background-radius: 999;
+}
+
+/* efecto al presionar */
+.icon-button:pressed {
+    -fx-background-color: rgba(42,111,176,0.12);
+    -fx-background-radius: 999;
+}
+
+/* Ajustes para que el gráfico SVG escale correctamente dentro del botón */
+.icon-button .svg {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
