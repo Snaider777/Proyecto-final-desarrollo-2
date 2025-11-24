@@ -93,7 +93,14 @@ public class VentaService {
 
     public void editarVenta(VentaDto venta) throws Exception {
         String url = ApiConfig.HOST + "/ventas/" + venta.getIdVenta();
-        String VentaJson = mapper.writeValueAsString(venta);
+        
+        String VentaJson = String.format(
+            "{\"cliente\":{\"idCliente\":%d},\"empleado\":{\"idEmpleado\":%d},\"fechaVenta\":\"%s\",\"total\":%s}", 
+            venta.getClienteId(), 
+            venta.getEmpleadoId(),
+            venta.getFechaVenta().toString(),
+            venta.getTotal().toString()
+        );
 
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))

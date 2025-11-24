@@ -148,33 +148,71 @@
 }
 
 .btn-menos {
-    -fx-font-size: 13px;
-    -fx-background-color: #f1f3f5;
-    -fx-text-fill: #495057;
-    -fx-border-color: #ced4da;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-padding: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #e53935;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6;
     -fx-cursor: hand;
 }
 
 .btn-menos:hover {
-    -fx-background-color: #e9ecef;
+    -fx-background-color: #e53935;
+    -fx-text-fill: white;
 }
 
 .btn-mas {
-    -fx-font-size: 13px;
-    -fx-background-color: #e6f4ea;
-    -fx-text-fill: #2b8a3e;
-    -fx-border-color: #b6d9c2;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-padding: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #43a047;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6;
     -fx-cursor: hand;
 }
 
 .btn-mas:hover {
-    -fx-background-color: #d3f4dd;
+    -fx-background-color: #43a047;
+    -fx-text-fill: white;
+}
+
+.btn-editar-venta {
+    -fx-background-color: #4c6ef5;
+    -fx-text-fill: white;
+    -fx-padding: 8 18;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.btn-editar-venta:hover {
+    -fx-background-color: #4263eb;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+}
+
+.btn-eliminar-venta {
+    -fx-background-color: #ff6b6b;
+    -fx-text-fill: white;
+    -fx-padding: 8 18;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.btn-eliminar-venta:hover {
+    -fx-background-color: #fa5252;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
 }
 
 .btn-ver-detalles {
@@ -183,15 +221,14 @@
     -fx-font-size: 13px;
     -fx-font-weight: 600;
     -fx-padding: 10 20;
+    -fx-border-color: transparent;
     -fx-border-radius: 6;
     -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(76,110,245,0.3), 4, 0, 0, 2);
 }
 
 .btn-ver-detalles:hover {
-    -fx-background-color: #4263eb;
-    -fx-effect: dropshadow(gaussian, rgba(76,110,245,0.5), 6, 0, 0, 2);
+    -fx-background-color: #3b5bdb;
 }
 
 .overlay {
@@ -233,6 +270,34 @@
 .input-field:focused {
     -fx-border-color: #d32f2f;
     -fx-background-color: #fff;
+}
+
+.date-picker-field {
+    -fx-background-color: #f7f7f7;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 6 10;
+    -fx-font-size: 14px;
+}
+
+.date-picker-field:focused {
+    -fx-border-color: #d32f2f;
+    -fx-background-color: #fff;
+}
+
+.date-picker-field .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.date-picker-field .arrow-button .arrow {
+    -fx-background-color: #555555;
+}
+
+.date-picker-field:focused .arrow-button .arrow {
+    -fx-background-color: #d32f2f;
 }
 
 .contenedor-productos-modal {

@@ -2,6 +2,7 @@ package com.KESNAYFERLYDDY.app.controllers;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,10 +76,10 @@ public class VentasListController {
     @FXML private ComboBox<EmpleadosDto> comboEmpleadosEditar;
 
     @FXML private ScrollPane contenedorTarjetasProducto;
-    @FXML private ScrollPane contenedorTarjetasProductoEditar;
 
     @FXML private DatePicker dpFechaInicio; 
     @FXML private DatePicker dpFechaFin;
+    @FXML private DatePicker dpFechaVentaEditar;
 
     private List<DetalleVentasDto> listaDetalles = new ArrayList<>();
     private VentaDto ventaParaEliminar;
@@ -115,7 +116,7 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    public void cargarMuebles(String vistaDeModal){
+    public void cargarMuebles(){
         Task<List<MuebleDto>> task = new Task<>() {
             @Override protected List<MuebleDto> call() throws Exception {
                 return muebleService.listarMuebles();
@@ -123,11 +124,7 @@ public class VentasListController {
         };
         task.setOnSucceeded(event -> {
             List<MuebleDto> muebles = task.getValue();
-            if(vistaDeModal.equals("Editar")){
-                mostrarMuebles(muebles, "Editar");
-            }else if(vistaDeModal.equals("Registrar")){
-                mostrarMuebles(muebles, "Registrar");
-            }
+            mostrarMuebles(muebles);
         });
         task.setOnFailed(event -> {
             task.getException().printStackTrace();
@@ -146,6 +143,7 @@ public class VentasListController {
             if(vistaDeModal.equals("Editar")){
                 comboClientesEditar.getItems().clear();
                 comboClientesEditar.getItems().addAll(clientes);
+                comboClientesEditar.setValue(ventaParaEditar.getCliente());
             }else if(vistaDeModal.equals("Registrar")){
                 comboClientes.getItems().clear();
                 comboClientes.getItems().addAll(clientes);
@@ -168,6 +166,7 @@ public class VentasListController {
             if(vistaDeModal.equals("Editar")){
                 comboEmpleadosEditar.getItems().clear();
                 comboEmpleadosEditar.getItems().addAll(empleados);
+                comboEmpleadosEditar.setValue(ventaParaEditar.getEmpleado());
             }else if(vistaDeModal.equals("Registrar")){
                 comboEmpleados.getItems().clear();
                 comboEmpleados.getItems().addAll(empleados);
@@ -198,13 +197,9 @@ public class VentasListController {
         new Thread(task).start();
     }
 
-    private void mostrarMuebles(List<MuebleDto> muebles, String vistaDeModal){
-        // Limpiar el contenedor correcto según el modal
-        if(vistaDeModal.equals("Editar")){
-            contenedorMueblesEditar.getChildren().clear();
-        } else {
-            contenedorMuebles.getChildren().clear();
-        }
+    private void mostrarMuebles(List<MuebleDto> muebles){
+
+        contenedorMuebles.getChildren().clear();
         
         VBox columnaMuebles = new VBox(10);
         columnaMuebles.setPadding(new Insets(8));
@@ -345,11 +340,7 @@ public class VentasListController {
             tarjeta.getChildren().addAll(leftBox, centerBox, rightBox);
             columnaMuebles.getChildren().add(tarjeta);
         }
-        if(vistaDeModal.equals("Editar")){
-            contenedorMueblesEditar.getChildren().add(columnaMuebles);
-        }else if(vistaDeModal.equals("Registrar")){
-            contenedorMuebles.getChildren().add(columnaMuebles);
-        }
+        contenedorMuebles.getChildren().add(columnaMuebles);
     }
 
     private void mostrarVentas(List<VentaDto> ventas){
@@ -435,11 +426,14 @@ public class VentasListController {
             btnVerDetalles.setOnAction(e -> cargarDetallesDeVenta(venta));
 
             Button btnEliminarVenta = new Button("Eliminar");
+            btnEliminarVenta.getStyleClass().add("btn-eliminar-venta");
             btnEliminarVenta.setOnAction( e -> {setVentaParaEliminar(venta); manejarModalEliminarVentas();});
             
             Button btnEditarVenta = new Button("Editar");
+            btnEditarVenta.getStyleClass().add("btn-editar-venta");
             btnEditarVenta.setOnAction( e -> {setVentaParaEditar(venta); manejarModalEditarVentas();});
 
+            contenedorBoton.setSpacing(10);
             contenedorBoton.getChildren().add(btnEditarVenta);
             contenedorBoton.getChildren().add(btnEliminarVenta);
             contenedorBoton.getChildren().add(btnVerDetalles);
@@ -532,20 +526,13 @@ public class VentasListController {
             .forEach(listaDetalles::add);
     }
 
-    private void limpiarFormularioVenta(String vistaDeModal) {
+    private void limpiarFormularioVenta() {
         detallesPorMueble.clear();
         listaDetalles.clear();
-        if(vistaDeModal.equals("Registrar")){
-            contenedorMuebles.getChildren().clear();
-            comboClientes.setValue(null);
-            comboEmpleados.setValue(null);
-            cargarMuebles("Registrar");
-        }else if(vistaDeModal.equals("Editar")){
-            contenedorMueblesEditar.getChildren().clear();
-            comboClientesEditar.setValue(null);
-            comboEmpleadosEditar.setValue(null);
-            cargarMuebles("Editar");
-        }
+        contenedorMuebles.getChildren().clear();
+        comboClientes.setValue(null);
+        comboEmpleados.setValue(null);
+        cargarMuebles();
     }
 
     public void registrarVenta(){
@@ -582,7 +569,7 @@ public class VentasListController {
                 lblMsgRegistroVenta.setText("Venta registrada con éxito");
                 FadeUpAnimation.play(lblMsgRegistroVenta);
                 cargarVentas();
-                limpiarFormularioVenta("Registrar");
+                limpiarFormularioVenta();
             });
             task.setOnFailed(event -> {
                 task.getException().printStackTrace();
@@ -592,46 +579,61 @@ public class VentasListController {
     }
 
     public void editarVenta(){
-        sincronizarDetalles();
-        if(listaDetalles.isEmpty()){
-            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
-            lblMsgEditarVenta.getStyleClass().add("error");
-            lblMsgEditarVenta.setText("Debe seleccionar almenos un producto");
-            FadeUpAnimation.play(lblMsgEditarVenta);
-        }else if(comboClientesEditar.getValue() == null){
-            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+        if(comboClientesEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito", "advertencia");
             lblMsgEditarVenta.getStyleClass().add("error");
             lblMsgEditarVenta.setText("Debe seleccionar un cliente");
             FadeUpAnimation.play(lblMsgEditarVenta);
         }else if(comboEmpleadosEditar.getValue() == null){
-            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito", "advertencia");
             lblMsgEditarVenta.getStyleClass().add("error");
             lblMsgEditarVenta.setText("Debe seleccionar un empleado");
             FadeUpAnimation.play(lblMsgEditarVenta);
+        }else if(dpFechaVentaEditar.getValue() == null){
+            lblMsgEditarVenta.getStyleClass().removeAll("error", "exito", "advertencia");
+            lblMsgEditarVenta.getStyleClass().add("error");
+            lblMsgEditarVenta.setText("Debe seleccionar una fecha de venta");
+            FadeUpAnimation.play(lblMsgEditarVenta);
         }else{
-            VentaDto ventaObj = new VentaDto();
-            ventaObj.setIdVenta(ventaParaEditar.getIdVenta());
-            ventaObj.setDetalles(listaDetalles);
-            ventaObj.setClienteId(comboClientesEditar.getValue().getIdCliente());
-            ventaObj.setEmpleadoId(comboEmpleadosEditar.getValue().getIdEmpleado());
-            Task<Void> task = new Task<>() {
-                @Override protected Void call() throws Exception {
-                    ventaService.editarVenta(ventaObj);
-                    return null;
-                }
-            };
-            task.setOnSucceeded(event -> {
-                lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
-                lblMsgEditarVenta.getStyleClass().add("exito");
-                lblMsgEditarVenta.setText("Venta actualizada con éxito");
-                FadeUpAnimation.play(lblMsgEditarVenta);
-                cargarVentas();
-                limpiarFormularioVenta("Editar");
-            });
-            task.setOnFailed(event -> {
-                task.getException().printStackTrace();
-            });
-            new Thread(task).start();
+            LocalDate fechaSeleccionada = dpFechaVentaEditar.getValue();
+            LocalDateTime nuevaFechaVenta = fechaSeleccionada.atStartOfDay();
+            
+            LocalDate fechaOriginal = ventaParaEditar.getFechaVenta().toLocalDate();
+            
+            boolean clienteCambio = !comboClientesEditar.getValue().getIdCliente().equals(ventaParaEditar.getCliente().getIdCliente());
+            boolean empleadoCambio = !comboEmpleadosEditar.getValue().getIdEmpleado().equals(ventaParaEditar.getEmpleado().getIdEmpleado());
+            boolean fechaCambio = !fechaSeleccionada.equals(fechaOriginal);
+            
+            if(!clienteCambio && !empleadoCambio && !fechaCambio){
+                lblMsgEditarVenta.getStyleClass().removeAll("error", "exito", "advertencia");
+                lblMsgEditarVenta.getStyleClass().add("advertencia");
+                lblMsgEditarVenta.setText("Ningún campo ha cambiado");
+                FadeUpAnimation.play(lblMsgEditarVenta); 
+            }else{
+                VentaDto ventaObj = new VentaDto();
+                ventaObj.setIdVenta(ventaParaEditar.getIdVenta());
+                ventaObj.setClienteId(comboClientesEditar.getValue().getIdCliente());
+                ventaObj.setEmpleadoId(comboEmpleadosEditar.getValue().getIdEmpleado());
+                ventaObj.setFechaVenta(nuevaFechaVenta);
+                ventaObj.setTotal(ventaParaEditar.getTotal());
+                Task<Void> task = new Task<>() {
+                    @Override protected Void call() throws Exception {
+                        ventaService.editarVenta(ventaObj);
+                        return null;
+                    }
+                };
+                task.setOnSucceeded(event -> {
+                    lblMsgEditarVenta.getStyleClass().removeAll("error", "exito");
+                    lblMsgEditarVenta.getStyleClass().add("exito");
+                    lblMsgEditarVenta.setText("Venta actualizada con éxito");
+                    FadeUpAnimation.play(lblMsgEditarVenta);
+                    cargarVentas();
+                });
+                task.setOnFailed(event -> {
+                    task.getException().printStackTrace();
+                });
+                new Thread(task).start();
+            }
         }
     }
 
@@ -665,11 +667,8 @@ public class VentasListController {
             overlayRegistrarVentas.setVisible(false);
             FadeDownAnimation.play(lblMsgRegistroVenta);
         }else{
-            // Limpiar el HashMap antes de mostrar el modal
-            detallesPorMueble.clear();
-            listaDetalles.clear();
             overlayRegistrarVentas.setVisible(true);
-            cargarMuebles("Registrar");
+            cargarMuebles();
             cargarClientes("Registrar");
             cargarEmpleados("Registrar");
         }
@@ -689,14 +688,15 @@ public class VentasListController {
     public void manejarModalEditarVentas(){
         if(overlayEditarVentas.isVisible()){
             overlayEditarVentas.setVisible(false);
+            FadeDownAnimation.play(lblMsgEditarVenta);
         }else{
-            // Limpiar el HashMap antes de mostrar el modal
-            detallesPorMueble.clear();
-            listaDetalles.clear();
             overlayEditarVentas.setVisible(true);
             cargarClientes("Editar");
             cargarEmpleados("Editar");
-            cargarMuebles("Editar");
+            if(ventaParaEditar != null && ventaParaEditar.getFechaVenta() != null){
+                LocalDate fechaVenta = ventaParaEditar.getFechaVenta().toLocalDate();
+                dpFechaVentaEditar.setValue(fechaVenta);
+            }
         }
     }
 

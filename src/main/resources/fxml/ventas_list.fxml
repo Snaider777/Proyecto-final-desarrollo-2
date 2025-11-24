@@ -80,21 +80,17 @@
                         spacing="15"
                         styleClass="modal">
                         <Label text="Modificar venta" styleClass="modal-title"/>
-                        <VBox fx:id = "contenedorProductosEditar" prefHeight="200" VBox.vgrow="NEVER">
-                            <ScrollPane fx:id = "contenedorTarjetasProductoEditar" fitToWidth="true" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
-                                <content>
-                                    <VBox fx:id="contenedorMueblesEditar">
-                                    </VBox>
-                                </content>
-                            </ScrollPane>
-                        </VBox>
                         <VBox spacing="10">
                             <Label text="Cliente" styleClass="input-label"/>
-                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" />
+                            <ComboBox fx:id="comboClientesEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
                         </VBox>
                         <VBox spacing="10">
                             <Label text="Empleado" styleClass="input-label"/>
-                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity"/>
+                            <ComboBox fx:id="comboEmpleadosEditar" styleClass="input-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
+                        </VBox>
+                        <VBox spacing="10">
+                            <Label text="Fecha de venta" styleClass="input-label"/>
+                            <DatePicker fx:id="dpFechaVentaEditar" styleClass="date-picker-field" maxWidth="Infinity" onMouseClicked="#ocultarMensajeEditarVenta"/>
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15">
                             <Button text="Cancelar" onAction="#manejarModalEditarVentas" styleClass="btn-secondary"/>
