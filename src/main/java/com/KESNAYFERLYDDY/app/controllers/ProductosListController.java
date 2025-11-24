@@ -3,35 +3,37 @@ package com.KESNAYFERLYDDY.app.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeInLeftAnimation;
 import com.KESNAYFERLYDDY.app.animations.FadeOutRightAnimation;
+import com.KESNAYFERLYDDY.app.animations.FadeUpAnimation;
 import com.KESNAYFERLYDDY.app.models.CategoriaDto;
 import com.KESNAYFERLYDDY.app.models.MuebleDto;
-import com.KESNAYFERLYDDY.app.services.MuebleService;
 import com.KESNAYFERLYDDY.app.services.CategoriaService;
-
-import com.KESNAYFERLYDDY.app.animations.FadeDownAnimation;
+import com.KESNAYFERLYDDY.app.services.MuebleService;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class ProductosListController {
 
@@ -205,23 +207,32 @@ public class ProductosListController {
     private void mostrarMuebles(List<MuebleDto> muebles) {
         contenedorMuebles.getChildren().clear();
         
-        FlowPane gridMuebles = new FlowPane();
+        GridPane gridMuebles = new GridPane();
         gridMuebles.setHgap(16);
         gridMuebles.setVgap(16);
-        gridMuebles.setPrefWrapLength(1200);
         gridMuebles.setAlignment(javafx.geometry.Pos.TOP_LEFT);
         gridMuebles.setStyle("-fx-padding: 16;");
+
+        // Two columns, each taking 50% of the available width
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        col1.setHgrow(Priority.ALWAYS);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(50);
+        col2.setHgrow(Priority.ALWAYS);
+        gridMuebles.getColumnConstraints().addAll(col1, col2);
         
-        for (MuebleDto mueble : muebles) {
+        for (MuebleDto m : muebles) {
             VBox tarjeta = new VBox();
             tarjeta.setStyle("-fx-background-color: white; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 16; -fx-spacing: 12;");
-            tarjeta.setPrefWidth(250);
-            tarjeta.setMaxWidth(250);
+            // Allow tarjeta to grow to fill half the column width
+            tarjeta.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            tarjeta.setMaxWidth(Double.MAX_VALUE);
             
-            Label nombre = new Label(mueble.getNombreMueble());
+            Label nombre = new Label(m.getNombreMueble());
             nombre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2d3436;");
             
-            Label descripcion = new Label(mueble.getDescripcionMueble());
+            Label descripcion = new Label(m.getDescripcionMueble());
             descripcion.setStyle("-fx-font-size: 12px; -fx-text-fill: #495057; -fx-wrap-text: true;");
             descripcion.setWrapText(true);
             
@@ -231,14 +242,14 @@ public class ProductosListController {
             VBox infoCategoria = new VBox(4);
             Label labelCategoria = new Label("Categoría");
             labelCategoria.setStyle("-fx-font-size: 11px; -fx-text-fill: #868e96;");
-            Label valorCategoria = new Label(mueble.getCategoria() != null ? mueble.getCategoria().getCategoria() : "N/A");
+            Label valorCategoria = new Label(m.getCategoria() != null ? m.getCategoria().getCategoria() : "N/A");
             valorCategoria.setStyle("-fx-font-size: 13px; -fx-text-fill: #2d3436;");
             infoCategoria.getChildren().addAll(labelCategoria, valorCategoria);
             
             VBox infoExistencia = new VBox(4);
             Label labelExistencia = new Label("Existencias");
             labelExistencia.setStyle("-fx-font-size: 11px; -fx-text-fill: #868e96;");
-            Label valorExistencia = new Label(String.valueOf(mueble.getExistencia()));
+            Label valorExistencia = new Label(String.valueOf(m.getExistencia()));
             valorExistencia.setStyle("-fx-font-size: 13px; -fx-text-fill: #2d3436;");
             infoExistencia.getChildren().addAll(labelExistencia, valorExistencia);
             
@@ -250,34 +261,43 @@ public class ProductosListController {
             VBox infoMaterial = new VBox(4);
             Label labelMaterial = new Label("Material");
             labelMaterial.setStyle("-fx-font-size: 11px; -fx-text-fill: #868e96;");
-            Label valorMaterial = new Label(mueble.getNombreMaterial());
+            Label valorMaterial = new Label(m.getNombreMaterial());
             valorMaterial.setStyle("-fx-font-size: 13px; -fx-text-fill: #2d3436;");
             infoMaterial.getChildren().addAll(labelMaterial, valorMaterial);
             
             VBox infoEstado = new VBox(4);
             Label labelEstado = new Label("Estado");
             labelEstado.setStyle("-fx-font-size: 11px; -fx-text-fill: #868e96;");
-            Label valorEstado = new Label(mueble.getEstado());
-            valorEstado.setStyle("-fx-font-size: 13px; -fx-text-fill: " + (mueble.getEstado().equals("En stock") ? "#51cf66" : "#ff6b6b") + ";");
+            Label valorEstado = new Label(m.getEstado());
+            valorEstado.setStyle("-fx-font-size: 13px; -fx-text-fill: " + (m.getEstado().equals("En stock") ? "#51cf66" : "#ff6b6b") + ";");
             infoEstado.getChildren().addAll(labelEstado, valorEstado);
             
             infoRow2.getChildren().addAll(infoMaterial, infoEstado);
             
             HBox botonesAccion = new HBox(8);
             botonesAccion.setStyle("-fx-spacing: 8; -fx-padding: 8 0 0 0;");
+            botonesAccion.setPrefWidth(Double.MAX_VALUE);
             
             Button btnEditar = new Button("Editar");
             btnEditar.setStyle("-fx-background-color: #4c6ef5; -fx-text-fill: white; -fx-padding: 6 16; -fx-border-radius: 4; -fx-background-radius: 4; -fx-font-size: 12px; -fx-cursor: hand;");
-            btnEditar.setOnAction(event -> {setMuebleParaEditar(mueble); manejarModalEditarMuebles();});
+            btnEditar.setOnAction(event -> {setMuebleParaEditar(m); manejarModalEditarMuebles();});
+            btnEditar.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(btnEditar, Priority.ALWAYS);
 
             Button btnEliminar = new Button("Eliminar");
             btnEliminar.setStyle("-fx-background-color: #ff6b6b; -fx-text-fill: white; -fx-padding: 6 16; -fx-border-radius: 4; -fx-background-radius: 4; -fx-font-size: 12px; -fx-cursor: hand;");
-            btnEliminar.setOnAction(event -> {setMuebleParaEliminar(mueble); manejarModalEliminar();});
+            btnEliminar.setOnAction(event -> {setMuebleParaEliminar(m); manejarModalEliminar();});
+            btnEliminar.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(btnEliminar, Priority.ALWAYS);
             botonesAccion.getChildren().addAll(btnEditar, btnEliminar);
             
             tarjeta.getChildren().addAll(nombre, descripcion, infoRow1, infoRow2, botonesAccion);
             
-            gridMuebles.getChildren().add(tarjeta);
+            int index = gridMuebles.getChildren().size();
+            int col = index % 2;
+            int row = index / 2;
+            gridMuebles.add(tarjeta, col, row);
+            GridPane.setHgrow(tarjeta, Priority.ALWAYS);
         }
         
         contenedorMuebles.getChildren().add(gridMuebles);
