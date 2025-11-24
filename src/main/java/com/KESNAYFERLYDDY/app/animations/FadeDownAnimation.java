@@ -10,6 +10,11 @@ public class FadeDownAnimation {
 
         opacidadNodo.setFromValue(1);
         opacidadNodo.setToValue(0);
+        
+        opacidadNodo.setOnFinished(e -> {
+            nodo.setVisible(false);
+            nodo.setManaged(false);
+        });
 
         opacidadNodo.play();
     }

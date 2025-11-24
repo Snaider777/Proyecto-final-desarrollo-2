@@ -31,6 +31,8 @@ public class DashboardController {
     @FXML private Label lblVentasCount;
     @FXML private Label lblUsuariosCount;
     @FXML private Label lblProductosCount;
+    @FXML private Label lblVentasCountVendedor;
+    @FXML private Label lblProductosCountVendedor;
     @FXML private LineChart<String, Number> lineChartVentas;
     @FXML private BarChart<String, Number> barChartMuebles;
     @FXML private Button btnEmpleados;
@@ -72,7 +74,7 @@ public class DashboardController {
             int clientes = 0, ventas = 0, usuarios = 0, productos = 0;
             List<VentaDto> ventasMes;
             List<com.KESNAYFERLYDDY.app.models.MuebleVendidoDto> mueblesMasVendidos;
-            @Override protected Void call() throws Exception {
+            @Override protected Void call() {
                 clientes = service.cantidadDeClientes();
                 ventas = service.cantidadDeVentas();
                 usuarios = service.cantidadDeEmpleados();
@@ -87,6 +89,14 @@ public class DashboardController {
                     lblVentasCount.setText(String.valueOf(ventas));
                     lblUsuariosCount.setText(String.valueOf(usuarios));
                     lblProductosCount.setText(String.valueOf(productos));
+                    
+                    // Actualizar también los contadores del GridPane de vendedor
+                    if (lblVentasCountVendedor != null) {
+                        lblVentasCountVendedor.setText(String.valueOf(ventas));
+                    }
+                    if (lblProductosCountVendedor != null) {
+                        lblProductosCountVendedor.setText(String.valueOf(productos));
+                    }
                     
                     XYChart.Series<String, Number> seriesVentas = new XYChart.Series<>();
                     seriesVentas.setName("Ventas del Mes");

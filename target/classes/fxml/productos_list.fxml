@@ -84,14 +84,15 @@
     </BorderPane>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayRegistrarMuebles" onMouseClicked="#manejarModalRegistrarMuebles">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="📦" styleClass="modal-icon-text"/>
-                    <Label text="Nuevo Producto" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgRegistroMueble" styleClass="modal-message"/>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgRegistroMueble" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="📦" styleClass="modal-icon-text"/>
+                        <Label text="Nuevo Producto" styleClass="modal-title"/>
+                    </HBox>
                 
                 <GridPane hgap="16" vgap="8">
                     <columnConstraints>
@@ -119,7 +120,7 @@
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <Label text="Categoría *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboCategoria" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroMueble"/>
+                        <ComboBox fx:id="comboCategoria" maxWidth="Infinity" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroMueble"/>
                     </VBox>
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -134,19 +135,21 @@
                     <Button text="Cancelar" onAction="#manejarModalRegistrarMuebles" styleClass="button,secondary"/>
                     <Button text="Guardar Producto" styleClass="button,primary" onAction="#registrarMueble"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayEditarMuebles" onMouseClicked="#manejarModalEditarMuebles">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="📦" styleClass="modal-icon-text"/>
-                    <Label text="Editar Producto" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgEdicionMueble" styleClass="modal-message"/>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgEdicionMueble" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="📦" styleClass="modal-icon-text"/>
+                        <Label text="Editar Producto" styleClass="modal-title"/>
+                    </HBox>
                 
                 <GridPane hgap="16" vgap="8">
                     <columnConstraints>
@@ -171,7 +174,7 @@
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <Label text="Categoría *" styleClass="form-label"/>
-                        <ComboBox fx:id="comboCategoriaEditar" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroMueble"/>
+                        <ComboBox fx:id="comboCategoriaEditar" maxWidth="Infinity" styleClass="form-input" onMouseClicked="#ocultarMensajeRegistroMueble"/>
                     </VBox>
                     
                     <VBox styleClass="form-field" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -185,6 +188,7 @@
                     <Button text="Cancelar" onAction="#manejarModalEditarMuebles" styleClass="button,secondary"/>
                     <Button text="Actualizar Producto" styleClass="button,primary" onAction="#editarMueble"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>
@@ -204,14 +208,15 @@
     </VBox>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayRegistrarCategorias" onMouseClicked="#manejarModalRegistrarCategorias">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="📑" styleClass="modal-icon-text"/>
-                    <Label text="Nueva Categoría" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgRegistroCategoria" styleClass="modal-message"/>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgRegistroCategoria" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="📁" styleClass="modal-icon-text"/>
+                        <Label text="Nueva Categoría" styleClass="modal-title"/>
+                    </HBox>
                 
                 <VBox styleClass="form-field">
                     <Label text="Nombre *" styleClass="form-label"/>
@@ -223,19 +228,21 @@
                     <Button text="Cancelar" onAction="#manejarModalRegistrarCategorias" styleClass="button,secondary"/>
                     <Button text="Guardar Categoría" styleClass="button,primary" onAction="#registrarCategoria"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>
 
     <VBox alignment="CENTER" styleClass="modal-overlay" visible="false" fx:id="overlayEditarCategorias" onMouseClicked="#manejarModalEditarCategorias">
-        <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
-            <VBox spacing="8">
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <Label text="📑" styleClass="modal-icon-text"/>
-                    <Label text="Editar Categoría" styleClass="modal-title"/>
-                </HBox>
-                
-                <Label fx:id="lblMsgEdicionCategoria" styleClass="modal-message"/>
+        <VBox alignment="CENTER" spacing="12">
+            <Label fx:id="lblMsgEdicionCategoria" managed="false" visible="false" maxWidth="600" styleClass="alert-message" mouseTransparent="true"/>
+            
+            <VBox styleClass="modal-container" onMouseClicked="#cancelarClickEnModal">
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="📁" styleClass="modal-icon-text"/>
+                        <Label text="Editar Categoría" styleClass="modal-title"/>
+                    </HBox>
                 
                 <VBox styleClass="form-field">
                     <Label text="Nombre *" styleClass="form-label"/>
@@ -246,6 +253,7 @@
                     <Button text="Cancelar" onAction="#manejarModalEditarCategorias" styleClass="button,secondary"/>
                     <Button text="Actualizar Categoría" styleClass="button,primary" onAction="#editarCategoria"/>
                 </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </VBox>

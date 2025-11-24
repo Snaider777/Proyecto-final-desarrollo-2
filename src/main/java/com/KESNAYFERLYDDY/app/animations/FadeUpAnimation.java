@@ -6,6 +6,9 @@ import javafx.util.Duration;
 
 public class FadeUpAnimation {
     public static void play(Node nodo) {
+        nodo.setVisible(true);
+        nodo.setManaged(true);
+        
         FadeTransition opacidadNodo = new FadeTransition(Duration.seconds(0.3), nodo);
         TranslateTransition trasladarNodo = new TranslateTransition(Duration.seconds(0.3), nodo);
         
