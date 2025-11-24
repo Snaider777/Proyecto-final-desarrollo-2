@@ -1,109 +1,142 @@
+/* Root defaults */
 #root {
-    -fx-pref-width: 1000; 
+    -fx-pref-width: 1000;
     -fx-pref-height: 700;
 }
 
+/* Caja principal del login (card) */
 #loginBox {
-	-fx-padding: 28 32 28 32;
-	-fx-alignment: center;
-	-fx-spacing: 14;
-	-fx-pref-width: 380;
-	-fx-max-width: 420;
-	-fx-background-color: #5C4B3D;
-	-fx-background-radius: 12;
-	-fx-border-radius: 12;
-	-fx-border-color: rgba(15,20,36,0.06);
-	-fx-border-width: 1;
-	-fx-effect: dropshadow(gaussian, rgba(15,20,36,0.08), 12, 0.12, 0, 6);
+    -fx-padding: 28 32 28 32;
+    -fx-alignment: center;
+    -fx-spacing: 14;
+
+    -fx-pref-width: 380;
+    -fx-max-width: 420;
+
+    /* fondo azul muy claro (casi blanco) */
+    -fx-background-color: #EAF4FF;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+
+    /* borde sutil azul-gris para definición */
+    -fx-border-color: rgba(36, 86, 133, 0.10);
+    -fx-border-width: 1;
+
+    /* sombra suave para elevar el card */
+    -fx-effect: dropshadow(gaussian, rgba(20,40,60,0.12), 18, 0.25, 0, 8);
 }
 
+/* Título dentro del loginBox */
 #loginBox > .label {
-	-fx-font-size: 20px;
-	-fx-font-weight: 600;
-	-fx-text-fill: #F4EFEA;
-	-fx-padding: 0 0 6 0;
-	-fx-font-family: "Segoe UI", Roboto, Arial;
+    -fx-font-size: 22px;
+    -fx-font-weight: 600;
+
+    /* texto azul oscuro para buen contraste */
+    -fx-text-fill: #0B3B73;
+    -fx-padding: 0 0 6 0;
+    -fx-font-family: "Segoe UI", Roboto, Arial;
 }
 
+/* Mensaje (error / exito) */
 #lblMsg {
     -fx-pref-width: 520;
     -fx-max-width: 420;
-    -fx-padding: 15 20 15 20; 
+    -fx-padding: 15 20 15 20;
     -fx-font-size: 16px;
-	-fx-alignment: center;
+    -fx-alignment: center;
+    -fx-text-fill: #0B3B73; /* por defecto texto azul oscuro */
 }
 
+/* Error */
 .error {
-    -fx-background-color: rgb(235,62,62);
+    -fx-background-color: #FFDBD9; /* rojo pastel suave */
     -fx-background-radius: 8;
-    -fx-text-fill: white;
+    -fx-text-fill: #7A1F1A;
 }
 
+/* Éxito */
 .exito {
-    -fx-background-color: rgb(52, 211, 47);
+    -fx-background-color: #DFF6EA; /* verde pastel suave */
     -fx-background-radius: 8;
-    -fx-text-fill: white;
+    -fx-text-fill: #1F6B44;
 }
 
+/* Campos de texto (inputs) */
 #txtUser, #txtPass {
-	-fx-pref-width: 320;
-	-fx-background-color: #937F6A;
-	-fx-border-color: rgba(15,20,36,0.08);
-	-fx-border-width: 1;
-	-fx-background-radius: 8;
-	-fx-border-radius: 8;
-	-fx-padding: 10 12 10 12;
-	-fx-text-fill: #F4EFEA;
-	-fx-prompt-text-fill: rgba(15,20,36,0.45);
+    -fx-pref-width: 320;
+
+    /* inputs blancos con borde azul claro */
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: rgba(36, 86, 133, 0.12);
+    -fx-border-width: 1;
+
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    -fx-padding: 10 12 10 12;
+
+    /* texto oscuro neutro para legibilidad */
+    -fx-text-fill: #102737;
+    -fx-prompt-text-fill: rgba(16,39,55,0.38);
 }
 
+/* Enfocado - borde más marcado azul */
 #txtUser:focused, #txtPass:focused {
-    -fx-border-color: rgba(175, 154, 121, 0.9); 
-    -fx-effect: dropshadow(gaussian, rgba(175, 154, 121, 0.12), 6, 0.08, 0, 2);
+    -fx-border-color: #2A6FB0;
+    -fx-effect: dropshadow(gaussian, rgba(42,111,176,0.12), 6, 0.10, 0, 2);
 }
 
+/* Botón primario */
 #btnLogin {
     -fx-pref-width: 520;
     -fx-max-width: Infinity;
-    -fx-padding: 15 20 15 20; 
+    -fx-padding: 15 20 15 20;
     -fx-font-size: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.18), 8, 0.12, 0, 3);
+
+    /* azul mediano - botón destacado */
+    -fx-background-color: #2A6FB0;
     -fx-background-radius: 8;
-    -fx-background-color: #937F6A;
-    -fx-text-fill: #F4EFEA;
-    -fx-effect: dropshadow(gaussian, rgba(175, 154, 121, 0.18), 8, 0.12, 0, 3);
+
+    /* texto claro sobre azul */
+    -fx-text-fill: #FFFFFF;
+
+    -fx-effect: dropshadow(gaussian, rgba(15,40,80,0.18), 8, 0.12, 0, 3);
 }
 
+/* Hover del botón: un azul más cálido/ligeramente más claro */
 #btnLogin:hover {
-    -fx-background-color: #AF9A79;
+    -fx-background-color: #3B83C5;
     -fx-cursor: hand;
 }
 
+/* Presionado */
 #btnLogin:pressed {
     -fx-translate-y: 1;
-    -fx-background-color: #7A6652;
+    -fx-background-color: #1F578E;
 }
 
-
-
+/* Texto pequeño / hints */
 .hint {
-	-fx-text-fill: rgba(15,20,36,0.55);
-	-fx-font-size: 11px;
+    -fx-text-fill: rgba(16,39,55,0.60);
+    -fx-font-size: 11px;
 }
 
+/* Responsivo para pantallas pequeñas */
 @media screen and (max-width: 420px) {
-	#loginBox { -fx-pref-width: 92%; -fx-max-width: 92%; }
-	#txtUser, #txtPass, #btnLogin { -fx-pref-width: 86%; }
+    #loginBox { -fx-pref-width: 92%; -fx-max-width: 92%; }
+    #txtUser, #txtPass, #btnLogin { -fx-pref-width: 86%; }
 }
 
-/*SLIDER*/
+/* SLIDER / BACKGROUND */
 #bgImageView {
     -fx-fit-width: 100%;
     -fx-fit-height: 100%;
 }
 
+/* Overlay sobre las imágenes del carrusel:
+   uso un overlay ligeramente azulado para armonizar con la paleta */
 #bgOverlay {
-    -fx-background-color: rgba(0,0,0,0.28);
+    -fx-background-color: rgba(4, 35, 71, 0.18); /* azul oscuro con baja opacidad */
     -fx-pref-width: 100%;
     -fx-pref-height: 100%;
 }
